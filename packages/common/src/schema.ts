@@ -33,6 +33,22 @@ export const Dict = z.object({
   addPageAfter: z.string(),
   removePage: z.string(),
   removePageConfirm: z.string(),
+  // -----------------field groups-------------------
+  createGroup: z.string(),
+  groupName: z.string(),
+  renameGroup: z.string(),
+  deleteGroup: z.string(),
+  deleteGroupAndFields: z.string(),
+  deleteGroupConfirm: z.string(),
+  deleteGroupAndFieldsConfirm: z.string(),
+  hideAllFields: z.string(),
+  showAllFields: z.string(),
+  addFieldsToGroup: z.string(),
+  removeFromGroup: z.string(),
+  ungrouped: z.string(),
+  groupNameRequired: z.string(),
+  groupNameExists: z.string(),
+  fieldGroups: z.string(),
   // --------------------validation-------------------
   'validation.uniqueName': z.string(),
   'validation.hexColor': z.string(),
@@ -135,11 +151,22 @@ export const BasePdf = z.union([CustomPdf, BlankPdf]);
 export const LegacySchemaPageArray = z.array(z.record(Schema));
 export const SchemaPageArray = z.array(z.array(Schema));
 
+// Field Group for organizing multiple fields together
+export const FieldGroup = z.object({
+  id: z.string(),                          // Unique group ID
+  name: z.string(),                        // Group display name
+  fieldIds: z.array(z.string()),           // IDs of fields in this group
+  collapsed: z.boolean().optional(),       // UI state: is group collapsed?
+  hide: z.boolean().optional(),            // If true, hide all fields in group
+  color: z.string().optional(),            // Optional color for group identification
+});
+
 export const Template = z
   .object({
     schemas: SchemaPageArray,
     basePdf: BasePdf,
     pdfmeVersion: z.string().optional(),
+    fieldGroups: z.array(FieldGroup).optional(), // Optional field groups
   })
   .passthrough();
 

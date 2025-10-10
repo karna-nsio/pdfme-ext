@@ -40,6 +40,7 @@ import type {
   UIProps,
   PreviewProps,
   DesignerProps,
+  FieldGroup,
 } from './types.js';
 import {
   cloneDeep,
@@ -133,4 +134,5 @@ export type {
   PDFRenderProps,
   UIRenderProps,
   Mode,
+  FieldGroup,
 };

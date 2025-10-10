@@ -11,6 +11,7 @@ import {
   Size,
   isBlankPdf,
   PluginRegistry,
+  FieldGroup,
 } from '@pdfme/common';
 import { pdf2size } from '@pdfme/converter';
 import { DEFAULT_MAX_ZOOM, RULER_HEIGHT } from './constants.js';
@@ -536,4 +537,178 @@ export const setFontNameRecursively = (
       setFontNameRecursively(obj[key] as Record<string, unknown>, fontName, seen);
     }
   }
+};
+
+// ==========================
+// Field Group Helper Functions
+// ==========================
+
+/**
+ * Create a new field group from selected field IDs
+ */
+export const createFieldGroup = (
+  name: string,
+  fieldIds: string[],
+  existingGroups: FieldGroup[] = [],
+): FieldGroup => {
+  // Check for duplicate name
+  if (existingGroups.some((g) => g.name === name)) {
+    throw new Error(`Group name "${name}" already exists`);
+  }
+
+  // Filter out fields that are already in other groups
+  const ungroupedFieldIds = fieldIds.filter(
+    (fieldId) => !isFieldInAnyGroup(fieldId, existingGroups),
+  );
+
+  return {
+    id: uuid(),
+    name,
+    fieldIds: ungroupedFieldIds,
+    collapsed: false,
+    hide: false,
+  };
+};
+
+/**
+ * Delete a field group (keeps fields, just removes grouping)
+ */
+export const deleteFieldGroup = (
+  groupId: string,
+  fieldGroups: FieldGroup[],
+): FieldGroup[] => {
+  return fieldGroups.filter((g) => g.id !== groupId);
+};
+
+/**
+ * Rename a field group
+ */
+export const renameFieldGroup = (
+  groupId: string,
+  newName: string,
+  fieldGroups: FieldGroup[],
+): FieldGroup[] => {
+  // Check for duplicate name (excluding current group)
+  if (fieldGroups.some((g) => g.id !== groupId && g.name === newName)) {
+    throw new Error(`Group name "${newName}" already exists`);
+  }
+
+  return fieldGroups.map((g) => (g.id === groupId ? { ...g, name: newName } : g));
+};
+
+/**
+ * Toggle hide state for all fields in a group
+ */
+export const toggleGroupHide = (
+  groupId: string,
+  hide: boolean,
+  fieldGroups: FieldGroup[],
+  schemas: SchemaForUI[],
+): { fieldGroups: FieldGroup[]; schemas: SchemaForUI[] } => {
+  const group = fieldGroups.find((g) => g.id === groupId);
+  if (!group) {
+    return { fieldGroups, schemas };
+  }
+
+  // Update group hide state
+  const updatedGroups = fieldGroups.map((g) => (g.id === groupId ? { ...g, hide } : g));
+
+  // Update all member fields' hide state
+  const updatedSchemas = schemas.map((schema) =>
+    group.fieldIds.includes(schema.id) ? { ...schema, hide } : schema,
+  );
+
+  return { fieldGroups: updatedGroups, schemas: updatedSchemas };
+};
+
+/**
+ * Add fields to an existing group
+ */
+export const addFieldsToGroup = (
+  groupId: string,
+  fieldIds: string[],
+  fieldGroups: FieldGroup[],
+): FieldGroup[] => {
+  return fieldGroups.map((g) => {
+    if (g.id === groupId) {
+      // Filter out fields already in this group or other groups
+      const newFieldIds = fieldIds.filter(
+        (fieldId) => !g.fieldIds.includes(fieldId) && !isFieldInAnyGroup(fieldId, fieldGroups),
+      );
+      return { ...g, fieldIds: [...g.fieldIds, ...newFieldIds] };
+    }
+    return g;
+  });
+};
+
+/**
+ * Remove fields from a group
+ */
+export const removeFieldsFromGroup = (
+  groupId: string,
+  fieldIds: string[],
+  fieldGroups: FieldGroup[],
+): FieldGroup[] => {
+  return fieldGroups.map((g) =>
+    g.id === groupId
+      ? { ...g, fieldIds: g.fieldIds.filter((id: string) => !fieldIds.includes(id)) }
+      : g,
+  );
+};
+
+/**
+ * Toggle collapse state for a group
+ */
+export const toggleGroupCollapse = (
+  groupId: string,
+  fieldGroups: FieldGroup[],
+): FieldGroup[] => {
+  return fieldGroups.map((g) => (g.id === groupId ? { ...g, collapsed: !g.collapsed } : g));
+};
+
+/**
+ * Check if a field is in any group
+ */
+export const isFieldInAnyGroup = (fieldId: string, fieldGroups: FieldGroup[]): boolean => {
+  return fieldGroups.some((g) => g.fieldIds.includes(fieldId));
+};
+
+/**
+ * Get the group that contains a specific field
+ */
+export const getGroupForField = (
+  fieldId: string,
+  fieldGroups: FieldGroup[],
+): FieldGroup | undefined => {
+  return fieldGroups.find((g) => g.fieldIds.includes(fieldId));
+};
+
+/**
+ * Get all ungrouped fields
+ */
+export const getUngroupedFields = (
+  schemas: SchemaForUI[],
+  fieldGroups: FieldGroup[],
+): SchemaForUI[] => {
+  return schemas.filter((schema) => !isFieldInAnyGroup(schema.id, fieldGroups));
+};
+
+/**
+ * Remove field from any group it belongs to (cleanup when deleting a field)
+ */
+export const removeFieldFromGroups = (
+  fieldId: string,
+  fieldGroups: FieldGroup[],
+): FieldGroup[] => {
+  return fieldGroups.map((g) => ({
+    ...g,
+    fieldIds: g.fieldIds.filter((id: string) => id !== fieldId),
+  }));
+};
+
+/**
+ * Clean up empty groups (groups with no fields)
+ */
+export const cleanupEmptyGroups = (fieldGroups: FieldGroup[]): FieldGroup[] => {
+  return fieldGroups.filter((g) => g.fieldIds.length > 0);
 };

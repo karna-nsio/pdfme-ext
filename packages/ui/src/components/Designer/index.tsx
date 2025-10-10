@@ -364,6 +364,7 @@ const TemplateEditor = ({
             deselectSchema={onEditEnd}
             sidebarOpen={sidebarOpen}
             setSidebarOpen={setSidebarOpen}
+            removeSchemas={removeSchemas}
           />
 
           <Canvas
