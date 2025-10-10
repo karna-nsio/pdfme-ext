@@ -192,19 +192,18 @@ const ListViewWithGroups = (props: ListViewWithGroupsProps) => {
 
   return (
     <div>
-      <div style={{ height: headHeight, display: 'flex', alignItems: 'center', gap: '8px' }}>
-        <Text strong style={{ flex: 1, textAlign: 'center' }}>
+      <div style={{ height: headHeight, display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingLeft: '4px', paddingRight: '52px' }}>
+        <Text strong style={{ fontSize: '13px' }}>
           {i18n('fieldsList')}
         </Text>
-        {!isBulkUpdateFieldNamesMode && !isCreatingGroup && !isRenamingGroup && (
+        {!isBulkUpdateFieldNamesMode && !isCreatingGroup && !isRenamingGroup && selectedFieldIds.length >= 2 && (
           <Button
             size="small"
             type="primary"
             icon={<FolderPlus size={14} />}
             onClick={handleCreateGroupClick}
-            disabled={selectedFieldIds.length < 2}
-            style={{ marginRight: '8px' }}
-            title={selectedFieldIds.length < 2 ? 'Select 2+ fields' : i18n('createGroup')}
+            style={{ whiteSpace: 'nowrap' }}
+            title={i18n('createGroup')}
           >
             {i18n('createGroup')}
           </Button>
