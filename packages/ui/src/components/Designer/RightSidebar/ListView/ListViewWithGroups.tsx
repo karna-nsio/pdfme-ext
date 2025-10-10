@@ -8,7 +8,6 @@ import { theme, Input, Typography, Divider, Button } from 'antd';
 import { FolderPlus } from 'lucide-react';
 import SelectableSortableContainer from './SelectableSortableContainer.js';
 import GroupItem from './GroupItem.js';
-import GroupModal from './GroupModal.js';
 
 const { Text } = Typography;
 const { TextArea } = Input;
@@ -58,9 +57,11 @@ const ListViewWithGroups = (props: ListViewWithGroupsProps) => {
   const i18n = useContext(I18nContext);
   const [isBulkUpdateFieldNamesMode, setIsBulkUpdateFieldNamesMode] = useState(false);
   const [fieldNamesValue, setFieldNamesValue] = useState('');
-  const [groupModalOpen, setGroupModalOpen] = useState(false);
-  const [groupModalMode, setGroupModalMode] = useState<'create' | 'rename'>('create');
+  const [isCreatingGroup, setIsCreatingGroup] = useState(false);
+  const [isRenamingGroup, setIsRenamingGroup] = useState(false);
+  const [groupNameValue, setGroupNameValue] = useState('');
   const [editingGroup, setEditingGroup] = useState<FieldGroup | null>(null);
+  const [groupNameError, setGroupNameError] = useState('');
   const height = getSidebarContentHeight(size.height);
 
   const commitBulk = () => {
@@ -90,27 +91,79 @@ const ListViewWithGroups = (props: ListViewWithGroupsProps) => {
       alert('Please select at least 2 fields to create a group');
       return;
     }
-    setGroupModalMode('create');
-    setEditingGroup(null);
-    setGroupModalOpen(true);
+    setGroupNameValue('');
+    setGroupNameError('');
+    setIsCreatingGroup(true);
   };
 
-  // Handle group modal OK
-  const handleGroupModalOk = (name: string) => {
-    if (groupModalMode === 'create') {
-      onCreateGroup(name, selectedFieldIds);
-    } else if (editingGroup) {
-      onRenameGroup(editingGroup.id, name);
+  // Commit group creation
+  const commitCreateGroup = () => {
+    const trimmedName = groupNameValue.trim();
+    
+    if (!trimmedName) {
+      setGroupNameError(i18n('groupNameRequired'));
+      return;
     }
-    setGroupModalOpen(false);
-    setEditingGroup(null);
+    
+    if (fieldGroups.some((g) => g.name.toLowerCase() === trimmedName.toLowerCase())) {
+      setGroupNameError(i18n('groupNameExists'));
+      return;
+    }
+    
+    onCreateGroup(trimmedName, selectedFieldIds);
+    setIsCreatingGroup(false);
+    setGroupNameValue('');
+    setGroupNameError('');
+  };
+
+  // Cancel group creation
+  const cancelCreateGroup = () => {
+    setIsCreatingGroup(false);
+    setGroupNameValue('');
+    setGroupNameError('');
   };
 
   // Handle rename group
   const handleRenameGroup = (group: FieldGroup) => {
-    setGroupModalMode('rename');
     setEditingGroup(group);
-    setGroupModalOpen(true);
+    setGroupNameValue(group.name);
+    setGroupNameError('');
+    setIsRenamingGroup(true);
+  };
+
+  // Commit group rename
+  const commitRenameGroup = () => {
+    if (!editingGroup) return;
+    
+    const trimmedName = groupNameValue.trim();
+    
+    if (!trimmedName) {
+      setGroupNameError(i18n('groupNameRequired'));
+      return;
+    }
+    
+    if (
+      fieldGroups.some(
+        (g) => g.id !== editingGroup.id && g.name.toLowerCase() === trimmedName.toLowerCase(),
+      )
+    ) {
+      setGroupNameError(i18n('groupNameExists'));
+      return;
+    }
+    
+    onRenameGroup(editingGroup.id, trimmedName);
+    setIsRenamingGroup(false);
+    setEditingGroup(null);
+    setGroupNameValue('');
+    setGroupNameError('');
+  };
+
+  // Cancel group rename
+  const cancelRenameGroup = () => {
+    setIsRenamingGroup(false);
+    setEditingGroup(null);
+    setGroupNameValue('');
+    setGroupNameError('');
   };
 
   // Handle delete group
@@ -143,7 +196,7 @@ const ListViewWithGroups = (props: ListViewWithGroupsProps) => {
         <Text strong style={{ flex: 1, textAlign: 'center' }}>
           {i18n('fieldsList')}
         </Text>
-        {!isBulkUpdateFieldNamesMode && (
+        {!isBulkUpdateFieldNamesMode && !isCreatingGroup && !isRenamingGroup && (
           <Button
             size="small"
             type="primary"
@@ -171,6 +224,38 @@ const ListViewWithGroups = (props: ListViewWithGroupsProps) => {
               lineHeight: '2.75rem',
             }}
           />
+        ) : isCreatingGroup || isRenamingGroup ? (
+          // Inline form for creating or renaming group
+          <div style={{ padding: '16px' }}>
+            <Text strong style={{ fontSize: '13px', display: 'block', marginBottom: '8px' }}>
+              {isCreatingGroup ? i18n('createGroup') : i18n('renameGroup')}
+            </Text>
+            {isCreatingGroup && (
+              <Text
+                type="secondary"
+                style={{ fontSize: '11px', display: 'block', marginBottom: '12px' }}
+              >
+                {selectedFieldIds.length} field{selectedFieldIds.length !== 1 ? 's' : ''} selected
+              </Text>
+            )}
+            <Input
+              value={groupNameValue}
+              onChange={(e) => {
+                setGroupNameValue(e.target.value);
+                if (groupNameError) setGroupNameError('');
+              }}
+              onPressEnter={isCreatingGroup ? commitCreateGroup : commitRenameGroup}
+              placeholder={i18n('groupName')}
+              status={groupNameError ? 'error' : ''}
+              autoFocus
+              style={{ marginBottom: groupNameError ? '4px' : '0' }}
+            />
+            {groupNameError && (
+              <Text type="danger" style={{ fontSize: '11px', display: 'block', marginTop: '4px' }}>
+                {groupNameError}
+              </Text>
+            )}
+          </div>
         ) : (
           <div style={{ paddingLeft: '8px', paddingRight: '8px' }}>
             {/* Render groups */}
@@ -239,6 +324,24 @@ const ListViewWithGroups = (props: ListViewWithGroupsProps) => {
                 <u> {i18n('cancel')}</u>
               </Button>
             </>
+          ) : isCreatingGroup || isRenamingGroup ? (
+            <>
+              <Button
+                size="small"
+                type="text"
+                onClick={isCreatingGroup ? commitCreateGroup : commitRenameGroup}
+              >
+                <u> {i18n('set')}</u>
+              </Button>
+              <span style={{ margin: '0 1rem' }}>/</span>
+              <Button
+                size="small"
+                type="text"
+                onClick={isCreatingGroup ? cancelCreateGroup : cancelRenameGroup}
+              >
+                <u> {i18n('cancel')}</u>
+              </Button>
+            </>
           ) : (
             <Button size="small" type="text" onClick={startBulk}>
               <u> {i18n('bulkUpdateFieldName')}</u>
@@ -246,20 +349,6 @@ const ListViewWithGroups = (props: ListViewWithGroupsProps) => {
           )}
         </div>
       </div>
-
-      {/* Group Modal */}
-      <GroupModal
-        open={groupModalOpen}
-        mode={groupModalMode}
-        initialName={editingGroup?.name || ''}
-        existingNames={fieldGroups.map((g) => g.name)}
-        selectedFieldCount={groupModalMode === 'create' ? selectedFieldIds.length : 0}
-        onOk={handleGroupModalOk}
-        onCancel={() => {
-          setGroupModalOpen(false);
-          setEditingGroup(null);
-        }}
-      />
     </div>
   );
 };
