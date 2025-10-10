@@ -33,6 +33,7 @@ import Guides from './Guides.js';
 import Mask from './Mask.js';
 import Padding from './Padding.js';
 import StaticSchema from '../../StaticSchema.js';
+import HiddenAreaIndicator from './HiddenFieldIndicator.js';
 
 const mm2px = (mm: number) => mm * 3.7795275591;
 
@@ -128,6 +129,78 @@ const Canvas = (props: Props, ref: Ref<HTMLDivElement>) => {
   const [editing, setEditing] = useState(false);
 
   const prevSchemas = usePrevious(schemasList[pageCursor]);
+
+  // Calculate bounding boxes for clusters of hidden fields (PERFORMANT with useMemo)
+  const hiddenFieldIndicators = useMemo(() => {
+    const currentSchemas = schemasList[pageCursor] || [];
+    const hiddenSchemas = currentSchemas.filter((s) => s.hide);
+
+    if (hiddenSchemas.length === 0) return [];
+
+    // Cluster hidden fields by proximity (fields within 30mm vertically are in same cluster)
+    const clusters: SchemaForUI[][] = [];
+    const CLUSTER_DISTANCE = 30; // mm - fields within this distance are considered part of same cluster
+
+    // Sort by Y position first
+    const sortedSchemas = [...hiddenSchemas].sort((a, b) => a.position.y - b.position.y);
+
+    sortedSchemas.forEach((schema) => {
+      // Find a cluster this field belongs to (based on Y proximity)
+      let foundCluster = false;
+
+      for (const cluster of clusters) {
+        // Check if this field is within CLUSTER_DISTANCE of any field in the cluster
+        const isNearby = cluster.some((clusterField) => {
+          const yDiff = Math.abs(schema.position.y - clusterField.position.y);
+          const xOverlap =
+            schema.position.x < clusterField.position.x + clusterField.width &&
+            schema.position.x + schema.width > clusterField.position.x;
+          
+          // Fields are in same cluster if they're close vertically and overlap/near horizontally
+          return yDiff < CLUSTER_DISTANCE && (xOverlap || Math.abs(schema.position.x - clusterField.position.x) < CLUSTER_DISTANCE);
+        });
+
+        if (isNearby) {
+          cluster.push(schema);
+          foundCluster = true;
+          break;
+        }
+      }
+
+      if (!foundCluster) {
+        clusters.push([schema]);
+      }
+    });
+
+    // For each cluster, calculate the bounding box that encompasses all fields
+    return clusters.map((cluster) => {
+      // Find min/max positions in mm (same as schema.position units)
+      const minX = Math.min(...cluster.map((s) => s.position.x));
+      const minY = Math.min(...cluster.map((s) => s.position.y));
+      const maxX = Math.max(...cluster.map((s) => s.position.x + s.width));
+      const maxY = Math.max(...cluster.map((s) => s.position.y + s.height));
+
+      // Add small padding (1mm) for better visibility
+      const padding = 1;
+
+      // Calculate final bounds in mm
+      const x_mm = Math.max(0, minX - padding);
+      const y_mm = Math.max(0, minY - padding);
+      const width_mm = maxX - minX + padding * 2;
+      const height_mm = maxY - minY + padding * 2;
+
+      return {
+        id: cluster.map((s) => s.id).join('-'),
+        // Use exact same positioning as Renderer: position * ZOOM
+        // Scale is applied by parent Paper transform, not here
+        x: x_mm * ZOOM,
+        y: y_mm * ZOOM,
+        width: width_mm * ZOOM,
+        height: height_mm * ZOOM,
+        count: cluster.length,
+      };
+    });
+  }, [schemasList, pageCursor, scale]);
 
   const onKeydown = (e: KeyboardEvent) => {
     if (e.shiftKey) setIsPressShiftKey(true);
@@ -442,6 +515,18 @@ const Canvas = (props: Props, ref: Ref<HTMLDivElement>) => {
                 if (e) verticalGuides.current[index] = e;
               }}
             />
+            {/* Render hidden field area indicators on current page */}
+            {pageCursor === index &&
+              hiddenFieldIndicators.map((indicator) => (
+                <HiddenAreaIndicator
+                  key={indicator.id}
+                  x={indicator.x}
+                  y={indicator.y}
+                  width={indicator.width}
+                  height={indicator.height}
+                  count={indicator.count}
+                />
+              ))}
             {pageCursor !== index ? (
               <Mask
                 width={paperSize.width + RULER_HEIGHT}
