@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import { DraggableSyntheticListeners } from '@dnd-kit/core';
 import { I18nContext } from '../../../../contexts.js';
-import { GripVertical, CircleAlert, Lock } from 'lucide-react';
+import { GripVertical, CircleAlert, Lock, EyeOff } from 'lucide-react';
 import { Button, Typography } from 'antd';
 
 const { Text } = Typography;
@@ -22,6 +22,8 @@ interface Props {
   required?: boolean;
   /** Whether the item is read-only */
   readOnly?: boolean;
+  /** Whether the item is hidden */
+  hide?: boolean;
   /** Whether the item is being dragged as an overlay */
   dragOverlay?: boolean;
   /** Click handler for the item */
@@ -55,6 +57,7 @@ const Item = React.memo(
       title,
       required,
       readOnly,
+      hide,
       style,
       dragOverlay,
       onClick,
@@ -144,6 +147,11 @@ const Item = React.memo(
               </span>
             )}
           </Text>
+          {hide && (
+            <span title="Hidden field" style={{ display: 'flex', alignItems: 'center', marginRight: '0.5rem' }}>
+              <EyeOff size={15} style={{ color: '#6B7280' }} />
+            </span>
+          )}
           {readOnly && <Lock size={15} style={{ marginRight: '0.5rem' }} />}
           {required && <span style={{ color: 'red', marginRight: '0.5rem' }}>*</span>}
         </div>

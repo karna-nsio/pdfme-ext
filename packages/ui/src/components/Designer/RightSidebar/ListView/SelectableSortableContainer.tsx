@@ -172,6 +172,7 @@ const SelectableSortableContainer = (
                           value={activeSchema.name}
                           required={activeSchema.required}
                           readOnly={activeSchema.readOnly}
+                          hide={activeSchema.hide}
                           style={{ background: token.colorPrimary }}
                           dragOverlay
                         />
@@ -186,6 +187,7 @@ const SelectableSortableContainer = (
                               value={item.name}
                               required={item.required}
                               readOnly={item.readOnly}
+                              hide={item.hide}
                               style={{ background: token.colorPrimary }}
                               dragOverlay
                             />
