@@ -41,6 +41,7 @@ import type {
   PreviewProps,
   DesignerProps,
   FieldGroup,
+  GroupCondition,
 } from './types.js';
 import {
   cloneDeep,
@@ -135,4 +136,5 @@ export type {
   UIRenderProps,
   Mode,
   FieldGroup,
+  GroupCondition,
 };

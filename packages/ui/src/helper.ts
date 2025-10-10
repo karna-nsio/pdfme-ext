@@ -12,6 +12,7 @@ import {
   isBlankPdf,
   PluginRegistry,
   FieldGroup,
+  GroupCondition,
 } from '@pdfme/common';
 import { pdf2size } from '@pdfme/converter';
 import { DEFAULT_MAX_ZOOM, RULER_HEIGHT } from './constants.js';
@@ -711,4 +712,86 @@ export const removeFieldFromGroups = (
  */
 export const cleanupEmptyGroups = (fieldGroups: FieldGroup[]): FieldGroup[] => {
   return fieldGroups.filter((g) => g.fieldIds.length > 0);
+};
+
+// ==========================
+// Group Condition Evaluation
+// ==========================
+
+/**
+ * Evaluate if a group condition matches the given data
+ */
+export const evaluateGroupCondition = (
+  condition: GroupCondition,
+  data: Record<string, any>,
+): boolean => {
+  if (!condition.enabled) return true; // Disabled condition = always show
+
+  const actualValue = data[condition.variable];
+  const expectedValue = condition.value;
+
+  switch (condition.operator) {
+    case '==':
+      return actualValue === expectedValue;
+    case '!=':
+      return actualValue !== expectedValue;
+    case '>':
+      return Number(actualValue) > Number(expectedValue);
+    case '<':
+      return Number(actualValue) < Number(expectedValue);
+    case '>=':
+      return Number(actualValue) >= Number(expectedValue);
+    case '<=':
+      return Number(actualValue) <= Number(expectedValue);
+    case 'in':
+      // Value should be an array
+      return Array.isArray(expectedValue) && expectedValue.includes(actualValue);
+    case 'contains':
+      return String(actualValue).includes(String(expectedValue));
+    default:
+      return true;
+  }
+};
+
+/**
+ * Filter groups based on conditions and data
+ */
+export const getVisibleGroups = (
+  groups: FieldGroup[],
+  data: Record<string, any>,
+): FieldGroup[] => {
+  return groups.filter((group) => {
+    if (!group.condition || !group.condition.enabled) return true;
+    return evaluateGroupCondition(group.condition, data);
+  });
+};
+
+/**
+ * Get field IDs that should be visible based on group conditions
+ */
+export const getConditionallyVisibleFieldIds = (
+  groups: FieldGroup[],
+  data: Record<string, any>,
+): string[] => {
+  const visibleGroups = getVisibleGroups(groups, data);
+  return visibleGroups.flatMap((g) => g.fieldIds);
+};
+
+/**
+ * Check if a field should be visible based on group conditions
+ */
+export const isFieldConditionallyVisible = (
+  fieldId: string,
+  groups: FieldGroup[],
+  data: Record<string, any>,
+): boolean => {
+  const group = getGroupForField(fieldId, groups);
+  
+  // If not in any group, always visible
+  if (!group) return true;
+  
+  // If in a group, check the group's condition
+  if (!group.condition || !group.condition.enabled) return true;
+  
+  return evaluateGroupCondition(group.condition, data);
 };

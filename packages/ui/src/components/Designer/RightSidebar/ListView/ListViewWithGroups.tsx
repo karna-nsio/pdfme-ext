@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react';
 import type { SidebarProps } from '../../../../types.js';
-import type { FieldGroup } from '@pdfme/common';
+import type { FieldGroup, GroupCondition } from '@pdfme/common';
 import { RIGHT_SIDEBAR_WIDTH } from '../../../../constants.js';
 import { I18nContext } from '../../../../contexts.js';
 import { getSidebarContentHeight } from '../../../../helper.js';
-import { theme, Input, Typography, Divider, Button } from 'antd';
+import { theme, Input, Typography, Divider, Button, Checkbox, Select } from 'antd';
 import { FolderPlus } from 'lucide-react';
 import SelectableSortableContainer from './SelectableSortableContainer.js';
 import GroupItem from './GroupItem.js';
@@ -31,6 +31,7 @@ interface ListViewWithGroupsProps extends Pick<
   onDeleteGroupWithFields: (groupId: string) => void;
   onToggleGroupHide: (groupId: string, hide: boolean) => void;
   onToggleGroupCollapse: (groupId: string) => void;
+  onSetGroupCondition: (groupId: string, condition: GroupCondition | null) => void;
   selectedFieldIds: string[];
 }
 
@@ -50,6 +51,7 @@ const ListViewWithGroups = (props: ListViewWithGroupsProps) => {
     onDeleteGroupWithFields,
     onToggleGroupHide,
     onToggleGroupCollapse,
+    onSetGroupCondition,
     selectedFieldIds = [],
   } = props;
 
@@ -59,9 +61,14 @@ const ListViewWithGroups = (props: ListViewWithGroupsProps) => {
   const [fieldNamesValue, setFieldNamesValue] = useState('');
   const [isCreatingGroup, setIsCreatingGroup] = useState(false);
   const [isRenamingGroup, setIsRenamingGroup] = useState(false);
+  const [isEditingCondition, setIsEditingCondition] = useState(false);
   const [groupNameValue, setGroupNameValue] = useState('');
   const [editingGroup, setEditingGroup] = useState<FieldGroup | null>(null);
   const [groupNameError, setGroupNameError] = useState('');
+  const [conditionEnabled, setConditionEnabled] = useState(true);
+  const [conditionVariable, setConditionVariable] = useState('resultType');
+  const [conditionOperator, setConditionOperator] = useState('==');
+  const [conditionValue, setConditionValue] = useState('');
   const height = getSidebarContentHeight(size.height);
 
   const commitBulk = () => {
@@ -180,6 +187,70 @@ const ListViewWithGroups = (props: ListViewWithGroupsProps) => {
     }
   };
 
+  // Handle set condition
+  const handleSetCondition = (group: FieldGroup) => {
+    setEditingGroup(group);
+    // Initialize state from existing condition
+    if (group.condition) {
+      setConditionEnabled(group.condition.enabled);
+      setConditionVariable(group.condition.variable);
+      setConditionOperator(group.condition.operator);
+      const val = group.condition.value;
+      setConditionValue(Array.isArray(val) ? val.join(', ') : String(val));
+    } else {
+      // Reset to defaults
+      setConditionEnabled(true);
+      setConditionVariable('resultType');
+      setConditionOperator('==');
+      setConditionValue('');
+    }
+    setIsEditingCondition(true);
+  };
+
+  // Commit condition change
+  const commitSetCondition = () => {
+    if (!editingGroup) return;
+
+    if (!conditionEnabled) {
+      // Remove condition
+      onSetGroupCondition(editingGroup.id, null);
+    } else {
+      const trimmedValue = conditionValue.trim();
+      if (!conditionVariable || !trimmedValue) {
+        return; // Don't save incomplete conditions
+      }
+
+      // Parse value based on operator
+      let parsedValue: string | number | string[];
+      
+      if (conditionOperator === 'in') {
+        parsedValue = trimmedValue.split(',').map((v) => v.trim());
+      } else if (['>', '<', '>=', '<='].includes(conditionOperator)) {
+        parsedValue = !isNaN(Number(trimmedValue)) ? Number(trimmedValue) : trimmedValue;
+      } else {
+        parsedValue = trimmedValue;
+      }
+
+      const newCondition: GroupCondition = {
+        enabled: conditionEnabled,
+        variable: conditionVariable,
+        operator: conditionOperator as GroupCondition['operator'],
+        value: parsedValue,
+      };
+
+      onSetGroupCondition(editingGroup.id, newCondition);
+    }
+    
+    setIsEditingCondition(false);
+    setEditingGroup(null);
+  };
+
+  // Cancel condition editing
+  const cancelSetCondition = () => {
+    setIsEditingCondition(false);
+    setEditingGroup(null);
+  };
+
   // Get ungrouped fields
   const ungroupedSchemas = schemas.filter(
     (schema) => !fieldGroups.some((group) => group.fieldIds.includes(schema.id)),
@@ -255,6 +326,64 @@ const ListViewWithGroups = (props: ListViewWithGroupsProps) => {
               </Text>
             )}
           </div>
+        ) : isEditingCondition && editingGroup ? (
+          // Condition editor inline form - MATCHES CREATE GROUP DESIGN
+          <div style={{ padding: '16px' }}>
+            <Text strong style={{ fontSize: '13px', display: 'block', marginBottom: '8px' }}>
+              {i18n('setCondition')}
+            </Text>
+            
+            <Text
+              type="secondary"
+              style={{ fontSize: '11px', display: 'block', marginBottom: '12px' }}
+            >
+              {editingGroup.name}
+            </Text>
+
+            <Checkbox
+              checked={conditionEnabled}
+              onChange={(e) => setConditionEnabled(e.target.checked)}
+              style={{ marginBottom: '12px' }}
+            >
+              {i18n('enableCondition')}
+            </Checkbox>
+
+            {conditionEnabled && (
+              <>
+                <Input
+                  value={conditionVariable}
+                  onChange={(e) => setConditionVariable(e.target.value)}
+                  placeholder={i18n('conditionVariable')}
+                  autoFocus
+                  style={{ marginBottom: '8px' }}
+                />
+
+                <Select
+                  value={conditionOperator}
+                  onChange={setConditionOperator}
+                  placeholder={i18n('conditionOperator')}
+                  options={[
+                    { value: '==', label: 'equals (==)' },
+                    { value: '!=', label: 'not equals (!=)' },
+                    { value: '>', label: 'greater than (>)' },
+                    { value: '<', label: 'less than (<)' },
+                    { value: '>=', label: 'greater or equal (>=)' },
+                    { value: '<=', label: 'less or equal (<=)' },
+                    { value: 'in', label: 'in list (in)' },
+                    { value: 'contains', label: 'contains' },
+                  ]}
+                  style={{ width: '100%', marginBottom: '8px' }}
+                />
+
+                <Input
+                  value={conditionValue}
+                  onChange={(e) => setConditionValue(e.target.value)}
+                  placeholder={conditionOperator === 'in' ? 'e.g., positive, negative' : i18n('conditionValue')}
+                  style={{ marginBottom: '0' }}
+                />
+              </>
+            )}
+          </div>
         ) : (
           <div style={{ paddingLeft: '8px', paddingRight: '8px' }}>
             {/* Render groups */}
@@ -267,6 +396,7 @@ const ListViewWithGroups = (props: ListViewWithGroupsProps) => {
                 onRename={() => handleRenameGroup(group)}
                 onDelete={() => handleDeleteGroup(group.id)}
                 onDeleteWithFields={() => handleDeleteGroupWithFields(group.id)}
+                onSetCondition={() => handleSetCondition(group)}
               >
                 <SelectableSortableContainer
                   schemas={getGroupFields(group)}
@@ -338,6 +468,16 @@ const ListViewWithGroups = (props: ListViewWithGroupsProps) => {
                 type="text"
                 onClick={isCreatingGroup ? cancelCreateGroup : cancelRenameGroup}
               >
+                <u> {i18n('cancel')}</u>
+              </Button>
+            </>
+          ) : isEditingCondition ? (
+            <>
+              <Button size="small" type="text" onClick={commitSetCondition}>
+                <u> {i18n('set')}</u>
+              </Button>
+              <span style={{ margin: '0 1rem' }}>/</span>
+              <Button size="small" type="text" onClick={cancelSetCondition}>
                 <u> {i18n('cancel')}</u>
               </Button>
             </>

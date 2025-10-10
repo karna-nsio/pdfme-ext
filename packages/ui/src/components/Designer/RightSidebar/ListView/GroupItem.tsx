@@ -10,6 +10,7 @@ import {
   Trash2,
   Edit2,
   FolderX,
+  Settings,
 } from 'lucide-react';
 import { Button, Dropdown, Typography } from 'antd';
 import type { MenuProps } from 'antd';
@@ -24,6 +25,7 @@ interface GroupItemProps {
   onRename: () => void;
   onDelete: () => void;
   onDeleteWithFields: () => void;
+  onSetCondition: () => void;
   children?: React.ReactNode;
 }
 
@@ -34,6 +36,7 @@ const GroupItem: React.FC<GroupItemProps> = ({
   onRename,
   onDelete,
   onDeleteWithFields,
+  onSetCondition,
   children,
 }) => {
   const i18n = useContext(I18nContext);
@@ -45,6 +48,15 @@ const GroupItem: React.FC<GroupItemProps> = ({
       label: group.hide ? i18n('showAllFields') : i18n('hideAllFields'),
       icon: group.hide ? <Eye size={14} /> : <EyeOff size={14} />,
       onClick: () => onToggleHide(!group.hide),
+    },
+    {
+      type: 'divider',
+    },
+    {
+      key: 'setCondition',
+      label: i18n('setCondition'),
+      icon: <Settings size={14} />,
+      onClick: onSetCondition,
     },
     {
       type: 'divider',
@@ -131,6 +143,16 @@ const GroupItem: React.FC<GroupItemProps> = ({
         {group.hide && (
           <span title={i18n('hideAllFields')} style={{ display: 'flex', alignItems: 'center' }}>
             <EyeOff size={14} style={{ color: '#6b7280' }} />
+          </span>
+        )}
+
+        {/* Condition indicator */}
+        {group.condition && group.condition.enabled && (
+          <span
+            title={`Condition: ${group.condition.variable} ${group.condition.operator} ${group.condition.value}`}
+            style={{ display: 'flex', alignItems: 'center' }}
+          >
+            <Settings size={14} style={{ color: '#3b82f6' }} />
           </span>
         )}
 

@@ -49,6 +49,15 @@ export const Dict = z.object({
   groupNameRequired: z.string(),
   groupNameExists: z.string(),
   fieldGroups: z.string(),
+  setCondition: z.string(),
+  groupCondition: z.string(),
+  conditionVariable: z.string(),
+  conditionOperator: z.string(),
+  conditionValue: z.string(),
+  enableCondition: z.string(),
+  conditionPreview: z.string(),
+  saveCondition: z.string(),
+  removeCondition: z.string(),
   // --------------------validation-------------------
   'validation.uniqueName': z.string(),
   'validation.hexColor': z.string(),
@@ -151,6 +160,14 @@ export const BasePdf = z.union([CustomPdf, BlankPdf]);
 export const LegacySchemaPageArray = z.array(z.record(Schema));
 export const SchemaPageArray = z.array(z.array(Schema));
 
+// Condition for group visibility
+export const GroupCondition = z.object({
+  enabled: z.boolean(),                                                    // Is condition active?
+  variable: z.string(),                                                    // Variable name (e.g., "resultType")
+  operator: z.enum(['==', '!=', '>', '<', '>=', '<=', 'in', 'contains']), // Comparison operator
+  value: z.union([z.string(), z.number(), z.array(z.string())]),          // Value to compare against
+});
+
 // Field Group for organizing multiple fields together
 export const FieldGroup = z.object({
   id: z.string(),                          // Unique group ID
@@ -159,6 +176,7 @@ export const FieldGroup = z.object({
   collapsed: z.boolean().optional(),       // UI state: is group collapsed?
   hide: z.boolean().optional(),            // If true, hide all fields in group
   color: z.string().optional(),            // Optional color for group identification
+  condition: GroupCondition.optional(),    // Conditional visibility (e.g., show only when resultType == 'positive')
 });
 
 export const Template = z

@@ -17,7 +17,13 @@ import Paper from './Paper.js';
 import Renderer from './Renderer.js';
 import { useUIPreProcessor, useScrollPageCursor } from '../hooks.js';
 import { FontContext, OptionsContext } from '../contexts.js';
-import { template2SchemasList, getPagesScrollTopByIndex, useMaxZoom } from '../helper.js';
+import { 
+  template2SchemasList, 
+  getPagesScrollTopByIndex, 
+  useMaxZoom,
+  getConditionallyVisibleFieldIds,
+  isFieldInAnyGroup
+} from '../helper.js';
 import { theme } from 'antd';
 
 const _cache = new Map<string | number, unknown>();
@@ -73,9 +79,51 @@ const Preview = ({
       },
     })
       .then(async (dynamicTemplate) => {
-        const sl = await template2SchemasList(dynamicTemplate);
+        // EVALUATE GROUP CONDITIONS AND FILTER FIELDS
+        let filteredTemplate = dynamicTemplate;
+        
+        if (dynamicTemplate.fieldGroups && dynamicTemplate.fieldGroups.length > 0 && input) {
+          // Get fields that should be visible based on conditions
+          const visibleFieldIds = getConditionallyVisibleFieldIds(
+            dynamicTemplate.fieldGroups,
+            input
+          );
+          
+          // Filter schemas to only include visible fields
+          filteredTemplate = {
+            ...dynamicTemplate,
+            schemas: dynamicTemplate.schemas.map((page) => {
+              // Handle both array and object schema formats
+              if (Array.isArray(page)) {
+                return page.filter((schema: any) => {
+                  // If field is not in any group, always show it
+                  if (!isFieldInAnyGroup(schema.id, dynamicTemplate.fieldGroups || [])) {
+                    return true;
+                  }
+                  // If field is in a group, check if it should be visible
+                  return visibleFieldIds.includes(schema.id);
+                });
+              } else if (page && typeof page === 'object') {
+                // Object schema format
+                const filteredPage: any = {};
+                Object.keys(page).forEach((key) => {
+                  const schema: any = page[key];
+                  if (!isFieldInAnyGroup(schema.id, dynamicTemplate.fieldGroups || [])) {
+                    filteredPage[key] = schema;
+                  } else if (visibleFieldIds.includes(schema.id)) {
+                    filteredPage[key] = schema;
+                  }
+                });
+                return filteredPage;
+              }
+              return page;
+            }),
+          };
+        }
+        
+        const sl = await template2SchemasList(filteredTemplate);
         setSchemasList(sl);
-        await refresh(dynamicTemplate);
+        await refresh(filteredTemplate);
       })
       .catch((err) => console.error(`[@pdfme/ui] `, err));
   };

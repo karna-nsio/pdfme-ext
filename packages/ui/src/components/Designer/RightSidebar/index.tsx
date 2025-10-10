@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { theme, Button } from 'antd';
 import type { SidebarProps } from '../../../types.js';
-import type { FieldGroup } from '@pdfme/common';
+import type { FieldGroup, GroupCondition } from '@pdfme/common';
 import { RIGHT_SIDEBAR_WIDTH } from '../../../constants.js';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import ListViewWithGroups from './ListView/ListViewWithGroups.js';
@@ -79,6 +79,12 @@ const Sidebar = (props: SidebarProps) => {
     setFieldGroups(fieldGroups.map((g) => (g.id === groupId ? { ...g, collapsed: !g.collapsed } : g)));
   };
 
+  const handleSetGroupCondition = (groupId: string, condition: GroupCondition | null) => {
+    setFieldGroups(
+      fieldGroups.map((g) => (g.id === groupId ? { ...g, condition: condition || undefined } : g)),
+    );
+  };
+
   const iconProps = { strokeWidth: 1.5, size: 20 };
 
   return (
@@ -144,6 +150,7 @@ const Sidebar = (props: SidebarProps) => {
                 onDeleteGroupWithFields={handleDeleteGroupWithFields}
                 onToggleGroupHide={handleToggleGroupHide}
                 onToggleGroupCollapse={handleToggleGroupCollapse}
+                onSetGroupCondition={handleSetGroupCondition}
                 selectedFieldIds={selectedFieldIds}
               />
             )}
