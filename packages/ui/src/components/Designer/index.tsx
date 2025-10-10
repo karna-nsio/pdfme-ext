@@ -348,6 +348,16 @@ const TemplateEditor = ({
               const editingElem = document.getElementById(id);
               if (editingElem) {
                 onEdit([editingElem]);
+              } else {
+                // If element doesn't exist (hidden field), create a virtual element
+                const schema = schemasList[pageCursor]?.find(s => s.id === id);
+                if (schema && schema.hide) {
+                  // Create a dummy element for hidden fields
+                  const dummyElement = document.createElement('div');
+                  dummyElement.id = id;
+                  dummyElement.setAttribute('data-hidden-field', 'true');
+                  onEdit([dummyElement as HTMLElement]);
+                }
               }
             }}
             onEditEnd={onEditEnd}

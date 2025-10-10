@@ -15,6 +15,14 @@ import { round } from '../../../../helper.js';
 
 const AlignWidget = (props: PropPanelWidgetProps) => {
   const { activeElements, changeSchemas, schemas, pageSize, schema } = props;
+
+  // Check if active element is a hidden field
+  const isHiddenField = activeElements.length > 0 && activeElements[0].getAttribute('data-hidden-field') === 'true';
+
+  // Don't show alignment widget for hidden fields
+  if (isHiddenField) {
+    return null;
+  }
   const align = (type: 'left' | 'center' | 'right' | 'top' | 'middle' | 'bottom') => {
     const ids = activeElements.map((ae) => ae.id);
     const ass = schemas.filter((s) => ids.includes(s.id));

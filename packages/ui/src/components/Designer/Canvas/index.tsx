@@ -473,6 +473,11 @@ const Canvas = (props: Props, ref: Ref<HTMLDivElement>) => {
           </>
         )}
         renderSchema={({ schema, index }) => {
+          // Don't render hidden schemas
+          if (schema.hide) {
+            return null;
+          }
+
           const mode =
             editing && activeElements.map((ae) => ae.id).includes(schema.id)
               ? 'designer'

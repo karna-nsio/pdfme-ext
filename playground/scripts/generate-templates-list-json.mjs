@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
+const __dirname = path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Z]:)/, '$1'));
 
 const templatesDir = path.join(__dirname, '..', 'public', 'template-assets');
 const indexFilePath = path.join(templatesDir, 'index.json');

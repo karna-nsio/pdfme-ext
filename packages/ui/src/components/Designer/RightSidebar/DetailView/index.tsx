@@ -238,8 +238,13 @@ const DetailView = (props: DetailViewProps) => {
       required: {
         title: typedI18n('required'),
         type: 'boolean',
-        span: 16,
+        span: 8,
         hidden: '{{!formData.editable}}',
+      },
+      hide: {
+        title: 'Hide',
+        type: 'boolean',
+        span: 8,
       },
       '-': { type: 'void', widget: 'Divider' },
       align: { title: typedI18n('align'), type: 'void', widget: 'AlignWidget' },

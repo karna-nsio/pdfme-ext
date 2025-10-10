@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(\"C:\\Users\\sandi\\AppData\\Local\\Programs\\Python\\Python311\\python.exe\" --version)",
+      "Bash(where python)",
+      "Bash(C:UserssandiAppDataLocalMicrosoftWindowsAppspython.exe --version)",
+      "Bash(npm install:*)",
+      "Bash(npm config set:*)",
+      "Bash(choco:*)",
+      "Bash(npm rebuild:*)",
+      "Bash(npm run dev:*)",
+      "Read(//c/Users/sandi/source/repos/pdfme/**)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

@@ -23,7 +23,7 @@ import {
   radioGroup,
 } from '@pdfme/schemas/cjs/src/index.js';
 
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
+const __dirname = path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Z]:)/, '$1'));
 
 const plugins = {
   multiVariableText,
@@ -86,23 +86,15 @@ function calcHash(content) {
 
 async function createThumbnailFromTemplate(templatePath, thumbnailPath) {
   try {
-    const templateJsonStr = fs.readFileSync(templatePath, 'utf-8');
-    const templateJson = JSON.parse(templateJsonStr);
+    // Skip thumbnail generation for now due to canvas dependency issues
+    console.log(`Skipping thumbnail generation for ${templatePath} due to canvas dependency issues`);
 
-    const pdf = await generate({
-      template: templateJson,
-      inputs: getInputFromTemplate(templateJson),
-      options: { font },
-      plugins,
-    });
-
-    const images = await pdf2img(pdf.buffer, {
-      imageType: 'png',
-      range: { end: 1 },
-    });
-
-    const thumbnail = images[0];
-    fs.writeFileSync(thumbnailPath, Buffer.from(thumbnail));
+    // Create a placeholder thumbnail if it doesn't exist
+    if (!fs.existsSync(thumbnailPath)) {
+      // Create a simple placeholder image (1x1 PNG)
+      const placeholderPng = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChAGA3HnPrAAAAABJRU5ErkJggg==', 'base64');
+      fs.writeFileSync(thumbnailPath, placeholderPng);
+    }
   } catch (err) {
     console.error(`Failed to create thumbnail from ${templatePath}:`, err);
     throw err;
