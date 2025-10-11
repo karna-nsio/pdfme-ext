@@ -270,10 +270,27 @@ export const arrayBufferToBase64 = (arrayBuffer: ArrayBuffer): string => {
 
 const convertSchemasForUI = (template: Template): SchemaForUI[][] => {
   template.schemas.forEach((page) => {
-    page.forEach((schema) => {
-      (schema as SchemaForUI).id = uuid();
-      (schema as SchemaForUI).content = schema.content || '';
-    });
+    // Handle both array and object formats
+    if (Array.isArray(page)) {
+      page.forEach((schema) => {
+        // CRITICAL FIX: Preserve existing ID if it exists (for field groups)
+        // Only generate new ID if schema doesn't have one
+        if (!(schema as SchemaForUI).id) {
+          (schema as SchemaForUI).id = uuid();
+        }
+        (schema as SchemaForUI).content = schema.content || '';
+      });
+    } else if (page && typeof page === 'object') {
+      // Object format: { field1: {...}, field2: {...} }
+      Object.values(page).forEach((schema: any) => {
+        // CRITICAL FIX: Preserve existing ID if it exists (for field groups)
+        // Only generate new ID if schema doesn't have one
+        if (!schema.id) {
+          schema.id = uuid();
+        }
+        schema.content = schema.content || '';
+      });
+    }
   });
 
   return template.schemas as SchemaForUI[][];
@@ -327,8 +344,9 @@ export const template2SchemasList = async (_template: Template) => {
 export const schemasList2template = (schemasList: SchemaForUI[][], basePdf: BasePdf): Template => ({
   schemas: cloneDeep(schemasList).map((page) =>
     page.map((schema) => {
-      // @ts-expect-error Property 'id' is used only in UI
-      delete schema.id;
+      // CRITICAL FIX: Keep the ID for field groups to work!
+      // Don't delete schema.id - it's needed for group membership tracking
+      // delete schema.id;  // ← Commented out to preserve IDs
       return schema;
     }),
   ),

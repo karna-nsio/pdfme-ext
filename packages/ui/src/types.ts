@@ -1,4 +1,4 @@
-import type { SchemaForUI, Size, ChangeSchemas } from '@pdfme/common';
+import type { SchemaForUI, Size, ChangeSchemas, FieldGroup } from '@pdfme/common';
 
 export type SidebarProps = {
   height: number;
@@ -17,4 +17,6 @@ export type SidebarProps = {
   sidebarOpen: boolean;
   setSidebarOpen: (sidebarOpen: boolean) => void;
   removeSchemas?: (ids: string[]) => void;
+  fieldGroups?: FieldGroup[];
+  onFieldGroupsChange?: (groups: FieldGroup[]) => void;
 };

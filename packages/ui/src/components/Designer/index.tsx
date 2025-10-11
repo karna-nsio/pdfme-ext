@@ -73,6 +73,7 @@ const TemplateEditor = ({
   const [zoomLevel, setZoomLevel] = useState(options.zoomLevel ?? 1);
   const [sidebarOpen, setSidebarOpen] = useState(options.sidebarOpen ?? true);
   const [prevTemplate, setPrevTemplate] = useState<Template | null>(null);
+  const [currentFieldGroups, setCurrentFieldGroups] = useState(template.fieldGroups || []);
 
   const { backgrounds, pageSizes, scale, error, refresh } = useUIPreProcessor({
     template,
@@ -122,9 +123,12 @@ const TemplateEditor = ({
       const _schemasList = cloneDeep(schemasList);
       _schemasList[pageCursor] = newSchemas;
       setSchemasList(_schemasList);
-      onChangeTemplate(schemasList2template(_schemasList, template.basePdf));
+      const newTemplate = schemasList2template(_schemasList, template.basePdf);
+      // Include fieldGroups in the template
+      newTemplate.fieldGroups = currentFieldGroups;
+      onChangeTemplate(newTemplate);
     },
-    [template, schemasList, pageCursor, onChangeTemplate],
+    [template, schemasList, pageCursor, onChangeTemplate, currentFieldGroups],
   );
 
   const removeSchemas = useCallback(
@@ -169,12 +173,25 @@ const TemplateEditor = ({
   const updateTemplate = useCallback(async (newTemplate: Template) => {
     const sl = await template2SchemasList(newTemplate);
     setSchemasList(sl);
+    // Sync fieldGroups from template
+    if (newTemplate.fieldGroups) {
+      setCurrentFieldGroups(newTemplate.fieldGroups);
+    }
     onEditEnd();
     setPageCursor(0);
     if (canvasRef.current?.scroll) {
       canvasRef.current.scroll({ top: 0, behavior: 'smooth' });
     }
   }, []);
+
+  // Callback for when RightSidebar changes fieldGroups
+  const handleFieldGroupsChange = useCallback((newFieldGroups) => {
+    setCurrentFieldGroups(newFieldGroups);
+    // Notify parent of template change with updated fieldGroups
+    const newTemplate = schemasList2template(schemasList, template.basePdf);
+    newTemplate.fieldGroups = newFieldGroups;
+    onChangeTemplate(newTemplate);
+  }, [schemasList, template.basePdf, onChangeTemplate]);
 
   const addSchema = (defaultSchema: Schema) => {
     const [paddingTop, paddingRight, paddingBottom, paddingLeft] = isBlankPdf(template.basePdf)
@@ -365,6 +382,8 @@ const TemplateEditor = ({
             sidebarOpen={sidebarOpen}
             setSidebarOpen={setSidebarOpen}
             removeSchemas={removeSchemas}
+            fieldGroups={currentFieldGroups}
+            onFieldGroupsChange={handleFieldGroupsChange}
           />
 
           <Canvas

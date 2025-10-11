@@ -8,10 +8,21 @@ import ListViewWithGroups from './ListView/ListViewWithGroups.js';
 import DetailView from './DetailView/index.js';
 
 const Sidebar = (props: SidebarProps) => {
-  const { sidebarOpen, setSidebarOpen, activeElements, schemas, changeSchemas } = props;
+  const { 
+    sidebarOpen, 
+    setSidebarOpen, 
+    activeElements, 
+    schemas, 
+    changeSchemas,
+    fieldGroups: propFieldGroups = [],
+    onFieldGroupsChange
+  } = props;
 
-  // State for field groups
-  const [fieldGroups, setFieldGroups] = useState<FieldGroup[]>([]);
+  // Use props if provided, otherwise use internal state (for backwards compatibility)
+  const [internalFieldGroups, setInternalFieldGroups] = useState<FieldGroup[]>([]);
+  const fieldGroups = propFieldGroups.length > 0 ? propFieldGroups : internalFieldGroups;
+  const setFieldGroups = onFieldGroupsChange || setInternalFieldGroups;
+  
   const [selectedFieldIds, setSelectedFieldIds] = useState<string[]>([]);
 
   const { token } = theme.useToken();

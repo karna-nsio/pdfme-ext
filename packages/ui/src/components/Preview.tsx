@@ -64,6 +64,10 @@ const Preview = ({
 
   const init = (template: Template) => {
     const options = { font };
+    
+    // CRITICAL: Store fieldGroups before getDynamicTemplate (it might not preserve them)
+    const originalFieldGroups = template.fieldGroups;
+    
     getDynamicTemplate({
       template,
       input,
@@ -79,15 +83,50 @@ const Preview = ({
       },
     })
       .then(async (dynamicTemplate) => {
+        // CRITICAL FIX: Restore fieldGroups if getDynamicTemplate removed them
+        if (originalFieldGroups && !dynamicTemplate.fieldGroups) {
+          console.log('[@pdfme/ui Preview] Restoring fieldGroups lost by getDynamicTemplate');
+          dynamicTemplate.fieldGroups = originalFieldGroups;
+        }
+        
         // EVALUATE GROUP CONDITIONS AND FILTER FIELDS
         let filteredTemplate = dynamicTemplate;
         
+        console.log('[@pdfme/ui Preview] Starting condition evaluation...');
+        console.log('  - Has fieldGroups:', !!dynamicTemplate.fieldGroups);
+        console.log('  - fieldGroups count:', dynamicTemplate.fieldGroups?.length || 0);
+        console.log('  - Has input data:', !!input);
+        
         if (dynamicTemplate.fieldGroups && dynamicTemplate.fieldGroups.length > 0 && input) {
+          console.log('[@pdfme/ui Preview] Evaluating group conditions...');
+          console.log('  - Input data:', input);
+          
+          // Log each group and its condition
+          dynamicTemplate.fieldGroups.forEach(group => {
+            console.log(`  - Group: ${group.name}`);
+            console.log(`    Fields: ${group.fieldIds.join(', ')}`);
+            if (group.condition && group.condition.enabled) {
+              console.log(`    Condition: ${group.condition.variable} ${group.condition.operator} ${group.condition.value}`);
+              console.log(`    Input value for ${group.condition.variable}:`, input[group.condition.variable]);
+            } else {
+              console.log(`    No condition or disabled`);
+            }
+          });
+          
           // Get fields that should be visible based on conditions
           const visibleFieldIds = getConditionallyVisibleFieldIds(
             dynamicTemplate.fieldGroups,
             input
           );
+          
+          console.log('[@pdfme/ui Preview] Visible field IDs after evaluation:', visibleFieldIds);
+          
+          // Count fields before filtering
+          const totalFieldsBefore = dynamicTemplate.schemas.reduce((acc, page) => {
+            if (Array.isArray(page)) return acc + page.length;
+            if (page && typeof page === 'object') return acc + Object.keys(page).length;
+            return acc;
+          }, 0);
           
           // Filter schemas to only include visible fields
           filteredTemplate = {
@@ -96,22 +135,63 @@ const Preview = ({
               // Handle both array and object schema formats
               if (Array.isArray(page)) {
                 return page.filter((schema: any) => {
+                  // DEBUG: Log schema details for array format
+                  console.log(`    🔍 ARRAY FORMAT - schema.id: "${schema.id}", schema.name: "${schema.name}"`);
+                  console.log(`       Checking against visibleFieldIds:`, visibleFieldIds);
+                  
                   // If field is not in any group, always show it
-                  if (!isFieldInAnyGroup(schema.id, dynamicTemplate.fieldGroups || [])) {
+                  const isInGroup = isFieldInAnyGroup(schema.id, dynamicTemplate.fieldGroups || []);
+                  console.log(`       isInGroup: ${isInGroup}`);
+                  
+                  if (!isInGroup) {
+                    console.log(`    ✅ Field ${schema.id} (${schema.name}) - not in any group, showing`);
                     return true;
                   }
+                  
                   // If field is in a group, check if it should be visible
-                  return visibleFieldIds.includes(schema.id);
+                  const shouldShow = visibleFieldIds.includes(schema.id);
+                  console.log(`       shouldShow: ${shouldShow}`);
+                  console.log(`    ${shouldShow ? '✅' : '❌'} Field ${schema.id} (${schema.name}) - ${shouldShow ? 'condition met' : 'condition not met'}`);
+                  return shouldShow;
                 });
               } else if (page && typeof page === 'object') {
                 // Object schema format
                 const filteredPage: any = {};
                 Object.keys(page).forEach((key) => {
                   const schema: any = page[key];
-                  if (!isFieldInAnyGroup(schema.id, dynamicTemplate.fieldGroups || [])) {
+                  
+                  // DEBUG: Log all possible identifiers
+                  console.log(`    🔍 Checking field - key: "${key}", schema.id: "${schema.id}", schema.name: "${schema.name}"`);
+                  
+                  // Try multiple identifier strategies
+                  const possibleIds = [
+                    schema.id,      // UUID from designer
+                    key,            // Object key
+                    schema.name,    // Schema name
+                  ].filter(Boolean);
+                  
+                  console.log(`       Possible IDs: [${possibleIds.join(', ')}]`);
+                  console.log(`       Checking against visibleFieldIds:`, visibleFieldIds);
+                  
+                  // Check if ANY of the possible IDs match
+                  const isInGroup = possibleIds.some(id => {
+                    const result = isFieldInAnyGroup(id, dynamicTemplate.fieldGroups || []);
+                    if (result) console.log(`       ✅ Found in group using ID: ${id}`);
+                    return result;
+                  });
+                  
+                  const shouldShow = possibleIds.some(id => visibleFieldIds.includes(id));
+                  
+                  console.log(`       isInGroup: ${isInGroup}, shouldShow: ${shouldShow}`);
+                  
+                  if (!isInGroup) {
+                    console.log(`    ✅ Field ${schema.id || key} (${schema.name}) - not in any group, showing`);
                     filteredPage[key] = schema;
-                  } else if (visibleFieldIds.includes(schema.id)) {
+                  } else if (shouldShow) {
+                    console.log(`    ✅ Field ${schema.id || key} (${schema.name}) - condition met, showing`);
                     filteredPage[key] = schema;
+                  } else {
+                    console.log(`    ❌ Field ${schema.id || key} (${schema.name}) - condition not met, HIDING`);
                   }
                 });
                 return filteredPage;
@@ -119,6 +199,17 @@ const Preview = ({
               return page;
             }),
           };
+          
+          // Count fields after filtering
+          const totalFieldsAfter = filteredTemplate.schemas.reduce((acc, page) => {
+            if (Array.isArray(page)) return acc + page.length;
+            if (page && typeof page === 'object') return acc + Object.keys(page).length;
+            return acc;
+          }, 0);
+          
+          console.log(`[@pdfme/ui Preview] Filtered: ${totalFieldsBefore} fields → ${totalFieldsAfter} fields (${totalFieldsAfter - totalFieldsBefore} change)`);
+        } else {
+          console.log('[@pdfme/ui Preview] No filtering needed - no conditions or no input');
         }
         
         const sl = await template2SchemasList(filteredTemplate);
