@@ -349,41 +349,163 @@ const DetailView = (props: DetailViewProps) => {
     };
   }
 
+  const detailViewStyles = `
+    /* Scrollbar styling */
+    .detail-view-scrollable::-webkit-scrollbar {
+      width: 6px;
+    }
+    .detail-view-scrollable::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .detail-view-scrollable::-webkit-scrollbar-thumb {
+      background: ${token.colorBorder};
+      border-radius: 3px;
+    }
+    .detail-view-scrollable::-webkit-scrollbar-thumb:hover {
+      background: ${token.colorBorderSecondary};
+    }
+
+    /* Form styling - Figma-inspired clean design */
+    .detail-view-scrollable .ant-form-item {
+      margin-bottom: 16px;
+    }
+
+    .detail-view-scrollable .ant-form-item-label > label {
+      font-size: 12px;
+      font-weight: 500;
+      color: ${token.colorTextSecondary};
+      height: auto;
+    }
+
+    .detail-view-scrollable .ant-input,
+    .detail-view-scrollable .ant-input-number,
+    .detail-view-scrollable .ant-select-selector {
+      border-radius: ${token.borderRadius}px;
+      border-color: ${token.colorBorder};
+      font-size: 13px;
+    }
+
+    .detail-view-scrollable .ant-input:hover,
+    .detail-view-scrollable .ant-input-number:hover,
+    .detail-view-scrollable .ant-select-selector:hover {
+      border-color: ${token.colorPrimaryHover};
+    }
+
+    .detail-view-scrollable .ant-input:focus,
+    .detail-view-scrollable .ant-input-number:focus,
+    .detail-view-scrollable .ant-select-focused .ant-select-selector {
+      border-color: ${token.colorPrimary};
+      box-shadow: 0 0 0 2px ${token.colorPrimaryBg};
+    }
+
+    .detail-view-scrollable .ant-card {
+      border-radius: ${token.borderRadiusLG}px;
+      border-color: ${token.colorBorderSecondary};
+      box-shadow: none;
+      margin-bottom: 12px;
+    }
+
+    .detail-view-scrollable .ant-card-head {
+      padding: 12px 16px;
+      min-height: auto;
+      border-bottom: 1px solid ${token.colorBorderSecondary};
+      background: ${token.colorBgLayout};
+    }
+
+    .detail-view-scrollable .ant-card-head-title {
+      font-size: 13px;
+      font-weight: 600;
+      padding: 0;
+    }
+
+    .detail-view-scrollable .ant-card-body {
+      padding: 16px;
+    }
+
+    .detail-view-scrollable .ant-switch {
+      background-color: ${token.colorBgTextHover};
+    }
+
+    .detail-view-scrollable .ant-switch-checked {
+      background-color: ${token.colorPrimary};
+    }
+
+    .detail-view-scrollable .ant-divider {
+      margin: 20px 0 16px 0;
+      border-color: ${token.colorBorderSecondary};
+    }
+
+    /* Compact input number buttons */
+    .detail-view-scrollable .ant-input-number-handler-wrap {
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .detail-view-scrollable .ant-input-number:hover .ant-input-number-handler-wrap {
+      opacity: 1;
+    }
+  `;
+
   return (
-    <div>
-      <div style={{ height: 40, display: 'flex', alignItems: 'center' }}>
-        <Button
+    <>
+      <style>{detailViewStyles}</style>
+      <div>
+        {/* Header with back button and title */}
+        <div
           style={{
-            position: 'absolute',
-            zIndex: 100,
+            height: 48,
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
+            padding: '0 0.5rem',
+            borderBottom: `1px solid ${token.colorBorderSecondary}`,
           }}
-          onClick={deselectSchema}
-          icon={<Menu strokeWidth={1.5} size={20} />}
-        />
-        <Text strong style={{ textAlign: 'center', width: '100%' }}>
-          {typedI18n('editField')}
-        </Text>
+        >
+          <Button
+            type="text"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: 32,
+              height: 32,
+              padding: 0,
+              marginRight: '0.5rem',
+              borderRadius: token.borderRadius,
+            }}
+            onClick={deselectSchema}
+            icon={<Menu strokeWidth={1.5} size={18} />}
+          />
+          <Text
+            strong
+            style={{
+              fontSize: token.fontSizeLG,
+              color: token.colorText,
+            }}
+          >
+            {typedI18n('editField')}
+          </Text>
+        </div>
+
+        {/* Form content with custom scrollbar */}
+        <div
+          className="detail-view-scrollable"
+          style={{
+            height: getSidebarContentHeight(size.height) - 88, // Account for both headers (40px + 48px)
+            overflowY: 'auto',
+            overflowX: 'hidden',
+            padding: '1rem 0.75rem',
+          }}
+        >
+          <FormRenderComponent
+            form={form}
+            schema={propPanelSchema}
+            widgets={widgets}
+            watch={{ '#': handleWatch }}
+            locale="en-US"
+          />
+        </div>
       </div>
-      <Divider style={{ marginTop: token.marginXS, marginBottom: token.marginXS }} />
-      <div
-        style={{
-          height: getSidebarContentHeight(size.height),
-          overflowY: 'auto',
-          overflowX: 'hidden',
-        }}
-      >
-        <FormRenderComponent
-          form={form}
-          schema={propPanelSchema}
-          widgets={widgets}
-          watch={{ '#': handleWatch }}
-          locale="en-US"
-        />
-      </div>
-    </div>
+    </>
   );
 };
 

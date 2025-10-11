@@ -78,6 +78,7 @@ const Wrapper = ({
       transform: `rotate(${schema.rotate ?? 0}deg)`,
       opacity: schema.opacity ?? 1,
       outline,
+      transition: 'outline 0.15s cubic-bezier(0.4, 0, 0.2, 1)',
     }}
   >
     {schema.required && (

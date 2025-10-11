@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Schema, Plugin, BasePdf, getFallbackFontName } from '@pdfme/common';
-import { theme, Button } from 'antd';
+import { theme, Button, Tooltip } from 'antd';
 import { useDraggable } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
 import Renderer from '../Renderer.js';
@@ -13,11 +13,13 @@ const Draggable = (props: {
   plugin: Plugin<Schema>;
   scale: number;
   basePdf: BasePdf;
+  label: string;
   children: React.ReactNode;
 }) => {
-  const { scale, basePdf, plugin } = props;
+  const { scale, basePdf, plugin, label } = props;
   const { token } = theme.useToken();
   const options = useContext(OptionsContext);
+  const [isHovered, setIsHovered] = useState(false);
   const defaultSchema = plugin.propPanel.defaultSchema;
   if (options.font) {
     const fontName = getFallbackFontName(options.font);
@@ -47,10 +49,55 @@ const Draggable = (props: {
   );
 
   return (
-    <div ref={setNodeRef} style={style} {...listeners} {...attributes}>
-      {isDragging && renderedSchema}
-      <div style={{ visibility: isDragging ? 'hidden' : 'visible' }}>{props.children}</div>
-    </div>
+    <Tooltip title={label} placement="right" mouseEnterDelay={0.5}>
+      <div
+        ref={setNodeRef}
+        style={style}
+        {...listeners}
+        {...attributes}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        {isDragging && renderedSchema}
+        <div style={{ visibility: isDragging ? 'hidden' : 'visible' }}>
+          {React.cloneElement(props.children as React.ReactElement, { isHovered })}
+        </div>
+      </div>
+    </Tooltip>
+  );
+};
+
+const ToolButton = ({
+  isHovered,
+  onMouseDown,
+  children
+}: {
+  isHovered?: boolean;
+  onMouseDown: () => void;
+  children: React.ReactNode;
+}) => {
+  const { token } = theme.useToken();
+
+  return (
+    <Button
+      onMouseDown={onMouseDown}
+      style={{
+        width: 36,
+        height: 36,
+        padding: '0.375rem',
+        marginBottom: '0.375rem',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: token.borderRadius,
+        border: 'none',
+        background: isHovered ? token.colorPrimaryBg : 'transparent',
+        transition: 'all 0.15s cubic-bezier(0.4, 0, 0.2, 1)',
+        boxShadow: 'none',
+      }}
+    >
+      {children}
+    </Button>
   );
 };
 
@@ -81,35 +128,58 @@ const LeftSidebar = ({
     };
   }, [isDragging]);
 
+  const scrollbarStyles = `
+    .left-sidebar-scrollable::-webkit-scrollbar {
+      width: 4px;
+    }
+    .left-sidebar-scrollable::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .left-sidebar-scrollable::-webkit-scrollbar-thumb {
+      background: ${token.colorBorder};
+      border-radius: 2px;
+    }
+    .left-sidebar-scrollable::-webkit-scrollbar-thumb:hover {
+      background: ${token.colorBorderSecondary};
+    }
+  `;
+
   return (
-    <div
-      style={{
-        left: 0,
-        right: 0,
-        position: 'absolute',
-        zIndex: 1,
-        height,
-        width: LEFT_SIDEBAR_WIDTH,
-        background: token.colorBgLayout,
-        textAlign: 'center',
-        overflow: isDragging ? 'visible' : 'auto',
-      }}
-    >
+    <>
+      <style>{scrollbarStyles}</style>
+      <div
+        className="left-sidebar-scrollable"
+        style={{
+          left: 0,
+          right: 0,
+          position: 'absolute',
+          zIndex: 1,
+          height,
+          width: LEFT_SIDEBAR_WIDTH,
+          background: token.colorBgContainer,
+          borderRight: `1px solid ${token.colorBorder}`,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          padding: '0.5rem 0.375rem',
+          overflow: isDragging ? 'visible' : 'auto',
+          overflowX: 'hidden',
+          boxSizing: 'border-box',
+        }}
+      >
       {pluginsRegistry.entries().map(([label, plugin]) => {
         if (!plugin?.propPanel.defaultSchema) return null;
 
         return (
-          <Draggable key={label} scale={scale} basePdf={basePdf} plugin={plugin}>
-            <Button
-              onMouseDown={() => setIsDragging(true)}
-              style={{ width: 35, height: 35, marginTop: '0.25rem', padding: '0.25rem' }}
-            >
+          <Draggable key={label} scale={scale} basePdf={basePdf} plugin={plugin} label={label}>
+            <ToolButton onMouseDown={() => setIsDragging(true)}>
               <PluginIcon plugin={plugin} label={label} />
-            </Button>
+            </ToolButton>
           </Draggable>
         );
       })}
-    </div>
+      </div>
+    </>
   );
 };
 

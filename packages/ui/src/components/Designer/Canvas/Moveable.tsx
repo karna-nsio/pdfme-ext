@@ -38,6 +38,8 @@ const Moveable = (props: Props, ref: Ref<MoveableComponent>) => {
   useEffect(() => {
     const containerElement = document.querySelector(`.${uniqueClassName}`);
     const moveableLines = document.querySelectorAll(`.${uniqueClassName} .moveable-line`);
+    const moveableControls = document.querySelectorAll(`.${uniqueClassName} .moveable-control`);
+
     if (containerElement instanceof HTMLElement) {
       containerElement.style.setProperty('--moveable-color', token.colorPrimary);
       moveableLines.forEach((e) => {
@@ -45,8 +47,20 @@ const Moveable = (props: Props, ref: Ref<MoveableComponent>) => {
           e.style.setProperty('--moveable-color', token.colorPrimary);
         }
       });
+
+      // Apply Figma-style handle styling
+      moveableControls.forEach((control) => {
+        if (control instanceof HTMLElement) {
+          control.style.width = '8px';
+          control.style.height = '8px';
+          control.style.borderRadius = '50%';
+          control.style.border = `2px solid ${token.colorPrimary}`;
+          control.style.background = token.colorBgContainer;
+          control.style.boxShadow = '0 1px 4px rgba(0, 0, 0, 0.2)';
+        }
+      });
     }
-  }, [props.target, token.colorPrimary, uniqueClassName]);
+  }, [props.target, token.colorPrimary, token.colorBgContainer, uniqueClassName]);
 
   return (
     <MoveableComponent

@@ -3,7 +3,7 @@ import { theme, Button } from 'antd';
 import type { SidebarProps } from '../../../types.js';
 import type { FieldGroup, GroupCondition } from '@pdfme/common';
 import { RIGHT_SIDEBAR_WIDTH } from '../../../constants.js';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { PanelRightClose, PanelRightOpen } from 'lucide-react';
 import ListViewWithGroups from './ListView/ListViewWithGroups.js';
 import DetailView from './DetailView/index.js';
 
@@ -96,48 +96,111 @@ const Sidebar = (props: SidebarProps) => {
     );
   };
 
-  const iconProps = { strokeWidth: 1.5, size: 20 };
+  const scrollbarStyles = `
+    .right-sidebar-scrollable::-webkit-scrollbar {
+      width: 6px;
+    }
+    .right-sidebar-scrollable::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .right-sidebar-scrollable::-webkit-scrollbar-thumb {
+      background: ${token.colorBorder};
+      border-radius: 3px;
+    }
+    .right-sidebar-scrollable::-webkit-scrollbar-thumb:hover {
+      background: ${token.colorBorderSecondary};
+    }
+  `;
 
   return (
-    <div
-      style={{
-        position: 'absolute',
-        right: 0,
-        zIndex: 1,
-        height: '100%',
-        width: sidebarOpen ? RIGHT_SIDEBAR_WIDTH : 0,
-      }}
-    >
+    <>
+      <style>{scrollbarStyles}</style>
+      <div
+        style={{
+          position: 'absolute',
+          right: 0,
+          zIndex: 1,
+          height: '100%',
+          width: sidebarOpen ? RIGHT_SIDEBAR_WIDTH : 0,
+        }}
+      >
         <div>
-          <Button
-            style={{
-              position: 'absolute',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              top: '1rem',
-              right: '1rem',
-              zIndex: 100,
-            }}
-            icon={sidebarOpen ? <ArrowRight {...iconProps} /> : <ArrowLeft {...iconProps} />}
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-          />
+          {/* Header with collapse button - Figma style */}
           <div
+            style={{
+              height: 40,
+              display: sidebarOpen ? 'flex' : 'none',
+              alignItems: 'center',
+              justifyContent: 'flex-end',
+              padding: '0 0.5rem',
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              width: RIGHT_SIDEBAR_WIDTH,
+              background: token.colorBgContainer,
+              borderLeft: `1px solid ${token.colorBorder}`,
+              borderBottom: `1px solid ${token.colorBorderSecondary}`,
+              zIndex: 10,
+            }}
+          >
+            <Button
+              type="text"
+              size="small"
+              onClick={() => setSidebarOpen(false)}
+              icon={<PanelRightClose size={16} strokeWidth={1.5} />}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 28,
+                height: 28,
+                padding: 0,
+              }}
+            />
+          </div>
+
+          {/* Reopen button when collapsed */}
+          {!sidebarOpen && (
+            <Button
+              type="text"
+              size="small"
+              onClick={() => setSidebarOpen(true)}
+              icon={<PanelRightOpen size={16} strokeWidth={1.5} />}
+              style={{
+                position: 'absolute',
+                top: '0.5rem',
+                right: '0.5rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 28,
+                height: 28,
+                padding: 0,
+                zIndex: 100,
+                background: token.colorBgContainer,
+                border: `1px solid ${token.colorBorder}`,
+                borderRadius: token.borderRadius,
+              }}
+            />
+          )}
+
+          <div
+            className="right-sidebar-scrollable"
             style={{
               width: RIGHT_SIDEBAR_WIDTH,
               height: '100%',
               display: sidebarOpen ? 'block' : 'none',
-              top: 0,
+              top: 40,
               right: 0,
               position: 'absolute',
-              padding: '0.7rem 1rem',
+              padding: '0.875rem',
               overflowY: 'auto',
               fontFamily: "'Open Sans', sans-serif",
               boxSizing: 'border-box',
-              background: token.colorBgLayout,
+              background: token.colorBgContainer,
+              borderLeft: `1px solid ${token.colorBorder}`,
             }}
           >
-          <div>
             {getActiveSchemas().length === 1 ? (
               // Single field selected - show DetailView to edit it
               <DetailView
@@ -168,7 +231,7 @@ const Sidebar = (props: SidebarProps) => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

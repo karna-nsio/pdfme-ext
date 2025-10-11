@@ -45,14 +45,17 @@ const normalizeRotate = (angle: number) => ((angle % 360) + 360) % 360;
 
 const DeleteButton = ({ activeElements: aes }: { activeElements: HTMLElement[] }) => {
   const { token } = theme.useToken();
+  const [isHovered, setIsHovered] = React.useState(false);
 
-  const size = 26;
+  const size = 28;
   const top = Math.min(...aes.map(({ style }) => fmt4Num(style.top)));
   const left = Math.max(...aes.map(({ style }) => fmt4Num(style.left) + fmt4Num(style.width))) + 10;
 
   return (
     <Button
       id={DELETE_BTN_ID}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       style={{
         position: 'absolute',
         zIndex: 1,
@@ -60,16 +63,24 @@ const DeleteButton = ({ activeElements: aes }: { activeElements: HTMLElement[] }
         left,
         width: size,
         height: size,
-        padding: 2,
+        padding: 0,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: token.borderRadius,
+        borderRadius: token.borderRadiusLG,
+        border: 'none',
         color: token.colorWhite,
-        background: token.colorPrimary,
+        background: token.colorError,
+        opacity: isHovered ? 1 : 0.9,
+        transform: isHovered ? 'scale(1.1)' : 'scale(1)',
+        boxShadow: isHovered
+          ? '0 4px 12px rgba(255, 77, 79, 0.3)'
+          : '0 2px 8px rgba(0, 0, 0, 0.15)',
+        transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+        cursor: 'pointer',
       }}
     >
-      <X style={{ pointerEvents: 'none' }} />
+      <X size={16} style={{ pointerEvents: 'none' }} strokeWidth={2.5} />
     </Button>
   );
 };
@@ -421,16 +432,39 @@ const Canvas = (props: Props, ref: Ref<HTMLDivElement>) => {
     });
   }, [activeElements, pageCursor, schemasList, pluginsRegistry]);
 
+  const scrollbarStyles = `
+    .canvas-scrollable::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    .canvas-scrollable::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .canvas-scrollable::-webkit-scrollbar-thumb {
+      background: ${token.colorBorder};
+      border-radius: 4px;
+    }
+    .canvas-scrollable::-webkit-scrollbar-thumb:hover {
+      background: ${token.colorBorderSecondary};
+    }
+    .canvas-scrollable::-webkit-scrollbar-corner {
+      background: transparent;
+    }
+  `;
+
   return (
-    <div
-      style={{
-        position: 'relative',
-        overflow: 'auto',
-        marginRight: sidebarOpen ? RIGHT_SIDEBAR_WIDTH : 0,
-        ...size,
-      }}
-      ref={ref}
-    >
+    <>
+      <style>{scrollbarStyles}</style>
+      <div
+        className="canvas-scrollable"
+        style={{
+          position: 'relative',
+          overflow: 'auto',
+          marginRight: sidebarOpen ? RIGHT_SIDEBAR_WIDTH : 0,
+          ...size,
+        }}
+        ref={ref}
+      >
       <Selecto
         container={paperRefs.current[pageCursor]}
         continueSelect={isPressShiftKey}
@@ -618,7 +652,8 @@ const Canvas = (props: Props, ref: Ref<HTMLDivElement>) => {
           );
         }}
       />
-    </div>
+      </div>
+    </>
   );
 };
 export default forwardRef<HTMLDivElement, Props>(Canvas);

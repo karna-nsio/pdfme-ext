@@ -1,5 +1,6 @@
 import React, { MutableRefObject, ReactNode, useContext } from 'react';
 import { ZOOM, SchemaForUI, Size, getFallbackFontName } from '@pdfme/common';
+import { theme } from 'antd';
 import { FontContext } from '../contexts.js';
 import { RULER_HEIGHT, PAGE_GAP } from '../constants.js';
 
@@ -26,6 +27,7 @@ const Paper = (props: {
     hasRulers,
   } = props;
   const font = useContext(FontContext);
+  const { token } = theme.useToken();
   const rulerHeight = hasRulers ? RULER_HEIGHT : 0;
 
   if (pageSizes.length !== backgrounds.length || pageSizes.length !== schemasList.length) {
@@ -90,6 +92,8 @@ const Paper = (props: {
               position: 'relative',
               backgroundImage: `url(${background})`,
               backgroundSize: `${paperSize.width}px ${paperSize.height}px`,
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08)',
+              borderRadius: '2px',
               ...paperSize,
             }}
           >

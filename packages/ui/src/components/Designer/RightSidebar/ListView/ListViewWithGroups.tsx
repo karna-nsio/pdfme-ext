@@ -261,27 +261,45 @@ const ListViewWithGroups = (props: ListViewWithGroupsProps) => {
     return schemas.filter((schema) => group.fieldIds.includes(schema.id));
   };
 
+  const listViewScrollbarStyles = `
+    .list-view-scrollable::-webkit-scrollbar {
+      width: 6px;
+    }
+    .list-view-scrollable::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .list-view-scrollable::-webkit-scrollbar-thumb {
+      background: ${token.colorBorder};
+      border-radius: 3px;
+    }
+    .list-view-scrollable::-webkit-scrollbar-thumb:hover {
+      background: ${token.colorBorderSecondary};
+    }
+  `;
+
   return (
-    <div>
-      <div style={{ height: headHeight, display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingLeft: '4px', paddingRight: '52px' }}>
-        <Text strong style={{ fontSize: '13px' }}>
-          {i18n('fieldsList')}
-        </Text>
-        {!isBulkUpdateFieldNamesMode && !isCreatingGroup && !isRenamingGroup && selectedFieldIds.length >= 2 && (
-          <Button
-            size="small"
-            type="primary"
-            icon={<FolderPlus size={14} />}
-            onClick={handleCreateGroupClick}
-            style={{ whiteSpace: 'nowrap' }}
-            title={i18n('createGroup')}
-          >
-            {i18n('createGroup')}
-          </Button>
-        )}
-      </div>
-      <Divider style={{ marginTop: token.marginXS, marginBottom: token.marginXS }} />
-      <div style={{ height: height - headHeight, overflowY: 'auto' }}>
+    <>
+      <style>{listViewScrollbarStyles}</style>
+      <div>
+        <div style={{ height: headHeight, display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingLeft: '4px', paddingRight: '52px' }}>
+          <Text strong style={{ fontSize: '13px' }}>
+            {i18n('fieldsList')}
+          </Text>
+          {!isBulkUpdateFieldNamesMode && !isCreatingGroup && !isRenamingGroup && selectedFieldIds.length >= 2 && (
+            <Button
+              size="small"
+              type="primary"
+              icon={<FolderPlus size={14} />}
+              onClick={handleCreateGroupClick}
+              style={{ whiteSpace: 'nowrap' }}
+              title={i18n('createGroup')}
+            >
+              {i18n('createGroup')}
+            </Button>
+          )}
+        </div>
+        <Divider style={{ marginTop: token.marginXS, marginBottom: token.marginXS }} />
+        <div className="list-view-scrollable" style={{ height: height - headHeight, overflowY: 'auto' }}>
         {isBulkUpdateFieldNamesMode ? (
           <TextArea
             wrap="off"
@@ -487,8 +505,9 @@ const ListViewWithGroups = (props: ListViewWithGroupsProps) => {
             </Button>
           )}
         </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
