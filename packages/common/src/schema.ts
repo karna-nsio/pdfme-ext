@@ -121,6 +121,14 @@ export const ColorType = z.enum(['rgb', 'cmyk']).optional();
 
 export const Size = z.object({ height: z.number(), width: z.number() });
 
+// Condition for field/group visibility - MUST be defined before Schema
+export const GroupCondition = z.object({
+  enabled: z.boolean(),                                                    // Is condition active?
+  variable: z.string(),                                                    // Variable name (e.g., "resultType")
+  operator: z.enum(['==', '!=', '>', '<', '>=', '<=', 'in', 'contains']), // Comparison operator
+  value: z.union([z.string(), z.number(), z.array(z.string())]),          // Value to compare against
+});
+
 export const Schema = z
   .object({
     name: z.string(),
@@ -134,6 +142,7 @@ export const Schema = z
     readOnly: z.boolean().optional(),
     required: z.boolean().optional(),
     hide: z.boolean().optional(),
+    condition: GroupCondition.optional(),  // 🆕 Field-level conditional visibility
     __bodyRange: z.object({ start: z.number(), end: z.number().optional() }).optional(),
     __isSplit: z.boolean().optional(),
   })
@@ -159,14 +168,6 @@ export const BasePdf = z.union([CustomPdf, BlankPdf]);
 // Legacy keyed structure for BC - we convert to SchemaPageArray on import
 export const LegacySchemaPageArray = z.array(z.record(Schema));
 export const SchemaPageArray = z.array(z.array(Schema));
-
-// Condition for group visibility
-export const GroupCondition = z.object({
-  enabled: z.boolean(),                                                    // Is condition active?
-  variable: z.string(),                                                    // Variable name (e.g., "resultType")
-  operator: z.enum(['==', '!=', '>', '<', '>=', '<=', 'in', 'contains']), // Comparison operator
-  value: z.union([z.string(), z.number(), z.array(z.string())]),          // Value to compare against
-});
 
 // Field Group for organizing multiple fields together
 export const FieldGroup = z.object({

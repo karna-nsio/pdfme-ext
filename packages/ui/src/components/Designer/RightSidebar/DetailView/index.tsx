@@ -16,6 +16,7 @@ import { theme, Typography, Button, Divider } from 'antd';
 import AlignWidget from './AlignWidget.js';
 import WidgetRenderer from './WidgetRenderer.js';
 import ButtonGroupWidget from './ButtonGroupWidget.js';
+import FieldConditionEditor from './FieldConditionEditor.js';
 import { InternalNamePath, ValidateErrorEntity } from 'rc-field-form/es/interface.js';
 
 // Import FormRender as a default import
@@ -63,6 +64,25 @@ const DetailView = (props: DetailViewProps) => {
         <Divider style={{ marginTop: token.marginXS, marginBottom: token.marginXS }} />
       ),
       ButtonGroup: (p) => <ButtonGroupWidget {...p} {...props} options={options} />,
+      // 🆕 Field condition editor widget
+      FieldConditionWidget: (p) => {
+        const currentCondition = p.value as any;
+        return (
+          <FieldConditionEditor
+            fieldName={activeSchema.name}
+            condition={currentCondition}
+            onChange={(newCondition) => {
+              // Update the schema condition
+              // Use undefined instead of null to properly remove the property
+              changeSchemas([{
+                key: 'condition',
+                value: newCondition === undefined ? undefined : newCondition,
+                schemaId: activeSchema.id
+              }]);
+            }}
+          />
+        );
+      },
     };
     for (const plugin of pluginsRegistry.values()) {
       const widgets = plugin.propPanel.widgets || {};
@@ -247,6 +267,13 @@ const DetailView = (props: DetailViewProps) => {
         span: 8,
       },
       '-': { type: 'void', widget: 'Divider' },
+      // 🆕 Field condition widget (displayed after divider, before position)
+      condition: {
+        type: 'object',
+        widget: 'FieldConditionWidget',
+        span: 24,
+      },
+      '--': { type: 'void', widget: 'Divider' },
       align: { title: typedI18n('align'), type: 'void', widget: 'AlignWidget' },
       position: {
         type: 'object',

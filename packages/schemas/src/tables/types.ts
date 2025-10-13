@@ -35,6 +35,16 @@ export interface TableSchema extends Schema {
   columnStyles: {
     alignment?: { [colIndex: number]: ALIGNMENT };
   };
+  
+  // 🆕 Column-level conditional visibility
+  columnConditions?: {
+    [colIndex: number]: {
+      enabled: boolean;
+      variable: string;
+      operator: '==' | '!=' | '>' | '<' | '>=' | '<=' | 'in' | 'contains';
+      value: string | number | string[];
+    };
+  };
 }
 
 export interface Styles {

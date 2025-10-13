@@ -100,5 +100,6 @@ export const propPanel: PropPanel<TableSchema> = {
       alternateBackgroundColor: '#f5f5f5',
     }),
     columnStyles: {},
+    columnConditions: {},  // 🆕 Empty column conditions by default
   },
 };

@@ -22,7 +22,11 @@ import {
   getPagesScrollTopByIndex, 
   useMaxZoom,
   getConditionallyVisibleFieldIds,
-  isFieldInAnyGroup
+  isFieldInAnyGroup,
+  isFieldVisible,
+  filterTableColumns,
+  filterTableBody,
+  cleanTemplate
 } from '../helper.js';
 import { theme } from 'antd';
 
@@ -65,11 +69,14 @@ const Preview = ({
   const init = (template: Template) => {
     const options = { font };
     
+    // Clean template to remove null conditions (Zod expects undefined for optional properties)
+    const cleanedTemplate = cleanTemplate(template);
+    
     // CRITICAL: Store fieldGroups before getDynamicTemplate (it might not preserve them)
-    const originalFieldGroups = template.fieldGroups;
+    const originalFieldGroups = cleanedTemplate.fieldGroups;
     
     getDynamicTemplate({
-      template,
+      template: cleanedTemplate,
       input,
       options,
       _cache,
@@ -89,109 +96,85 @@ const Preview = ({
           dynamicTemplate.fieldGroups = originalFieldGroups;
         }
         
-        // EVALUATE GROUP CONDITIONS AND FILTER FIELDS
+        // EVALUATE FIELD & GROUP CONDITIONS AND FILTER FIELDS
         let filteredTemplate = dynamicTemplate;
         
-        console.log('[@pdfme/ui Preview] Starting condition evaluation...');
+        console.log('[@pdfme/ui Preview] Starting field & group condition evaluation...');
         console.log('  - Has fieldGroups:', !!dynamicTemplate.fieldGroups);
         console.log('  - fieldGroups count:', dynamicTemplate.fieldGroups?.length || 0);
         console.log('  - Has input data:', !!input);
         
-        if (dynamicTemplate.fieldGroups && dynamicTemplate.fieldGroups.length > 0 && input) {
-          console.log('[@pdfme/ui Preview] Evaluating group conditions...');
-          console.log('  - Input data:', input);
+        if (input) {
+          console.log('[@pdfme/ui Preview] Step 1: Processing table column conditions...');
           
-          // Log each group and its condition
-          dynamicTemplate.fieldGroups.forEach(group => {
-            console.log(`  - Group: ${group.name}`);
-            console.log(`    Fields: ${group.fieldIds.join(', ')}`);
-            if (group.condition && group.condition.enabled) {
-              console.log(`    Condition: ${group.condition.variable} ${group.condition.operator} ${group.condition.value}`);
-              console.log(`    Input value for ${group.condition.variable}:`, input[group.condition.variable]);
-            } else {
-              console.log(`    No condition or disabled`);
-            }
-          });
-          
-          // Get fields that should be visible based on conditions
-          const visibleFieldIds = getConditionallyVisibleFieldIds(
-            dynamicTemplate.fieldGroups,
-            input
-          );
-          
-          console.log('[@pdfme/ui Preview] Visible field IDs after evaluation:', visibleFieldIds);
-          
-          // Count fields before filtering
-          const totalFieldsBefore = dynamicTemplate.schemas.reduce((acc, page) => {
-            if (Array.isArray(page)) return acc + page.length;
-            if (page && typeof page === 'object') return acc + Object.keys(page).length;
-            return acc;
-          }, 0);
-          
-          // Filter schemas to only include visible fields
+          // 🆕 Step 1: Filter table columns based on column conditions
           filteredTemplate = {
             ...dynamicTemplate,
             schemas: dynamicTemplate.schemas.map((page) => {
-              // Handle both array and object schema formats
               if (Array.isArray(page)) {
-                return page.filter((schema: any) => {
-                  // DEBUG: Log schema details for array format
-                  console.log(`    🔍 ARRAY FORMAT - schema.id: "${schema.id}", schema.name: "${schema.name}"`);
-                  console.log(`       Checking against visibleFieldIds:`, visibleFieldIds);
-                  
-                  // If field is not in any group, always show it
-                  const isInGroup = isFieldInAnyGroup(schema.id, dynamicTemplate.fieldGroups || []);
-                  console.log(`       isInGroup: ${isInGroup}`);
-                  
-                  if (!isInGroup) {
-                    console.log(`    ✅ Field ${schema.id} (${schema.name}) - not in any group, showing`);
-                    return true;
+                return page.map((schema: any) => {
+                  // Handle table column filtering
+                  if (schema.type === 'table' && schema.columnConditions) {
+                    console.log(`  - Filtering table "${schema.name}" columns...`);
+                    
+                    const { visibleColumnIndices, filteredHead, filteredWidthPercentages } = 
+                      filterTableColumns(schema, input);
+                    
+                    console.log(`    Original columns: ${schema.head.length}`);
+                    console.log(`    Visible columns: ${visibleColumnIndices.length}`);
+                    console.log(`    Filtered head:`, filteredHead);
+                    
+                    // Parse body content
+                    let body: string[][] = [];
+                    try {
+                      body = JSON.parse(schema.content || '[]');
+                    } catch (e) {
+                      console.error('Failed to parse table content:', e);
+                    }
+                    
+                    // Filter body rows
+                    const filteredBody = filterTableBody(body, visibleColumnIndices);
+                    
+                    // Return modified table schema
+                    return {
+                      ...schema,
+                      head: filteredHead,
+                      headWidthPercentages: filteredWidthPercentages,
+                      content: JSON.stringify(filteredBody),
+                      _originalHead: schema.head,
+                      _originalBody: body,
+                    };
                   }
                   
-                  // If field is in a group, check if it should be visible
-                  const shouldShow = visibleFieldIds.includes(schema.id);
-                  console.log(`       shouldShow: ${shouldShow}`);
-                  console.log(`    ${shouldShow ? '✅' : '❌'} Field ${schema.id} (${schema.name}) - ${shouldShow ? 'condition met' : 'condition not met'}`);
-                  return shouldShow;
+                  return schema;
                 });
               } else if (page && typeof page === 'object') {
-                // Object schema format
                 const filteredPage: any = {};
                 Object.keys(page).forEach((key) => {
                   const schema: any = page[key];
                   
-                  // DEBUG: Log all possible identifiers
-                  console.log(`    🔍 Checking field - key: "${key}", schema.id: "${schema.id}", schema.name: "${schema.name}"`);
-                  
-                  // Try multiple identifier strategies
-                  const possibleIds = [
-                    schema.id,      // UUID from designer
-                    key,            // Object key
-                    schema.name,    // Schema name
-                  ].filter(Boolean);
-                  
-                  console.log(`       Possible IDs: [${possibleIds.join(', ')}]`);
-                  console.log(`       Checking against visibleFieldIds:`, visibleFieldIds);
-                  
-                  // Check if ANY of the possible IDs match
-                  const isInGroup = possibleIds.some(id => {
-                    const result = isFieldInAnyGroup(id, dynamicTemplate.fieldGroups || []);
-                    if (result) console.log(`       ✅ Found in group using ID: ${id}`);
-                    return result;
-                  });
-                  
-                  const shouldShow = possibleIds.some(id => visibleFieldIds.includes(id));
-                  
-                  console.log(`       isInGroup: ${isInGroup}, shouldShow: ${shouldShow}`);
-                  
-                  if (!isInGroup) {
-                    console.log(`    ✅ Field ${schema.id || key} (${schema.name}) - not in any group, showing`);
-                    filteredPage[key] = schema;
-                  } else if (shouldShow) {
-                    console.log(`    ✅ Field ${schema.id || key} (${schema.name}) - condition met, showing`);
-                    filteredPage[key] = schema;
+                  // Handle table column filtering for object format
+                  if (schema.type === 'table' && schema.columnConditions) {
+                    const { visibleColumnIndices, filteredHead, filteredWidthPercentages } = 
+                      filterTableColumns(schema, input);
+                    
+                    let body: string[][] = [];
+                    try {
+                      body = JSON.parse(schema.content || '[]');
+                    } catch (e) {
+                      console.error('Failed to parse table content:', e);
+                    }
+                    
+                    const filteredBody = filterTableBody(body, visibleColumnIndices);
+                    
+                    filteredPage[key] = {
+                      ...schema,
+                      head: filteredHead,
+                      headWidthPercentages: filteredWidthPercentages,
+                      content: JSON.stringify(filteredBody),
+                    };
                   } else {
-                    console.log(`    ❌ Field ${schema.id || key} (${schema.name}) - condition not met, HIDING`);
+                    filteredPage[key] = schema;
                   }
                 });
                 return filteredPage;
@@ -200,16 +183,85 @@ const Preview = ({
             }),
           };
           
-          // Count fields after filtering
+          console.log('[@pdfme/ui Preview] Step 2: Evaluating field & group conditions...');
+          
+          // Log groups if they exist
+          const fieldGroups = filteredTemplate.fieldGroups || [];
+          if (fieldGroups.length > 0) {
+            console.log('  - Group conditions:');
+            fieldGroups.forEach(group => {
+              console.log(`    Group: ${group.name} (${group.fieldIds.length} fields)`);
+              if (group.condition && group.condition.enabled) {
+                console.log(`      Condition: ${group.condition.variable} ${group.condition.operator} ${group.condition.value}`);
+              } else {
+                console.log(`      No condition`);
+              }
+            });
+          }
+          
+          // 🆕 Step 3: Filter fields using new field-level + group-level visibility logic
+          filteredTemplate = {
+            ...filteredTemplate,
+            schemas: filteredTemplate.schemas.map((page) => {
+              // Handle both array and object schema formats
+              if (Array.isArray(page)) {
+                return page.filter((schema: any) => {
+                  const visible = isFieldVisible(schema, fieldGroups, input);
+                  
+                  const conditionInfo = schema.condition?.enabled 
+                    ? `field condition (${schema.condition.variable} ${schema.condition.operator} ${schema.condition.value})`
+                    : isFieldInAnyGroup(schema.id, fieldGroups)
+                    ? 'group condition'
+                    : 'no condition';
+                  
+                  console.log(
+                    `  ${visible ? '✅' : '❌'} Field ${schema.name} (${schema.type}) - ${conditionInfo}`
+                  );
+                  
+                  return visible;
+                });
+              } else if (page && typeof page === 'object') {
+                // Object schema format
+                const filteredPage: any = {};
+                Object.keys(page).forEach((key) => {
+                  const schema: any = page[key];
+                  
+                  // Use multiple possible IDs for matching
+                  const possibleIds = [schema.id, key, schema.name].filter(Boolean);
+                  const schemaWithId = { ...schema, id: possibleIds[0] };
+                  
+                  const visible = isFieldVisible(schemaWithId, fieldGroups, input);
+                  
+                  if (visible) {
+                    filteredPage[key] = schema;
+                  }
+                  
+                  const conditionInfo = schema.condition?.enabled 
+                    ? 'field condition'
+                    : possibleIds.some(id => isFieldInAnyGroup(id, fieldGroups))
+                    ? 'group condition'
+                    : 'no condition';
+                  
+                  console.log(
+                    `  ${visible ? '✅' : '❌'} Field ${schema.name} (${schema.type}) - ${conditionInfo}`
+                  );
+                });
+                return filteredPage;
+              }
+              return page;
+            }),
+          };
+          
+          // Count and log results
           const totalFieldsAfter = filteredTemplate.schemas.reduce((acc, page) => {
             if (Array.isArray(page)) return acc + page.length;
             if (page && typeof page === 'object') return acc + Object.keys(page).length;
             return acc;
           }, 0);
           
-          console.log(`[@pdfme/ui Preview] Filtered: ${totalFieldsBefore} fields → ${totalFieldsAfter} fields (${totalFieldsAfter - totalFieldsBefore} change)`);
+          console.log(`[@pdfme/ui Preview] ✅ Filtering complete - ${totalFieldsAfter} fields visible`);
         } else {
-          console.log('[@pdfme/ui Preview] No filtering needed - no conditions or no input');
+          console.log('[@pdfme/ui Preview] No filtering needed - no input data');
         }
         
         const sl = await template2SchemasList(filteredTemplate);

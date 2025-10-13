@@ -5,6 +5,7 @@ import { PreviewUI } from './class.js';
 import { DESTROYED_ERR_MSG } from './constants.js';
 import Preview from './components/Preview.js';
 import AppContextProvider from './components/AppContextProvider.js';
+import { cleanTemplate } from './helper.js';
 
 class Viewer extends PreviewUI {
   constructor(props: PreviewProps) {
@@ -16,6 +17,8 @@ class Viewer extends PreviewUI {
 
   protected render() {
     if (!this.domContainer) throw Error(DESTROYED_ERR_MSG);
+    // Clean template to remove null conditions before rendering
+    const cleanedTemplate = cleanTemplate(this.template);
     ReactDOM.render(
       <AppContextProvider
         lang={this.getLang()}
@@ -23,7 +26,7 @@ class Viewer extends PreviewUI {
         plugins={this.getPluginsRegistry()}
         options={this.getOptions()}
       >
-        <Preview template={this.template} size={this.size} inputs={this.inputs} />
+        <Preview template={cleanedTemplate} size={this.size} inputs={this.inputs} />
       </AppContextProvider>,
       this.domContainer,
     );

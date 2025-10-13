@@ -813,3 +813,173 @@ export const isFieldConditionallyVisible = (
   
   return evaluateGroupCondition(group.condition, data);
 };
+
+// ==========================
+// Field-Level Conditions (NEW)
+// ==========================
+
+/**
+ * Evaluate if a field's own condition matches the given data
+ * Returns: 'show' | 'hide' | 'no-condition'
+ */
+export const evaluateFieldCondition = (
+  schema: SchemaForUI,
+  data: Record<string, any>,
+): 'show' | 'hide' | 'no-condition' => {
+  // Check if field has its own condition
+  // Handle both undefined and null for backward compatibility
+  if (!schema.condition || schema.condition === null || !schema.condition.enabled) {
+    return 'no-condition'; // No field-level condition
+  }
+  
+  // Evaluate the field's condition
+  const conditionMet = evaluateGroupCondition(schema.condition, data);
+  return conditionMet ? 'show' : 'hide';
+};
+
+/**
+ * Determine if a field should be visible considering:
+ * Priority 1: Field-level condition (highest priority)
+ * Priority 2: Group-level condition (if field is in a group)
+ * Priority 3: Always show (default)
+ */
+export const isFieldVisible = (
+  schema: SchemaForUI,
+  fieldGroups: FieldGroup[],
+  data: Record<string, any>,
+): boolean => {
+  // Priority 1: Field-level condition
+  const fieldConditionResult = evaluateFieldCondition(schema, data);
+  if (fieldConditionResult === 'show') return true;
+  if (fieldConditionResult === 'hide') return false;
+  // If 'no-condition', continue to check group condition
+  
+  // Priority 2: Group-level condition
+  const group = getGroupForField(schema.id, fieldGroups);
+  if (group) {
+    if (!group.condition || !group.condition.enabled) {
+      return true; // In group but no group condition = always show
+    }
+    return evaluateGroupCondition(group.condition, data);
+  }
+  
+  // Priority 3: Default - always show
+  return true;
+};
+
+/**
+ * Get all visible field IDs considering both field and group conditions
+ */
+export const getAllVisibleFieldIds = (
+  schemas: SchemaForUI[],
+  fieldGroups: FieldGroup[],
+  data: Record<string, any>,
+): string[] => {
+  return schemas
+    .filter((schema) => isFieldVisible(schema, fieldGroups, data))
+    .map((schema) => schema.id);
+};
+
+// ==========================
+// Table Column Conditions (NEW)
+// ==========================
+
+/**
+ * Filter table columns based on column conditions
+ */
+export const filterTableColumns = (
+  tableSchema: any, // TableSchema type
+  data: Record<string, any>,
+): {
+  visibleColumnIndices: number[];
+  filteredHead: string[];
+  filteredWidthPercentages: number[];
+} => {
+  const columnConditions = tableSchema.columnConditions || {};
+  const head = tableSchema.head || [];
+  const widthPercentages = tableSchema.headWidthPercentages || [];
+  
+  const visibleColumnIndices: number[] = [];
+  const filteredHead: string[] = [];
+  const filteredWidthPercentages: number[] = [];
+  
+  head.forEach((columnName: string, index: number) => {
+    const condition = columnConditions[index];
+    
+    // Check if column should be visible
+    let visible = true;
+    if (condition && condition.enabled) {
+      visible = evaluateGroupCondition(condition, data);
+    }
+    
+    if (visible) {
+      visibleColumnIndices.push(index);
+      filteredHead.push(columnName);
+      filteredWidthPercentages.push(widthPercentages[index] || 0);
+    }
+  });
+  
+  // Normalize width percentages to total 100%
+  const totalWidth = filteredWidthPercentages.reduce((sum: number, w: number) => sum + w, 0);
+  if (totalWidth > 0 && totalWidth !== 100) {
+    filteredWidthPercentages.forEach((w: number, i: number) => {
+      filteredWidthPercentages[i] = (w / totalWidth) * 100;
+    });
+  }
+  
+  return {
+    visibleColumnIndices,
+    filteredHead,
+    filteredWidthPercentages,
+  };
+};
+
+/**
+ * Filter table body rows to only include visible columns
+ */
+export const filterTableBody = (
+  body: string[][],
+  visibleColumnIndices: number[],
+): string[][] => {
+  return body.map((row: string[]) => 
+    visibleColumnIndices.map((colIndex: number) => row[colIndex] || '')
+  );
+};
+
+/**
+ * Clean template to remove null condition values
+ * Zod expects undefined for optional properties, not null
+ */
+export const cleanTemplate = (template: any): any => {
+  if (!template || !template.schemas) return template;
+  
+  const cleanedTemplate = {
+    ...template,
+    schemas: template.schemas.map((page: any) => {
+      if (Array.isArray(page)) {
+        return page.map((schema: any) => {
+          const cleaned = { ...schema };
+          // Remove null condition properties
+          if (cleaned.condition === null) {
+            delete cleaned.condition;
+          }
+          return cleaned;
+        });
+      } else if (page && typeof page === 'object') {
+        const cleanedPage: any = {};
+        Object.keys(page).forEach((key) => {
+          const schema = { ...page[key] };
+          // Remove null condition properties
+          if (schema.condition === null) {
+            delete schema.condition;
+          }
+          cleanedPage[key] = schema;
+        });
+        return cleanedPage;
+      }
+      return page;
+    }),
+  };
+  
+  return cleanedTemplate;
+};
