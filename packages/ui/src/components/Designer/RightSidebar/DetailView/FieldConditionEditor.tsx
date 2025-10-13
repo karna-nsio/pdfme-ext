@@ -40,8 +40,16 @@ export const FieldConditionEditor: React.FC<FieldConditionEditorProps> = ({
       : '',
   );
 
-  // Update state when condition prop changes
+  // Track if we're currently in the middle of user input
+  const isUserInputRef = React.useRef(false);
+
+  // Update state when condition prop changes (only if not during user input)
   useEffect(() => {
+    // Skip updates during active user input to prevent losing focus
+    if (isUserInputRef.current) {
+      return;
+    }
+
     if (condition) {
       setEnabled(condition.enabled ?? false);
       setVariable(condition.variable ?? '');
@@ -67,6 +75,9 @@ export const FieldConditionEditor: React.FC<FieldConditionEditorProps> = ({
     operator?: GroupCondition['operator'];
     value?: string;
   }) => {
+    // Mark that we're in user input mode
+    isUserInputRef.current = true;
+
     const newEnabled = updates.enabled !== undefined ? updates.enabled : enabled;
     const newVariable = updates.variable !== undefined ? updates.variable : variable;
     const newOperator = updates.operator !== undefined ? updates.operator : operator;
@@ -81,18 +92,26 @@ export const FieldConditionEditor: React.FC<FieldConditionEditorProps> = ({
     // Don't save if condition is disabled - use undefined to remove the property
     if (!newEnabled) {
       onChange(undefined);
+      // Clear user input flag after onChange completes
+      setTimeout(() => {
+        isUserInputRef.current = false;
+      }, 0);
       return;
     }
 
     // Don't save incomplete conditions
     const trimmedValue = String(newValue).trim();
     if (!newVariable || !trimmedValue) {
+      // Clear user input flag even if not saving
+      setTimeout(() => {
+        isUserInputRef.current = false;
+      }, 0);
       return;
     }
 
     // Parse value based on operator
     let parsedValue: string | number | string[];
-    
+
     if (newOperator === 'in') {
       parsedValue = trimmedValue.split(',').map((v) => v.trim());
     } else if (['>', '<', '>=', '<='].includes(newOperator)) {
@@ -109,6 +128,11 @@ export const FieldConditionEditor: React.FC<FieldConditionEditorProps> = ({
     };
 
     onChange(finalCondition);
+
+    // Clear user input flag after onChange completes
+    setTimeout(() => {
+      isUserInputRef.current = false;
+    }, 0);
   };
 
   const getPreviewText = () => {

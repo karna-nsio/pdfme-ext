@@ -68,6 +68,8 @@ import {
 import { getDynamicTemplate } from './dynamicTemplate.js';
 import { replacePlaceholders } from './expression.js';
 import { pluginRegistry } from './pluginRegistry.js';
+// HTML template export/import removed
+// Use generateHTML from @pdfme/generator instead
 
 export {
   PDFME_VERSION,

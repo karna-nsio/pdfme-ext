@@ -8,6 +8,7 @@ import {
   checkTemplate,
   PDFME_VERSION,
 } from '@pdfme/common';
+import { generateHTML, type GenerateHTMLProps } from '@pdfme/generator';
 import { BaseUIClass } from './class.js';
 import { DESTROYED_ERR_MSG } from './constants.js';
 import DesignerComponent from './components/Designer/index.js';
@@ -52,6 +53,51 @@ class Designer extends BaseUIClass {
     return this.pageCursor;
   }
 
+  /**
+   * Generate HTML report with data (renders like PDF)
+   * Requires input data and plugins
+   */
+  public async generateHTMLReport(
+    inputs: Record<string, any>[],
+    options?: { title?: string; filename?: string }
+  ): Promise<void> {
+    if (!this.domContainer) throw Error(DESTROYED_ERR_MSG);
+    
+    const { title, filename } = options || {};
+    
+    try {
+      const html = await generateHTML({
+        template: this.template,
+        inputs: inputs,
+        plugins: this.getPluginsRegistry().entries().reduce((acc, [, plugin]) => {
+          acc[plugin.propPanel.defaultSchema.type] = plugin;
+          return acc;
+        }, {} as any),
+        options: {
+          title: title || 'Report',
+          includeStyles: true,
+          printFriendly: true
+        }
+      });
+      
+      const blob = new Blob([html], { type: 'text/html; charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename || `report-${new Date().toISOString().split('T')[0]}.html`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      
+      console.log('✅ HTML report generated and downloaded');
+    } catch (error: any) {
+      console.error('❌ Failed to generate HTML report:', error);
+      throw error;
+    }
+  }
+
+
   protected render() {
     if (!this.domContainer) throw Error(DESTROYED_ERR_MSG);
     ReactDOM.render(
@@ -79,6 +125,55 @@ class Designer extends BaseUIClass {
           }}
           onPageCursorChange={(newPageCursor: number) => {
             this.pageCursor = newPageCursor;
+          }}
+          onExportHTML={async () => {
+            // Generate sample data from template fields
+            const template = this.getTemplate();
+            const sampleData: Record<string, any> = {};
+            
+            // Extract field names from first page
+            const firstPageSchemas = template.schemas[0] || [];
+            const schemas = Array.isArray(firstPageSchemas) ? firstPageSchemas : Object.values(firstPageSchemas);
+            
+            schemas.forEach((schema: any) => {
+              // Provide sample values based on field type
+              if (schema.type === 'text' || schema.type === 'multiVariableText') {
+                sampleData[schema.name] = schema.content || `Sample ${schema.name}`;
+              } else if (schema.type === 'table') {
+                sampleData[schema.name] = schema.content || '[]';
+              } else if (schema.type === 'checkbox') {
+                sampleData[schema.name] = 'false';
+              } else if (schema.type === 'image') {
+                sampleData[schema.name] = schema.content || '';
+              } else {
+                sampleData[schema.name] = schema.content || '';
+              }
+            });
+            
+            console.log('📋 Generating HTML with sample data:', sampleData);
+            
+            try {
+              await this.generateHTMLReport([sampleData], {
+                title: 'Sample Report',
+                filename: `report-${new Date().toISOString().split('T')[0]}.html`
+              });
+            } catch (error: any) {
+              console.error('Failed to generate HTML:', error);
+              alert('Failed to generate HTML: ' + error.message);
+            }
+          }}
+          onExportJSON={() => {
+            const template = this.getTemplate();
+            const json = JSON.stringify(template, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `template-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
           }}
           size={this.size}
         />

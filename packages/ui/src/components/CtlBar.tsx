@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Size } from '@pdfme/common';
 // Import icons from lucide-react
 // Note: In tests, these will be mocked by the mock file in __mocks__/lucide-react.js
-import { Plus, Minus, ChevronLeft, ChevronRight, Ellipsis } from 'lucide-react';
+import { Plus, Minus, ChevronLeft, ChevronRight, Ellipsis, FileCode, Download } from 'lucide-react';
 
 import type { MenuProps } from 'antd';
 import { theme, Typography, Button, Dropdown } from 'antd';
@@ -95,6 +95,8 @@ type CtlBarProps = {
   setZoomLevel: (zoom: number) => void;
   addPageAfter?: () => void;
   removePage?: () => void;
+  onExportHTML?: () => void;
+  onExportJSON?: () => void;
 };
 
 const CtlBar = (props: CtlBarProps) => {
@@ -110,9 +112,42 @@ const CtlBar = (props: CtlBarProps) => {
     setZoomLevel,
     addPageAfter,
     removePage,
+    onExportHTML,
+    onExportJSON,
   } = props;
 
   const contextMenuItems: MenuProps['items'] = [];
+  
+  // Export options
+  if (onExportHTML || onExportJSON) {
+    if (onExportHTML) {
+      contextMenuItems.push({
+        key: 'export-html',
+        label: (
+          <div onClick={onExportHTML} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <FileCode size={14} />
+            <span>Export HTML</span>
+          </div>
+        ),
+      });
+    }
+    if (onExportJSON) {
+      contextMenuItems.push({
+        key: 'export-json',
+        label: (
+          <div onClick={onExportJSON} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Download size={14} />
+            <span>Export JSON</span>
+          </div>
+        ),
+      });
+    }
+    if ((onExportHTML || onExportJSON) && (addPageAfter || removePage)) {
+      contextMenuItems.push({ type: 'divider' });
+    }
+  }
+  
+  // Page management options
   if (addPageAfter) {
     contextMenuItems.push({
       key: '1',
