@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Input, Select, Checkbox, Typography } from 'antd';
+import { Input, Select, Checkbox, Typography, Button } from 'antd';
 import { I18nContext } from '../../../../contexts.js';
 import type { GroupCondition } from '@pdfme/common';
 
@@ -9,6 +9,7 @@ interface FieldConditionEditorProps {
   fieldName: string;
   condition?: GroupCondition;
   onChange: (condition: GroupCondition | undefined) => void;
+  onCancel?: () => void;
 }
 
 const OPERATORS = [
@@ -26,6 +27,7 @@ export const FieldConditionEditor: React.FC<FieldConditionEditorProps> = ({
   fieldName,
   condition,
   onChange,
+  onCancel,
 }) => {
   const i18n = useContext(I18nContext);
   
@@ -40,16 +42,8 @@ export const FieldConditionEditor: React.FC<FieldConditionEditorProps> = ({
       : '',
   );
 
-  // Track if we're currently in the middle of user input
-  const isUserInputRef = React.useRef(false);
-
-  // Update state when condition prop changes (only if not during user input)
+  // Update state when condition prop changes
   useEffect(() => {
-    // Skip updates during active user input to prevent losing focus
-    if (isUserInputRef.current) {
-      return;
-    }
-
     if (condition) {
       setEnabled(condition.enabled ?? false);
       setVariable(condition.variable ?? '');
@@ -69,70 +63,68 @@ export const FieldConditionEditor: React.FC<FieldConditionEditorProps> = ({
     }
   }, [condition]);
 
-  const handleChange = (updates: {
-    enabled?: boolean;
-    variable?: string;
-    operator?: GroupCondition['operator'];
-    value?: string;
-  }) => {
-    // Mark that we're in user input mode
-    isUserInputRef.current = true;
-
-    const newEnabled = updates.enabled !== undefined ? updates.enabled : enabled;
-    const newVariable = updates.variable !== undefined ? updates.variable : variable;
-    const newOperator = updates.operator !== undefined ? updates.operator : operator;
-    const newValue = updates.value !== undefined ? updates.value : value;
-
-    // Update local state
-    if (updates.enabled !== undefined) setEnabled(newEnabled);
-    if (updates.variable !== undefined) setVariable(newVariable);
-    if (updates.operator !== undefined) setOperator(updates.operator);
-    if (updates.value !== undefined) setValue(newValue);
-
-    // Don't save if condition is disabled - use undefined to remove the property
-    if (!newEnabled) {
-      onChange(undefined);
-      // Clear user input flag after onChange completes
-      setTimeout(() => {
-        isUserInputRef.current = false;
-      }, 0);
+  // Manual save (like GroupConditionEditor with Save/Cancel buttons)
+  const handleSave = () => {
+    if (!enabled) {
+      onChange(undefined); // Remove condition
       return;
     }
 
-    // Don't save incomplete conditions
-    const trimmedValue = String(newValue).trim();
-    if (!newVariable || !trimmedValue) {
-      // Clear user input flag even if not saving
-      setTimeout(() => {
-        isUserInputRef.current = false;
-      }, 0);
-      return;
+    const trimmedValue = value.trim();
+    if (!variable || !trimmedValue) {
+      return; // Don't save incomplete conditions
     }
 
     // Parse value based on operator
     let parsedValue: string | number | string[];
-
-    if (newOperator === 'in') {
+    
+    if (operator === 'in') {
+      // For 'in' operator, split by comma
       parsedValue = trimmedValue.split(',').map((v) => v.trim());
-    } else if (['>', '<', '>=', '<='].includes(newOperator)) {
+    } else if (['>', '<', '>=', '<='].includes(operator)) {
+      // For numeric operators, try to parse as number
       parsedValue = !isNaN(Number(trimmedValue)) ? Number(trimmedValue) : trimmedValue;
     } else {
       parsedValue = trimmedValue;
     }
 
-    const finalCondition: GroupCondition = {
-      enabled: true,
-      variable: newVariable,
-      operator: newOperator as GroupCondition['operator'],
+    const newCondition: GroupCondition = {
+      enabled,
+      variable,
+      operator: operator as GroupCondition['operator'],
       value: parsedValue,
     };
 
-    onChange(finalCondition);
+    onChange(newCondition);
+  };
 
-    // Clear user input flag after onChange completes
-    setTimeout(() => {
-      isUserInputRef.current = false;
-    }, 0);
+  // Handle individual field changes (no auto-save except for enable checkbox)
+  const handleEnabledChange = (checked: boolean) => {
+    setEnabled(checked);
+    
+    // If disabling the condition, save immediately
+    if (!checked) {
+      onChange(undefined); // Remove condition immediately
+    }
+  };
+
+  const handleVariableChange = (newVariable: string) => {
+    setVariable(newVariable);
+  };
+
+  const handleOperatorChange = (newOperator: GroupCondition['operator']) => {
+    setOperator(newOperator);
+  };
+
+  const handleValueChange = (newValue: string) => {
+    setValue(newValue);
+  };
+
+  // Cancel changes
+  const handleCancel = () => {
+    if (onCancel) {
+      onCancel();
+    }
   };
 
   const getPreviewText = () => {
@@ -149,9 +141,7 @@ export const FieldConditionEditor: React.FC<FieldConditionEditorProps> = ({
     <div style={{ marginBottom: '16px' }}>
       <Checkbox
         checked={enabled}
-        onChange={(e) => {
-          handleChange({ enabled: e.target.checked });
-        }}
+        onChange={(e) => handleEnabledChange(e.target.checked)}
         style={{ marginBottom: '16px' }}
       >
         <span style={{ fontSize: '12px', fontWeight: 500 }}>
@@ -167,9 +157,7 @@ export const FieldConditionEditor: React.FC<FieldConditionEditorProps> = ({
             </label>
             <Input
               value={variable}
-              onChange={(e) => {
-                handleChange({ variable: e.target.value });
-              }}
+              onChange={(e) => handleVariableChange(e.target.value)}
               placeholder="e.g., resultType"
               style={{ width: '100%', fontSize: '13px' }}
             />
@@ -181,9 +169,7 @@ export const FieldConditionEditor: React.FC<FieldConditionEditorProps> = ({
             </label>
             <Select
               value={operator}
-              onChange={(val: string) => {
-                handleChange({ operator: val as GroupCondition['operator'] });
-              }}
+              onChange={(val: string) => handleOperatorChange(val as GroupCondition['operator'])}
               options={OPERATORS}
               style={{ width: '100%' }}
             />
@@ -200,9 +186,7 @@ export const FieldConditionEditor: React.FC<FieldConditionEditorProps> = ({
             </label>
             <Input
               value={value}
-              onChange={(e) => {
-                handleChange({ value: e.target.value });
-              }}
+              onChange={(e) => handleValueChange(e.target.value)}
               placeholder={operator === 'in' ? 'positive, negative' : 'positive'}
               style={{ width: '100%', fontSize: '13px' }}
             />
@@ -223,6 +207,17 @@ export const FieldConditionEditor: React.FC<FieldConditionEditorProps> = ({
             <div style={{ fontSize: '11px', color: '#075985', fontFamily: 'monospace', wordBreak: 'break-word', lineHeight: '1.4' }}>
               {getPreviewText()}
             </div>
+          </div>
+
+          {/* Save/Cancel links (like group condition section) */}
+          <div style={{ marginTop: '16px' }}>
+            <Button size="small" type="text" onClick={handleSave}>
+              <u> {i18n('set')}</u>
+            </Button>
+            <span style={{ margin: '0 1rem' }}>/</span>
+            <Button size="small" type="text" onClick={handleCancel}>
+              <u> {i18n('cancel')}</u>
+            </Button>
           </div>
         </>
       )}

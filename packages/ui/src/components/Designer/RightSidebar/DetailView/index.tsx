@@ -67,18 +67,22 @@ const DetailView = (props: DetailViewProps) => {
       // 🆕 Field condition editor widget
       FieldConditionWidget: (p) => {
         const currentCondition = p.value as any;
+        
         return (
           <FieldConditionEditor
             fieldName={activeSchema.name}
             condition={currentCondition}
             onChange={(newCondition) => {
-              // Update the schema condition
-              // Use undefined instead of null to properly remove the property
+              // Update the schema condition when Save is clicked
               changeSchemas([{
                 key: 'condition',
                 value: newCondition === undefined ? undefined : newCondition,
                 schemaId: activeSchema.id
               }]);
+            }}
+            onCancel={() => {
+              // Cancel - do nothing, just let the component reset to original state
+              // The useEffect in FieldConditionEditor will handle resetting the form
             }}
           />
         );

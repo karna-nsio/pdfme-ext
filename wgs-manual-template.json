@@ -1,0 +1,393 @@
+{
+  "basePdf": {
+    "width": 210,
+    "height": 297,
+    "padding": [
+      10,
+      10,
+      10,
+      10
+    ]
+  },
+  "schemas": [
+    [
+      {
+        "id": "header-title",
+        "name": "reportTitle",
+        "type": "text",
+        "position": {
+          "x": 20,
+          "y": 15
+        },
+        "width": 170,
+        "height": 12,
+        "fontSize": 16,
+        "fontColor": "#1f2937",
+        "alignment": "center",
+        "content": "Whole Genome Sequencing Report"
+      },
+      {
+        "id": "header-subtitle",
+        "name": "reportSubtitle",
+        "type": "text",
+        "position": {
+          "x": 20,
+          "y": 30
+        },
+        "width": 170,
+        "height": 10,
+        "fontSize": 12,
+        "fontColor": "#6b7280",
+        "alignment": "center",
+        "content": "Rapid Trio Analysis"
+      },
+      {
+        "id": "patient-section-title",
+        "name": "patientSectionTitle",
+        "type": "text",
+        "position": {
+          "x": 20,
+          "y": 50
+        },
+        "width": 60,
+        "height": 10,
+        "fontSize": 14,
+        "fontColor": "#1f2937",
+        "content": "Patient Information"
+      },
+      {
+        "id": "patient-name-label",
+        "name": "patientNameLabel",
+        "type": "text",
+        "position": {
+          "x": 20,
+          "y": 65
+        },
+        "width": 25,
+        "height": 8,
+        "fontSize": 10,
+        "fontColor": "#374151",
+        "content": "Name:"
+      },
+      {
+        "id": "patient-name",
+        "name": "patientName",
+        "type": "text",
+        "position": {
+          "x": 50,
+          "y": 65
+        },
+        "width": 60,
+        "height": 8,
+        "fontSize": 10,
+        "fontColor": "#000000",
+        "content": "John Doe"
+      },
+      {
+        "id": "patient-id-label",
+        "name": "patientIdLabel",
+        "type": "text",
+        "position": {
+          "x": 20,
+          "y": 78
+        },
+        "width": 25,
+        "height": 8,
+        "fontSize": 10,
+        "fontColor": "#374151",
+        "content": "ID:"
+      },
+      {
+        "id": "patient-id",
+        "name": "patientId",
+        "type": "text",
+        "position": {
+          "x": 50,
+          "y": 78
+        },
+        "width": 60,
+        "height": 8,
+        "fontSize": 10,
+        "fontColor": "#000000",
+        "content": "WGS-1800"
+      },
+      {
+        "id": "dob-label",
+        "name": "dobLabel",
+        "type": "text",
+        "position": {
+          "x": 20,
+          "y": 91
+        },
+        "width": 25,
+        "height": 8,
+        "fontSize": 10,
+        "fontColor": "#374151",
+        "content": "DOB:"
+      },
+      {
+        "id": "dob",
+        "name": "dateOfBirth",
+        "type": "text",
+        "position": {
+          "x": 50,
+          "y": 91
+        },
+        "width": 60,
+        "height": 8,
+        "fontSize": 10,
+        "fontColor": "#000000",
+        "content": "01/15/1985"
+      },
+      {
+        "id": "test-section-title",
+        "name": "testSectionTitle",
+        "type": "text",
+        "position": {
+          "x": 120,
+          "y": 50
+        },
+        "width": 60,
+        "height": 10,
+        "fontSize": 14,
+        "fontColor": "#1f2937",
+        "content": "Test Information"
+      },
+      {
+        "id": "test-type-label",
+        "name": "testTypeLabel",
+        "type": "text",
+        "position": {
+          "x": 120,
+          "y": 65
+        },
+        "width": 25,
+        "height": 8,
+        "fontSize": 10,
+        "fontColor": "#374151",
+        "content": "Type:"
+      },
+      {
+        "id": "test-type",
+        "name": "testType",
+        "type": "text",
+        "position": {
+          "x": 150,
+          "y": 65
+        },
+        "width": 60,
+        "height": 8,
+        "fontSize": 10,
+        "fontColor": "#000000",
+        "content": "WGS Rapid Trio"
+      },
+      {
+        "id": "test-date-label",
+        "name": "testDateLabel",
+        "type": "text",
+        "position": {
+          "x": 120,
+          "y": 78
+        },
+        "width": 25,
+        "height": 8,
+        "fontSize": 10,
+        "fontColor": "#374151",
+        "content": "Date:"
+      },
+      {
+        "id": "test-date",
+        "name": "testDate",
+        "type": "text",
+        "position": {
+          "x": 150,
+          "y": 78
+        },
+        "width": 60,
+        "height": 8,
+        "fontSize": 10,
+        "fontColor": "#000000",
+        "content": "10/13/2025"
+      },
+      {
+        "id": "results-section-title",
+        "name": "resultsSectionTitle",
+        "type": "text",
+        "position": {
+          "x": 20,
+          "y": 115
+        },
+        "width": 60,
+        "height": 10,
+        "fontSize": 14,
+        "fontColor": "#1f2937",
+        "content": "Results"
+      },
+      {
+        "id": "result-status-label",
+        "name": "resultStatusLabel",
+        "type": "text",
+        "position": {
+          "x": 20,
+          "y": 130
+        },
+        "width": 25,
+        "height": 8,
+        "fontSize": 10,
+        "fontColor": "#374151",
+        "content": "Status:"
+      },
+      {
+        "id": "result-status",
+        "name": "resultStatus",
+        "type": "text",
+        "position": {
+          "x": 50,
+          "y": 130
+        },
+        "width": 60,
+        "height": 8,
+        "fontSize": 10,
+        "fontColor": "#dc2626",
+        "content": "POSITIVE"
+      },
+      {
+        "id": "phenotype-section-title",
+        "name": "phenotypeSectionTitle",
+        "type": "text",
+        "position": {
+          "x": 20,
+          "y": 150
+        },
+        "width": 80,
+        "height": 10,
+        "fontSize": 14,
+        "fontColor": "#1f2937",
+        "content": "Phenotype and Research Findings"
+      },
+      {
+        "id": "phenotype-description",
+        "name": "phenotypeDescription",
+        "type": "multiVariableText",
+        "position": {
+          "x": 20,
+          "y": 165
+        },
+        "width": 170,
+        "height": 40,
+        "fontSize": 10,
+        "fontColor": "#000000",
+        "lineHeight": 1.3,
+        "content": "This section contains detailed phenotype description and research findings. The analysis reveals significant genetic variants that may be associated with the patient's clinical presentation. Further investigation and correlation with clinical data is recommended."
+      },
+      {
+        "id": "accession-number-label",
+        "name": "accessionNumberLabel",
+        "type": "text",
+        "position": {
+          "x": 20,
+          "y": 220
+        },
+        "width": 30,
+        "height": 8,
+        "fontSize": 10,
+        "fontColor": "#374151",
+        "content": "Accession:"
+      },
+      {
+        "id": "accession-number",
+        "name": "accessionNumber",
+        "type": "text",
+        "position": {
+          "x": 55,
+          "y": 220
+        },
+        "width": 60,
+        "height": 8,
+        "fontSize": 10,
+        "fontColor": "#000000",
+        "content": "9755658"
+      },
+      {
+        "id": "report-date-label",
+        "name": "reportDateLabel",
+        "type": "text",
+        "position": {
+          "x": 120,
+          "y": 220
+        },
+        "width": 25,
+        "height": 8,
+        "fontSize": 10,
+        "fontColor": "#374151",
+        "content": "Report:"
+      },
+      {
+        "id": "report-date",
+        "name": "reportDate",
+        "type": "text",
+        "position": {
+          "x": 150,
+          "y": 220
+        },
+        "width": 60,
+        "height": 8,
+        "fontSize": 10,
+        "fontColor": "#000000",
+        "content": "10/13/2025"
+      }
+    ]
+  ],
+  "fieldGroups": [
+    {
+      "id": "patient-info-group",
+      "name": "Patient Information",
+      "fieldIds": [
+        "patient-name",
+        "patient-id",
+        "dob"
+      ],
+      "collapsed": false,
+      "hide": false
+    },
+    {
+      "id": "test-info-group",
+      "name": "Test Information",
+      "fieldIds": [
+        "test-type",
+        "test-date"
+      ],
+      "collapsed": false,
+      "hide": false
+    },
+    {
+      "id": "results-group",
+      "name": "Results",
+      "fieldIds": [
+        "result-status"
+      ],
+      "collapsed": false,
+      "hide": false
+    },
+    {
+      "id": "metadata-group",
+      "name": "Report Metadata",
+      "fieldIds": [
+        "accession-number",
+        "report-date"
+      ],
+      "collapsed": false,
+      "hide": false
+    }
+  ],
+  "pdfmeVersion": "x.x.x",
+  "metadata": {
+    "name": "WGS Report Template",
+    "description": "Whole Genome Sequencing Report Template - Manual Layout",
+    "version": "1.0.0",
+    "createdBy": "PDFMe Template Generator",
+    "createdAt": "2025-10-14T05:28:37.072Z",
+    "sourcePdf": "WGS_1800_POSITIVE_Phenotype and Research findings9755658 (1) 3.pdf",
+    "notes": "Adjust field positions to match your PDF layout"
+  }
+}

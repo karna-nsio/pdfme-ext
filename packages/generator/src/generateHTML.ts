@@ -189,11 +189,47 @@ function renderTextField(schema: any, value: string): string {
   const fontSize = schema.fontSize || 12;
   const fontColor = schema.fontColor || '#000000';
   const alignment = schema.alignment || 'left';
+  const verticalAlignment = schema.verticalAlignment || 'top';
   const fontName = schema.fontName || 'Arial';
   const lineHeight = schema.lineHeight || 1.2;
   const characterSpacing = schema.characterSpacing || 0;
   const opacity = schema.opacity !== undefined ? schema.opacity : 1;
   const rotate = schema.rotate || 0;
+  
+  // Background color support
+  const backgroundColor = schema.backgroundColor || 'transparent';
+  
+  // Border support
+  const borderColor = schema.borderColor || 'transparent';
+  const borderWidth = schema.borderWidth || 0;
+  
+  // Padding support
+  const padding = schema.padding || { top: 0, right: 0, bottom: 0, left: 0 };
+  const paddingStyle = typeof padding === 'object' 
+    ? `${padding.top || 0}pt ${padding.right || 0}pt ${padding.bottom || 0}pt ${padding.left || 0}pt`
+    : `${padding}pt`;
+  
+  // Vertical alignment mapping
+  const alignItemsMap: Record<string, string> = {
+    top: 'flex-start',
+    middle: 'center',
+    bottom: 'flex-end'
+  };
+  const alignItems = alignItemsMap[verticalAlignment] || 'flex-start';
+  
+  // Dynamic word wrapping - match PDF behavior
+  // If text contains actual line breaks, preserve them
+  // Otherwise, allow natural word wrapping within the width constraint
+  const htmlValue = escapeHTML(value).replace(/\n/g, '<br>');
+  
+  // Use table-cell for reliable vertical alignment that works in all browsers
+  // This avoids flexbox issues with word-wrap in Chrome
+  const verticalAlignMap: Record<string, string> = {
+    top: 'top',
+    middle: 'middle',
+    bottom: 'bottom'
+  };
+  const verticalAlignValue = verticalAlignMap[verticalAlignment] || 'top';
   
   return `<div style="
     position: absolute;
@@ -203,17 +239,27 @@ function renderTextField(schema: any, value: string): string {
     height: ${schema.height}mm;
     font-size: ${fontSize}pt;
     color: ${fontColor};
+    background-color: ${backgroundColor};
     text-align: ${alignment};
     font-family: ${fontName}, Arial, sans-serif;
     line-height: ${lineHeight};
     letter-spacing: ${characterSpacing}pt;
     opacity: ${opacity};
     transform: rotate(${rotate}deg);
+    border: ${borderWidth}mm solid ${borderColor};
+    padding: ${paddingStyle};
     overflow: hidden;
-    display: flex;
-    align-items: center;
     box-sizing: border-box;
-  ">${escapeHTML(value)}</div>`;
+    display: table;
+  "><div style="
+    display: table-cell;
+    vertical-align: ${verticalAlignValue};
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    width: 100%;
+    height: ${schema.height}mm;
+  ">${htmlValue}</div></div>`;
 }
 
 /**
@@ -223,12 +269,36 @@ function renderMultiVariableTextField(schema: any, value: string): string {
   const fontSize = schema.fontSize || 12;
   const fontColor = schema.fontColor || '#000000';
   const alignment = schema.alignment || 'left';
+  const verticalAlignment = schema.verticalAlignment || 'top';
   const fontName = schema.fontName || 'Arial';
   const lineHeight = schema.lineHeight || 1.4;
+  const characterSpacing = schema.characterSpacing || 0;
   const opacity = schema.opacity !== undefined ? schema.opacity : 1;
+  const rotate = schema.rotate || 0;
+  
+  // Background color support
+  const backgroundColor = schema.backgroundColor || 'transparent';
+  
+  // Border support
+  const borderColor = schema.borderColor || 'transparent';
+  const borderWidth = schema.borderWidth || 0;
+  
+  // Padding support
+  const padding = schema.padding || { top: 0, right: 0, bottom: 0, left: 0 };
+  const paddingStyle = typeof padding === 'object' 
+    ? `${padding.top || 0}pt ${padding.right || 0}pt ${padding.bottom || 0}pt ${padding.left || 0}pt`
+    : `${padding}pt`;
   
   // Replace newlines with <br> for multi-line text
   const htmlValue = escapeHTML(value).replace(/\n/g, '<br>');
+  
+  // Vertical alignment for multi-line text using table-cell
+  const verticalAlignMap: Record<string, string> = {
+    top: 'top',
+    middle: 'middle',
+    bottom: 'bottom'
+  };
+  const verticalAlignValue = verticalAlignMap[verticalAlignment] || 'top';
   
   return `<div style="
     position: absolute;
@@ -238,15 +308,27 @@ function renderMultiVariableTextField(schema: any, value: string): string {
     height: ${schema.height}mm;
     font-size: ${fontSize}pt;
     color: ${fontColor};
+    background-color: ${backgroundColor};
     text-align: ${alignment};
     font-family: ${fontName}, Arial, sans-serif;
     line-height: ${lineHeight};
+    letter-spacing: ${characterSpacing}pt;
     opacity: ${opacity};
+    transform: rotate(${rotate}deg);
+    border: ${borderWidth}mm solid ${borderColor};
+    padding: ${paddingStyle};
     overflow: hidden;
     box-sizing: border-box;
-    white-space: pre-wrap;
+    display: table;
+  "><div style="
+    display: table-cell;
+    vertical-align: ${verticalAlignValue};
     word-wrap: break-word;
-  ">${htmlValue}</div>`;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    width: 100%;
+    height: ${schema.height}mm;
+  ">${htmlValue}</div></div>`;
 }
 
 /**
@@ -360,6 +442,15 @@ function renderImage(schema: any, value: string): string {
   // Value should be base64 image data
   const opacity = schema.opacity !== undefined ? schema.opacity : 1;
   const rotate = schema.rotate || 0;
+  const backgroundColor = schema.backgroundColor || 'transparent';
+  const borderColor = schema.borderColor || 'transparent';
+  const borderWidth = schema.borderWidth || 0;
+  
+  // Padding support
+  const padding = schema.padding || { top: 0, right: 0, bottom: 0, left: 0 };
+  const paddingStyle = typeof padding === 'object' 
+    ? `${padding.top || 0}pt ${padding.right || 0}pt ${padding.bottom || 0}pt ${padding.left || 0}pt`
+    : `${padding}pt`;
   
   return `<div style="
     position: absolute;
@@ -367,11 +458,18 @@ function renderImage(schema: any, value: string): string {
     top: ${schema.position.y}mm;
     width: ${schema.width}mm;
     height: ${schema.height}mm;
+    background-color: ${backgroundColor};
     opacity: ${opacity};
     transform: rotate(${rotate}deg);
+    border: ${borderWidth}mm solid ${borderColor};
+    padding: ${paddingStyle};
+    box-sizing: border-box;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   ">
-    <img src="${value}" style="width: 100%; height: 100%; object-fit: contain;" alt="${escapeHTML(schema.name)}" />
+    ${value ? `<img src="${value}" style="max-width: 100%; max-height: 100%; object-fit: contain;" alt="${escapeHTML(schema.name)}" />` : ''}
   </div>`;
 }
 
@@ -381,6 +479,10 @@ function renderImage(schema: any, value: string): string {
 function renderCheckbox(schema: any, value: string | boolean): string {
   const checked = value === 'true' || value === true || value === 'checked' || value === '1';
   const size = Math.min(schema.width, schema.height);
+  const backgroundColor = schema.backgroundColor || 'transparent';
+  const borderColor = schema.borderColor || '#333333';
+  const borderWidth = schema.borderWidth || 0.5;
+  const checkColor = schema.checkColor || '#3b82f6';
   
   return `<div style="
     position: absolute;
@@ -388,23 +490,142 @@ function renderCheckbox(schema: any, value: string | boolean): string {
     top: ${schema.position.y}mm;
     width: ${schema.width}mm;
     height: ${schema.height}mm;
+    background-color: ${backgroundColor};
     display: flex;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
   ">
     <div style="
-      width: ${size}mm;
-      height: ${size}mm;
-      border: 2px solid #333;
-      background: ${checked ? '#3b82f6' : 'white'};
+      width: ${size * 0.8}mm;
+      height: ${size * 0.8}mm;
+      border: ${borderWidth}mm solid ${borderColor};
+      background: ${checked ? checkColor : 'white'};
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 2px;
+      border-radius: 1mm;
+      box-sizing: border-box;
     ">
       ${checked ? '<span style="color: white; font-size: 14pt; font-weight: bold;">✓</span>' : ''}
     </div>
   </div>`;
+}
+
+/**
+ * Render line as HTML (horizontal or vertical)
+ */
+function renderLine(schema: any): string {
+  const color = schema.color || '#000000';
+  const width = schema.width;
+  const height = schema.height;
+  const opacity = schema.opacity !== undefined ? schema.opacity : 1;
+  const rotate = schema.rotate || 0;
+  
+  // Line thickness - use the smaller dimension as thickness
+  const thickness = Math.min(width, height);
+  
+  // Determine if horizontal or vertical based on dimensions
+  const isHorizontal = width > height;
+  
+  // Line style (solid, dashed, dotted)
+  const lineStyle = schema.lineStyle || 'solid';
+  let borderStyle = 'solid';
+  
+  if (lineStyle === 'dashed') {
+    borderStyle = 'dashed';
+  } else if (lineStyle === 'dotted') {
+    borderStyle = 'dotted';
+  }
+  
+  // For horizontal lines
+  if (isHorizontal) {
+    return `<div style="
+      position: absolute;
+      left: ${schema.position.x}mm;
+      top: ${schema.position.y}mm;
+      width: ${width}mm;
+      height: ${thickness}mm;
+      background-color: ${color};
+      opacity: ${opacity};
+      transform: rotate(${rotate}deg);
+      transform-origin: 0 0;
+      box-sizing: border-box;
+    "></div>`;
+  } else {
+    // For vertical lines
+    return `<div style="
+      position: absolute;
+      left: ${schema.position.x}mm;
+      top: ${schema.position.y}mm;
+      width: ${thickness}mm;
+      height: ${height}mm;
+      background-color: ${color};
+      opacity: ${opacity};
+      transform: rotate(${rotate}deg);
+      transform-origin: 0 0;
+      box-sizing: border-box;
+    "></div>`;
+  }
+}
+
+/**
+ * Render rectangle as HTML
+ */
+function renderRectangle(schema: any): string {
+  const color = schema.color || '#000000';
+  const borderColor = schema.borderColor || color;
+  const borderWidth = schema.borderWidth || 1;
+  const opacity = schema.opacity !== undefined ? schema.opacity : 1;
+  const rotate = schema.rotate || 0;
+  
+  // Rectangle can be filled or just border
+  const filled = schema.filled !== false; // Default to filled
+  const backgroundColor = filled ? color : 'transparent';
+  
+  return `<div style="
+    position: absolute;
+    left: ${schema.position.x}mm;
+    top: ${schema.position.y}mm;
+    width: ${schema.width}mm;
+    height: ${schema.height}mm;
+    background-color: ${backgroundColor};
+    border: ${borderWidth}mm solid ${borderColor};
+    opacity: ${opacity};
+    transform: rotate(${rotate}deg);
+    transform-origin: 0 0;
+    box-sizing: border-box;
+  "></div>`;
+}
+
+/**
+ * Render ellipse/circle as HTML
+ */
+function renderEllipse(schema: any): string {
+  const color = schema.color || '#000000';
+  const borderColor = schema.borderColor || color;
+  const borderWidth = schema.borderWidth || 1;
+  const opacity = schema.opacity !== undefined ? schema.opacity : 1;
+  const rotate = schema.rotate || 0;
+  
+  // Ellipse can be filled or just border
+  const filled = schema.filled !== false; // Default to filled
+  const backgroundColor = filled ? color : 'transparent';
+  
+  return `<div style="
+    position: absolute;
+    left: ${schema.position.x}mm;
+    top: ${schema.position.y}mm;
+    width: ${schema.width}mm;
+    height: ${schema.height}mm;
+    background-color: ${backgroundColor};
+    border: ${borderWidth}mm solid ${borderColor};
+    border-radius: 50%;
+    opacity: ${opacity};
+    transform: rotate(${rotate}deg);
+    transform-origin: center;
+    box-sizing: border-box;
+  "></div>`;
 }
 
 /**
@@ -429,6 +650,15 @@ function renderField(schema: any, input: Record<string, any>): string {
     
     case 'checkbox':
       return renderCheckbox(schema, value);
+    
+    case 'line':
+      return renderLine(schema);
+    
+    case 'rectangle':
+      return renderRectangle(schema);
+    
+    case 'ellipse':
+      return renderEllipse(schema);
     
     // Add more types as needed
     default:

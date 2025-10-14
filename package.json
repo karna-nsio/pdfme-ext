@@ -75,5 +75,9 @@
     "ts-loader": "^9.2.5",
     "ts-prune": "^0.10.3",
     "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "pdf-parse": "^2.3.0",
+    "pdfjs-dist": "^5.4.296"
   }
 }
