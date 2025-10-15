@@ -259,7 +259,39 @@ const Preview = ({
             return acc;
           }, 0);
           
-          console.log(`[@pdfme/ui Preview] ✅ Filtering complete - ${totalFieldsAfter} fields visible`);
+          console.log(`[@pdfme/ui Preview] ✅ Field filtering complete - ${totalFieldsAfter} fields visible`);
+          
+          // 🆕 Step 4: Filter out pages that have no visible fields (conditional page rendering)
+          const originalPageCount = filteredTemplate.schemas.length;
+          const pagesWithVisibleFields = filteredTemplate.schemas.filter((page, pageIndex) => {
+            let hasVisibleFields = false;
+            
+            if (Array.isArray(page)) {
+              hasVisibleFields = page.length > 0;
+            } else if (page && typeof page === 'object') {
+              hasVisibleFields = Object.keys(page).length > 0;
+            } else {
+              // Empty page or null - keep it (might be intentional)
+              hasVisibleFields = true;
+            }
+            
+            if (!hasVisibleFields) {
+              console.log(`[@pdfme/ui Preview] 🚫 Hiding page ${pageIndex + 1} - no visible fields`);
+            } else {
+              console.log(`[@pdfme/ui Preview] ✅ Showing page ${pageIndex + 1} - has visible fields`);
+            }
+            
+            return hasVisibleFields;
+          });
+          
+          // Update template with filtered pages
+          filteredTemplate = {
+            ...filteredTemplate,
+            schemas: pagesWithVisibleFields
+          };
+          
+          const finalPageCount = filteredTemplate.schemas.length;
+          console.log(`[@pdfme/ui Preview] 📄 Page filtering complete - ${finalPageCount}/${originalPageCount} pages visible`);
         } else {
           console.log('[@pdfme/ui Preview] No filtering needed - no input data');
         }

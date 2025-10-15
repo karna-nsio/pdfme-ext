@@ -78,6 +78,7 @@
   },
   "dependencies": {
     "pdf-parse": "^2.3.0",
+    "pdf2json": "^4.0.0",
     "pdfjs-dist": "^5.4.296"
   }
 }
