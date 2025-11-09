@@ -12,6 +12,8 @@ import {
   DEFAULT_LINE_HEIGHT,
   DEFAULT_CHARACTER_SPACING,
   DEFAULT_FONT_COLOR,
+  DEFAULT_FONT_WEIGHT,
+  DEFAULT_FONT_STYLE,
   PLACEHOLDER_FONT_COLOR,
 } from './constants.js';
 import {
@@ -212,9 +214,22 @@ export const buildStyledTextContainer = (
   if (schema.strikethrough) textDecorations.push('line-through');
   if (schema.underline) textDecorations.push('underline');
 
+  // Normalize fontWeight: convert 'bold'/'normal' strings to numbers if needed
+  const normalizeFontWeight = (weight?: number | string): number | string => {
+    if (weight === 'bold') return 700;
+    if (weight === 'normal') return 400;
+    if (weight === undefined || weight === null) return DEFAULT_FONT_WEIGHT;
+    // Ensure numeric weights are passed as numbers
+    return typeof weight === 'string' ? parseInt(weight, 10) : weight;
+  };
+
+  const normalizedWeight = normalizeFontWeight(schema.fontWeight);
+
   const textBlockStyle: CSS.Properties = {
     // Font formatting styles
     fontFamily: schema.fontName ? `'${schema.fontName}'` : 'inherit',
+    fontWeight: normalizedWeight as any,
+    fontStyle: schema.fontStyle ?? DEFAULT_FONT_STYLE,
     color: schema.fontColor ? schema.fontColor : DEFAULT_FONT_COLOR,
     fontSize: `${dynamicFontSize ?? schema.fontSize ?? DEFAULT_FONT_SIZE}pt`,
     letterSpacing: `${schema.characterSpacing ?? DEFAULT_CHARACTER_SPACING}pt`,

@@ -87,11 +87,74 @@ const getFontProp = ({
   };
 };
 
+/**
+ * Get the appropriate font name based on fontWeight and fontStyle.
+ *
+ * Font variants must be registered separately in options.font:
+ * - 'Roboto' → Roboto-Regular.ttf (400)
+ * - 'Roboto-Thin' → Roboto-Thin.ttf (100)
+ * - 'Roboto-Light' → Roboto-Light.ttf (300)
+ * - 'Roboto-Medium' → Roboto-Medium.ttf (500)
+ * - 'Roboto-Semibold' → Roboto-Semibold.ttf (600)
+ * - 'Roboto-Bold' → Roboto-Bold.ttf (700)
+ * - 'Roboto-MediumItalic' → Roboto-MediumItalic.ttf (500 + italic)
+ *
+ * @param baseFontName - The base font name (e.g., 'Roboto')
+ * @param fontWeight - Numeric (100-900) or 'normal' | 'bold'
+ * @param fontStyle - 'normal' | 'italic'
+ * @returns The font variant name to use
+ */
+const getFontVariant = (
+  baseFontName: string,
+  fontWeight?: number | 'normal' | 'bold',
+  fontStyle?: 'normal' | 'italic'
+): string => {
+  // Normalize fontWeight to number
+  let weight = 400; // default
+  if (fontWeight === 'bold') {
+    weight = 700;
+  } else if (fontWeight === 'normal' || fontWeight === undefined) {
+    weight = 400;
+  } else if (typeof fontWeight === 'number') {
+    weight = fontWeight;
+  }
+
+  // Map weight to font suffix
+  const weightSuffixMap: { [key: number]: string } = {
+    100: 'Thin',
+    200: 'ExtraLight',
+    300: 'Light',
+    400: '', // Regular - no suffix
+    500: 'Medium',
+    600: 'Semibold',
+    700: 'Bold',
+    800: 'ExtraBold',
+    900: 'Black',
+  };
+
+  const weightSuffix = weightSuffixMap[weight] || '';
+  const isItalic = fontStyle === 'italic';
+
+  // Build font variant name
+  if (weightSuffix && isItalic) {
+    return `${baseFontName}-${weightSuffix}Italic`;
+  } else if (weightSuffix) {
+    return `${baseFontName}-${weightSuffix}`;
+  } else if (isItalic) {
+    return `${baseFontName}-Italic`;
+  }
+
+  return baseFontName;
+};
+
 export const pdfRender = async (arg: PDFRenderProps<TextSchema>) => {
   const { value, pdfDoc, pdfLib, page, options, schema, _cache } = arg;
   if (!value) return;
 
   const { font = getDefaultFont(), colorType } = options;
+
+  const baseFontName = schema.fontName || getFallbackFontName(font);
+  const variantFontName = getFontVariant(baseFontName, schema.fontWeight, schema.fontStyle);
 
   const [pdfFontObj, fontKitFont] = await Promise.all([
     embedAndGetFontObj({
@@ -99,16 +162,17 @@ export const pdfRender = async (arg: PDFRenderProps<TextSchema>) => {
       font,
       _cache: _cache as unknown as Map<PDFDocument, { [key: string]: PDFFont }>,
     }),
-    getFontKitFont(schema.fontName, font, _cache as Map<string, FontKitFont>),
+    // Try to load the variant, fallback to base font if not available
+    getFontKitFont(variantFontName, font, _cache as Map<string, FontKitFont>)
+      .catch(() => getFontKitFont(baseFontName, font, _cache as Map<string, FontKitFont>)),
   ]);
   const fontProp = getFontProp({ value, fontKitFont, schema, colorType });
 
   const { fontSize, color, alignment, verticalAlignment, lineHeight, characterSpacing } = fontProp;
 
-  const fontName = (
-    schema.fontName ? schema.fontName : getFallbackFontName(font)
-  ) as keyof typeof pdfFontObj;
-  const pdfFontValue = pdfFontObj && pdfFontObj[fontName];
+  const fontName = variantFontName as keyof typeof pdfFontObj;
+  // Fallback to base font if variant doesn't exist
+  const pdfFontValue = (pdfFontObj && pdfFontObj[fontName]) || pdfFontObj[baseFontName];
 
   const pageHeight = page.getHeight();
   const {

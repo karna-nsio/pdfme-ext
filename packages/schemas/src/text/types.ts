@@ -11,8 +11,12 @@ export type FontWidthCalcValues = {
   characterSpacing: number;
   boxWidthInPt: number;
 };
+export type FONT_WEIGHT = 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 'normal' | 'bold';
+
 export interface TextSchema extends Schema {
   fontName?: string;
+  fontWeight?: FONT_WEIGHT;
+  fontStyle?: 'normal' | 'italic';
   alignment: ALIGNMENT;
   verticalAlignment: VERTICAL_ALIGNMENT;
   fontSize: number;
