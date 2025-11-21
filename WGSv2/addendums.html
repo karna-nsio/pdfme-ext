@@ -1,0 +1,33 @@
+﻿@if (Model != null && Model.Any())
+{
+<div>
+    @foreach (var adm in Model) {
+    <div class="wes-title-header-background">
+        <span class="wes-title-header-text">
+            @adm.ReportUnlockType Report
+        </span>
+        <span class="wes-report-date">
+            @if (adm.CreatedDate != null)
+            {
+            <span class="label">addendum report date: </span>
+            <span class="wes-title-header-text">@adm.CreatedDate.ToString("MM/dd/yyy")</span>
+            }
+        </span>
+    </div>
+
+    <div class="d-table w-100">
+        <p class="wes-paragraph-text wes-section-padding d-table-cell">
+            @adm.Reason
+        </p>
+
+        @if(Model.ToList().IndexOf(adm) == 0)
+        {
+        <div class="wes-editable-field d-table-cell" id="report-addendum" align="right">
+            <button class="wes-edit-button"><i class="fa fa-edit"></i></button>
+        </div>
+        }
+
+    </div>
+    }
+</div>
+}

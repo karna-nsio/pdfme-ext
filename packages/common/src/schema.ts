@@ -58,6 +58,14 @@ export const Dict = z.object({
   conditionPreview: z.string(),
   saveCondition: z.string(),
   removeCondition: z.string(),
+  // -----------------HTML export settings-------------------
+  sectionSettings: z.string(),
+  sectionName: z.string(),
+  sectionNamePlaceholder: z.string(),
+  wrapperClass: z.string(),
+  wrapperClassPlaceholder: z.string(),
+  exportAsFragment: z.string(),
+  exportHTMLFragments: z.string(),
   // --------------------validation-------------------
   'validation.uniqueName': z.string(),
   'validation.hexColor': z.string(),
@@ -178,6 +186,10 @@ export const FieldGroup = z.object({
   hide: z.boolean().optional(),            // If true, hide all fields in group
   color: z.string().optional(),            // Optional color for group identification
   condition: GroupCondition.optional(),    // Conditional visibility (e.g., show only when resultType == 'positive')
+  // HTML Fragment Export options
+  sectionName: z.string().optional(),      // Export filename/identifier (e.g., "demographicinfo")
+  exportAsFragment: z.boolean().optional(), // Include in fragment export (default: true if sectionName set)
+  wrapperClass: z.string().optional(),     // CSS class for wrapper div (e.g., "wes-demographic-section")
 });
 
 export const Template = z

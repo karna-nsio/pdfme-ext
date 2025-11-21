@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Size } from '@pdfme/common';
 // Import icons from lucide-react
 // Note: In tests, these will be mocked by the mock file in __mocks__/lucide-react.js
-import { Plus, Minus, ChevronLeft, ChevronRight, Ellipsis, FileCode, Download } from 'lucide-react';
+import { Plus, Minus, ChevronLeft, ChevronRight, Ellipsis, FileCode, Download, Files } from 'lucide-react';
 
 import type { MenuProps } from 'antd';
 import { theme, Typography, Button, Dropdown } from 'antd';
@@ -96,6 +96,7 @@ type CtlBarProps = {
   addPageAfter?: () => void;
   removePage?: () => void;
   onExportHTML?: () => void;
+  onExportHTMLFragments?: () => void;
   onExportJSON?: () => void;
 };
 
@@ -113,13 +114,14 @@ const CtlBar = (props: CtlBarProps) => {
     addPageAfter,
     removePage,
     onExportHTML,
+    onExportHTMLFragments,
     onExportJSON,
   } = props;
 
   const contextMenuItems: MenuProps['items'] = [];
   
   // Export options
-  if (onExportHTML || onExportJSON) {
+  if (onExportHTML || onExportHTMLFragments || onExportJSON) {
     if (onExportHTML) {
       contextMenuItems.push({
         key: 'export-html',
@@ -127,6 +129,17 @@ const CtlBar = (props: CtlBarProps) => {
           <div onClick={onExportHTML} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <FileCode size={14} />
             <span>Export HTML</span>
+          </div>
+        ),
+      });
+    }
+    if (onExportHTMLFragments) {
+      contextMenuItems.push({
+        key: 'export-html-fragments',
+        label: (
+          <div onClick={onExportHTMLFragments} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Files size={14} />
+            <span>{i18n('exportHTMLFragments')}</span>
           </div>
         ),
       });
@@ -142,7 +155,7 @@ const CtlBar = (props: CtlBarProps) => {
         ),
       });
     }
-    if ((onExportHTML || onExportJSON) && (addPageAfter || removePage)) {
+    if ((onExportHTML || onExportHTMLFragments || onExportJSON) && (addPageAfter || removePage)) {
       contextMenuItems.push({ type: 'divider' });
     }
   }

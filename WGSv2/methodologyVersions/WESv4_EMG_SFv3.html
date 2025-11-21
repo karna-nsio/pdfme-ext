@@ -1,0 +1,108 @@
+﻿<div>
+    <!--<div id="wes-genesAnalyzed">
+        @if (!Model.IsParentalReport && !Model.IsTextReport)
+        {
+        <div class="wes-title-header-background">
+            <div class="wes-title-header-text">
+                genes analyzed
+            </div>
+        </div>
+        <div class="wes-paragraph-text wes-section-padding">
+            @if (Model.GeneCoverageList != null && Model.GeneCoverageList.Count() > 0)
+            {
+            <div>
+                <p>
+                  @{ int geneCount = Model.GeneCoverageList.Count(); }
+                  @(geneCount == 1 ? $"{geneCount} gene" : $"{geneCount} genes")
+                </p>
+                <table>
+                    <tbody>
+                        @for (int i = 0; i < Model.GeneCoverageList.Count(); i += 3)
+                        {
+                        <tr>
+                            @for (int j = 0; j < 3; j++)
+                            {
+                            @if ( i+j < Model.GeneCoverageList.Count())
+                            {
+                            <td class="gene-list">@Model.GeneCoverageList[i+j]</td>
+                            }
+                            }
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            }
+            else
+            {
+                @if (Model.DisplayGeneList)
+                {
+                <p>
+                    Genes Analyzed and their Coverage
+                </p>
+                }
+                <p>
+                    @Model.GenesAnalized
+                </p>
+            }
+        </div>
+        }
+    </div>-->
+    <div id="wes-methodology">
+        <div class="wes-title-header-background">
+            <div class="wes-title-header-text">
+                methodology
+                <span style="float:right;" class="wes-editable-field" id=@("report-methodologyVersion")>
+                    <button class="wes-edit-button"><i class="fa fa-edit"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="wes-paragraph-text wes-section-padding">
+            @foreach (var paragraph in Model.MethodologyParagraphs)
+            {
+            <p>
+                @paragraph
+            </p>
+            }            
+        </div>
+    </div>
+    <div id="wes-limitations" class="wes-avoid-page-break">
+        <div class="wes-title-header-background">
+            <div class="wes-title-header-text">
+                limitations
+            </div>
+        </div>
+        <div class="wes-paragraph-text wes-section-padding">
+            <p>
+                @Model.Limitations
+            </p>
+        </div>
+    </div>
+    <div id="wes-references" class="wes-avoid-page-break">
+        <div class="wes-title-header-background">
+            <div class="wes-title-header-text">
+                references
+            </div>
+        </div>
+        <div class="wes-paragraph-text wes-section-padding">
+            <ol>
+                @foreach (var reference in Model.References)
+                {
+                    <li>@reference</li>
+                }
+            </ol>
+        </div>
+    </div>
+    <div id="wes-disclaimer" class="wes-avoid-page-break">
+        <div class="wes-title-header-background">
+            <div class="wes-title-header-text">
+                disclaimer
+            </div>
+        </div>
+        <div class="wes-paragraph-text wes-section-padding">
+            <p>
+                @Model.Disclaimer
+            </p>
+        </div>
+    </div>
+</div>

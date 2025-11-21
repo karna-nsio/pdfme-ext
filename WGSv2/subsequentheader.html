@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        html body {
+            font-family: Arial;
+            width: 9.47in;
+        }
+
+        .wes-blue-color {
+            color: #64A7DD;
+        }
+
+        .wes-title-font {
+            font-family: Arial;
+            font-size: 12pt;
+        }
+
+        .wes-subtitle-font {
+            font-family: Arial;
+            font-size: 10pt;
+        }
+
+        .wes-float-right {
+            float: right;
+        }
+
+        .wes-text-align {
+            text-align: right
+        }
+
+        .wes-float-left {
+            float: left
+        }
+
+        .wes-header-bglogo {
+            height: 4em;
+        }
+
+        .wes-demographic-info {
+            text-align: left;
+            font-size: 9pt;
+            text-transform: uppercase;
+            font-family: Arial;
+        }
+
+            .wes-demographic-info table tbody tr td.label {
+                font-size: 7pt;
+            }
+
+            .wes-demographic-info table tbody tr:nth-child(odd) {
+                background: #e9f2fa;
+            }
+
+            .wes-demographic-info table tbody tr:nth-child(even) {
+                background: #FFF
+            }
+
+            .wes-demographic-info table tbody td {
+                padding-left: 0.5em;
+                padding-right: 0.5em
+            }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="wes-float-left">
+            <div class="wes-subtitle-font"><em> @Model.InitialOrFinalStatus </em></div>
+            <div class="wes-blue-color wes-title-font">
+                @Model.ReportName
+            </div>
+            <div class="wes-subtitle-font">
+                @Model.ReportSubName
+            </div>
+        </div>
+        <div class="wes-float-right wes-text-align">
+            <div>
+                <img class="wes-header-bglogo" src="https://rare.baylorgenetics.com/logo.png" />
+            </div>
+            <div class="wes-demographic-info">
+                <table cellpadding="0" cellspacing="0">
+                    <tbody>
+                        <tr>
+                            <td class="label">
+                                Name:
+                            </td>
+                            <td class="value">
+                                @Model.PatientDTO.FullName
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                Date of Birth:
+                            </td>
+                            <td class="value">
+                                @if (Model.PatientDTO.DOB.HasValue)
+                                {
+                                @Model.PatientDTO.DOB.Value.ToString("MM/dd/yyyy")
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                Sex:
+                            </td>
+                            <td class="value">
+                                @Model.PatientDTO.Gender
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

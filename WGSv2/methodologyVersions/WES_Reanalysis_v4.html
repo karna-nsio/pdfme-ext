@@ -1,0 +1,59 @@
+﻿<div>
+    <div id="wes-methodology">
+        <div class="wes-title-header-background">
+            <div class="wes-title-header-text">
+                methodology
+                <span style="float:right;" class="wes-editable-field" id=@("report-methodologyVersion")>
+                    <button class="wes-edit-button"><i class="fa fa-edit"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="wes-paragraph-text wes-section-padding">
+            @foreach (var paragraph in Model.MethodologyParagraphs)
+            {
+            <p>
+                @paragraph
+            </p>
+            }            
+        </div>
+    </div>
+    <div id="wes-limitations" class="wes-avoid-page-break">
+        <div class="wes-title-header-background">
+            <div class="wes-title-header-text">
+                limitations
+            </div>
+        </div>
+        <div class="wes-paragraph-text wes-section-padding">
+            <p>
+                @Model.Limitations
+            </p>
+        </div>
+    </div>
+    <div id="wes-references" class="wes-avoid-page-break">
+        <div class="wes-title-header-background">
+            <div class="wes-title-header-text">
+                references
+            </div>
+        </div>
+        <div class="wes-paragraph-text wes-section-padding">
+            <ol>
+                @foreach (var reference in Model.References)
+                {
+                    <li>@reference</li>
+                }
+            </ol>
+        </div>
+    </div>
+    <div id="wes-disclaimer" class="wes-avoid-page-break">
+        <div class="wes-title-header-background">
+            <div class="wes-title-header-text">
+                disclaimer
+            </div>
+        </div>
+        <div class="wes-paragraph-text wes-section-padding">
+            <p>
+                @Model.Disclaimer
+            </p>
+        </div>
+    </div>
+</div>

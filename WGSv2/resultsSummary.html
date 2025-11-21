@@ -1,0 +1,181 @@
+﻿<div class="wes-resultsSummary">
+    <div class="wes-title-header-background">
+        <span class="wes-title-header-text">
+            results
+        </span>
+        @if (Model.Addendums != null && Model.Addendums.Any() && Model.Addendums.OrderByDescending(x => x.CreatedDate).First().IsOnReport == true && Model.OriginalReportedDate != null)
+        {
+        <span class="wes-report-date">
+            <span class="label">original report date: </span>
+            <span class="wes-title-header-text">@Model.OriginalReportedDate.ToString("MM/dd/yyy")</span>
+        </span>
+        }
+    </div>
+    <div>
+        <table class="wes-results-summary-table">
+            <tr class="wes-img-valign">
+                @if (Model.IsParentalReport)
+                {
+                <td rowspan="2" width="25%">
+                    <img class="wes-results-summary-img" src="https://rare.baylorgenetics.com/Comparator.jpg" />
+                </td>
+                }
+                else{
+                <td rowspan="2" width="25%">
+                    <img class="wes-results-summary-img" src="https://rare.baylorgenetics.com/@(Model.OverallCall).jpg" />
+                </td>
+                }
+            </tr>
+            <!--<tr>
+                <td width="75%">
+                    <div class="wes-blue-color wes-results-subtitle">
+                        summary
+                    </div>
+                    <div class="d-table w-100">
+
+
+                        @if(!string.IsNullOrWhiteSpace(Model.Summary)){
+                        var lines = Model.Summary.Split(new[] { '\r','\n'}, StringSplitOptions.None);
+                        foreach (var line in lines){
+                        <p class="wes-results-summary-text d-table-cell">
+
+                            @line<br />
+                        </p>
+                        }
+                        }
+                        <div class="wes-editable-field d-table-cell" id="report-summary" align="right">
+                            <button class="wes-edit-button"><i class="fa fa-edit"></i></button>
+                        </div>
+                    </div>
+                </td>
+            </tr>-->
+        </table>
+    </div>
+    <div>
+        @{
+        var phenotypeFindings = @Model.Findings.Where(f => f.IsPhenotypeFinding.HasValue && f.IsPhenotypeFinding.Value)?.ToList();
+        if (phenotypeFindings != null && phenotypeFindings.Any())
+        {
+        var phenotypeFindingCounts = phenotypeFindings.Count();
+        <div>
+            <table class="wes-gene-table">
+                <thead>
+                    <tr>
+                        @{
+                        if(Model.IsForUI){
+                        <td>RNASeq</td>
+                        }
+                        }
+                        <td class="diseaseColumn">disease</td>
+                        <td>inheritance pattern</td>
+                        <td>gene / variant</td>
+                        <td class="typeColumn">variant type</td>
+                        <td class="genotypeColumn">genotype</td>
+                        <td>inherited from</td>
+                        <td>variant classification</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var finding in phenotypeFindings)
+                    {
+                    <tr>
+                        @{
+                        if(Model.IsForUI){
+                        var rnaCheckOnOff = finding.NeedRnaseq.HasValue && finding.NeedRnaseq.Value ? "checked=True" : " ";
+                        <td>
+                            <input type="checkbox" name="NeedRnaseq" id=@("NeedRnaseq-"+finding.FindingsId) @rnaCheckOnOff
+                                   class="wes-rnaseq-chxbox" />
+                        </td>
+                        }
+                        }
+                        <td class="diseaseColumn wes-editable-field" id=@("variant-"+finding.VariantId)>@finding.DiseaseName</td>
+                        <td>@finding.InheritancePattern</td>
+                        <td class="geneColumn">
+                            @(finding.GeneAndVariant)
+                        </td>
+                        <td>@finding.VariantType.GetDisplayName()</td>
+                        <td>@finding.Zygosity.ToString().Replace('_', ' ')</td>
+                        <td>@finding.Segregation</td>
+                        <!--I hate this-->
+                        <td>@(finding.VariantClassificationType.ToString() == "VUS" ? "Variant of Uncertain Significance" : finding.VariantClassificationType.ToString().Replace('_', ' ').Replace('_', ' '))</td>
+                        @{
+                        if(!finding.IsForPDF){
+
+
+                        if(phenotypeFindings.IndexOf(finding) != 0){
+                        <td bgcolor="white">
+                            <div class="wes-moveup-btn no-margin-padding " id=@(finding.FindingsId) align="left">
+                                <button class="wes-table-button"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></button>
+                            </div>
+                        </td>
+                        }
+
+
+                        if(phenotypeFindings.IndexOf(finding) !=  phenotypeFindingCounts-1){
+                        <td bgcolor="white">
+                            <div class="wes-movedn-btn no-margin-padding " id=@(finding.FindingsId) align="left">
+                                <button class="wes-table-button"><i class="fa fa-long-arrow-down" aria-hidden="true"></i></button>
+                            </div>
+                        </td>
+                        }
+                        }
+                        }
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        }
+        }
+
+    </div>
+    <div class="wes-avoid-page-break">
+        <div class="wes-title-header-background">
+            <div class="wes-title-header-text">
+                results summary
+            </div>
+        </div>
+        <div class="d-table w-100">
+            <p class="wes-paragraph-text wes-section-padding d-table-cell">
+                @if (!string.IsNullOrWhiteSpace(Model.Summary))
+                {
+                var lines = Model.Summary.Split(new[] { '\r', '\n' }, StringSplitOptions.None);
+                foreach (var line in lines)
+                {
+                @line<br />
+                }
+                }
+            </p>
+            <div class="wes-editable-field d-table-cell" id="report-summary" align="right">
+                <button class="wes-edit-button"><i class="fa fa-edit"></i></button>
+            </div>
+        </div>
+    </div>
+    @{
+    if (@Model.AdditionalFindings.Any())
+    {
+    <div class="wes-avoid-page-break">
+        <div class="wes-title-header-background">
+            <div class="wes-title-header-text">
+                additional findings
+            </div>
+        </div>
+        <div class="d-table w-100">
+            <div class="wes-paragraph-text wes-section-padding d-table-cell">
+                @foreach (var additionalFinding in @Model.AdditionalFindings)
+                {
+                    <h4 class="wes-paragraph-remove-margin">@additionalFinding.Name</h4>
+                    if (string.IsNullOrWhiteSpace(@additionalFinding.IconPath))
+                    {
+                        <p>@additionalFinding.Description</p>
+                    }
+                    else
+                    {
+                        <p><img class="wes-addtl-summary-img" src=@additionalFinding.IconPath />@additionalFinding.Description</p>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+    }}
+</div>

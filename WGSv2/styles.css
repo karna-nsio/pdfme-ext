@@ -1,0 +1,400 @@
+﻿html body {
+    font-family: Arial;
+    height: 11.69in;
+    width: 9.47in;
+}
+
+div.wes-title-header-background {
+    background: black;
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+.wes-title-header-text {
+    text-transform: uppercase;
+    font-size: 12pt;
+    padding: 0.2em 1em 0em 1em;
+    letter-spacing: 1px;
+    width: 100%;
+    color: #ffffff;
+}
+
+.parent-demographic-table {
+    width: 100%
+}
+
+    .parent-demographic-table tr td.demograph {
+        width: 33%;
+    }
+
+table.wes-demographic-info {
+    width: 100%;
+    float: left;
+}
+
+.v-align {
+    vertical-align: top;
+}
+
+/*demographics table padding*/
+table.wes-patient-padding {
+    padding-right: 1em;
+    padding-left: 0.0em
+}
+
+table.wes-test-info-padding {
+    padding-right: 0.5em;
+    padding-left: 0.5em
+}
+
+table.wes-recipient-padding {
+    padding-right: 0;
+    padding-left: 1.0em
+}
+
+table.wes-recipient-margin {
+    margin-top: 1em;
+}
+/**/
+
+table.wes-demographic-info thead {
+    text-align: left;
+    font-size: 11pt;
+    text-transform: uppercase;
+}
+
+table.wes-demographic-info tbody td.label {
+    font-size: 8pt;
+    padding: 2.5px;
+    font-family: Arial;
+    text-transform: uppercase;
+    width: 11em
+}
+
+table.wes-demographic-info tbody td.padding-left {
+    padding-left: 2em
+}
+
+table.wes-demographic-info tbody td.value {
+    font-size: 11pt;
+    font-family: Arial;
+    padding: 1px;
+}
+
+table.wes-demographic-info tbody tr:nth-child(even) {
+    background: #FFF
+}
+
+table.wes-demographic-info thead th {
+    border-bottom: solid thick;
+    text-align: left;
+    padding-bottom: 0.25em;
+    color: #28A8E0;
+    letter-spacing: 0.1em;
+}
+
+table.wes-demographic-info tbody tr:nth-child(odd) {
+    background: #e9f2fa
+}
+
+table.wes-demographic-info thead.recipient tr.sub-header {
+    font-family: Arial;
+    font-size: 9pt;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #28a8e0;
+}
+
+.wes-blue-color-border {
+    color: #64A7DD;
+}
+
+.wes-dropdown {
+    border: 0px solid #E2E2E2;
+    background-color: transparent;
+    font-family: Arial;
+    font-stretch: condensed;
+    font-size: 11pt;
+    text-transform: initial;
+    width: 100%;
+    text-align: center;
+    align-content: center;
+    cursor: pointer
+}
+
+.wes-select {
+    /* for Firefox */
+    -moz-appearance: none;
+    /* for Chrome */
+    -webkit-appearance: none;
+}
+
+    .wes-select::-ms-expand {
+        display: none;
+    }
+
+.wes-page-break-before {
+    page-break-before: always;
+}
+
+.wes-results-summary-table {
+    width: 100%
+}
+
+.wes-img-valign {
+    vertical-align: top
+}
+
+.wes-results-summary-img {
+    margin-bottom: 1em;
+    margin-right: 1em;
+    width: 163px;
+    height: 44.2399px;
+    vertical-align: top
+}
+
+.wes-results-subtitle {
+    font-family: Arial;
+    font-size: 11pt;
+    border-bottom: dotted #64A7DD;
+    text-transform: uppercase;
+}
+
+.wes-results-summary-text {
+    font-family: Arial;
+    font-size: 11pt;
+}
+
+.wes-result-summary-high-impact-header {
+    color: white;
+    background-color: #64A7DD;
+    margin: 1em 0 0.5em;
+    font-size: 11pt;
+    font-weight: bold;
+    width: 100%;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.wes-addtl-summary-img {
+    height: 30px;
+    vertical-align: middle;
+    margin-right: 0.5em;
+}
+
+table.wes-gene-table {
+    padding-top: .5em;
+    text-align: center;
+    width: 100%;
+    table-layout: auto;
+    border-collapse: collapse;
+}
+
+    table.wes-gene-table td {
+        padding: 3.25px 8px;
+    }
+
+    table.wes-gene-table thead tr {
+        background-color: #DCEEF9;
+        font-size: 8pt;
+        font-family: Arial;
+        text-transform: uppercase;
+        border: 1px solid black;
+    }
+
+    table.wes-gene-table tbody tr {
+        border: 1px solid black;
+    }
+
+    table.wes-gene-table tbody td {
+        font-family: Arial;
+        font-stretch: condensed;
+        font-size: 11pt;
+        text-transform: capitalize;
+        max-width: 1px;
+        width: 60px;
+        text-align: center;
+    }
+
+        table.wes-gene-table tbody td.zygosityColumn {
+            font-size: 11pt;
+        }
+
+        table.wes-gene-table tbody td.geneColumn {
+            width: 100px;
+            text-transform: none
+        }
+
+        table.wes-gene-table tbody td.segregationColumn {
+            width: 100px;
+        }
+
+    table.wes-gene-table td.diseaseColumn {
+        width: 100px;
+    }
+
+    table.wes-gene-table td.typeColumn {
+        width: 90px;
+    }
+
+    table.wes-gene-table td.genotypeColumn {
+        width: 100px;
+    }
+
+.wes-paragraph-text {
+    font-size: 11pt;
+    font-family: Arial;
+}
+
+.wes-paragraph-remove-margin {
+    margin: 0
+}
+
+.wes-section-padding {
+    padding: 0em 1em;
+}
+
+.wes-avoid-page-break {
+    page-break-inside: avoid
+}
+
+div.wes-signatures-title {
+    letter-spacing: 2px;
+}
+
+.wes-signature {
+    padding-left: 0.5em;
+    display: inline-block;
+    page-break-inside: avoid;
+    overflow: auto;
+}
+
+.wes-signature-image {
+    position: relative;
+    width: 275px;
+}
+
+.wes-signature-title {
+    padding-left: 3em;
+}
+
+.wes-name {
+    font-size: 10pt;
+}
+
+.wes-name-title {
+    font-family: Arial;
+    font-size: 9pt;
+}
+
+.wes-section-subtitle {
+    font-family: Arial;
+    font-size: 12pt;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.wes-section-undo-text-transform {
+    text-transform: none;
+}
+
+h5.wes-section-subtitle {
+    margin: 1em 0 0 0;
+}
+
+div.wes-section-subtitle-divider {
+    border-top: 2px dotted;
+    margin-top: 0.25em;
+    height: 0.25em
+}
+
+.wes-subsection-padding {
+    padding: 0em 0.75em;
+}
+
+.wes-subsection-text {
+    font-family: Arial;
+    font-size: 11pt;
+    margin: 0;
+    padding-top: 0.5em;
+}
+
+.wes-subsection-text-list {
+    list-style-position: inside;
+    padding-left: 0;
+}
+
+.wes-subsection-list {
+    font-family: Arial;
+    font-size: 9pt;
+    list-style: none;
+    padding-left: 1em;
+    margin-left: 0.5em;
+    text-indent: -0.7em;
+}
+
+    .wes-subsection-list li::before {
+        content: "\2022";
+        color: #64A7DD;
+        font-weight: bold;
+        display: inline-block;
+        width: 0.5em;
+    }
+
+.wes-report-date {
+    float: right;
+}
+
+    .wes-report-date .label {
+        font-size: 6pt;
+        font-family: Arial;
+        text-transform: uppercase;
+    }
+
+.d-table {
+    display: table;
+}
+
+.d-table-cell {
+    display: table-cell;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.wes-editable-field {
+    cursor: pointer
+}
+
+.wes-edit-button {
+    font-size: 15px;
+    color: #EBAA41;
+    border: none;
+    background: none;
+    text-align: right;
+    cursor: inherit;
+}
+
+.wes-table-button {
+    font-size: 15px;
+    color: #333232;
+    border: none;
+    background: none;
+    text-align: right;
+}
+
+.no-margin-padding {
+    margin: 0;
+    padding: 0;
+    float: left;
+}
+
+td {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+}

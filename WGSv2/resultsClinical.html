@@ -1,0 +1,45 @@
+﻿<div class="wes-avoid-page-break">
+    <div class="wes-title-header-background">
+        <div class="wes-title-header-text">
+            clinical indication
+        </div>
+    </div>
+    <div class="d-table w-100">
+        @if (Model.IsParentalReport || Model.IsTextReport)
+        {
+        <p class="wes-paragraph-text wes-section-padding  d-table-cell">
+            @if(!string.IsNullOrWhiteSpace(Model.ClinicalIndication)){
+            var lines = Model.ClinicalIndication.Split(new string[] { "\n"}, StringSplitOptions.None);
+            foreach (var line in lines){
+            @line<br />
+            }
+            }
+        </p>
+
+        }
+        else if (Model.TestCode == 1897){
+        <p class="wes-paragraph-text wes-section-padding  d-table-cell">
+            @if(!string.IsNullOrWhiteSpace(Model.ClinicalIndication)){
+            var lines = Model.ClinicalIndication.Split(new string[] { "\n"}, StringSplitOptions.None);
+            foreach (var line in lines){
+            @line<br />
+            }
+            }
+
+        </p>
+        }
+        else {
+        <p class="wes-paragraph-text wes-section-padding  d-table-cell">
+            @if(!string.IsNullOrWhiteSpace(Model.ClinicalIndication)){
+            var lines = Model.ClinicalIndication.Split(new[] { '\n'}, StringSplitOptions.None);
+            foreach (var line in lines){
+            @line<br />
+            }
+            }
+        </p>
+        }
+        <div class="wes-editable-field d-table-cell" id="report-clinicalIndication" align="right">
+            <button class="wes-edit-button"><i class="fa fa-edit"></i></button>
+        </div>
+    </div>
+</div>

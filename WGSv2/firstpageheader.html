@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        html body {
+            font-family: Arial;
+            width: 9.47in;
+        }
+
+        .wes-blue-color {
+            color: #64A7DD;
+        }
+
+        .wes-title-font {
+            font-family: Arial;
+            font-size: 20pt;
+        }
+
+        .wes-subtitle-font {
+            font-family: Arial;
+            font-size: 10pt;
+        }
+
+        .wes-float-right {
+            float: right
+        }
+
+        .wes-float-left {
+            float: left
+        }
+
+        .wes-header-bglogo {
+            height: 4em;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="wes-float-left">
+            <div class="wes-subtitle-font"><em> @Model.InitialOrFinalStatus </em></div>
+            <div class="wes-blue-color wes-title-font">
+                @Model.ReportName
+            </div>
+            <div class="wes-subtitle-font">
+                @Model.ReportSubName
+            </div>
+        </div>
+        <img class="wes-float-right wes-header-bglogo" src="https://rare.baylorgenetics.com/logo.png" />
+    </div>
+</body>
+</html>

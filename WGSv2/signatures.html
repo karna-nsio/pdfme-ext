@@ -1,0 +1,42 @@
+﻿<div class="wes-avoid-page-break">
+    @if (Model.TestCode == 1807 || Model.TestCode == 1857)
+    {
+    <div style="text-align: center;">
+        <img src="http://rare.baylorgenetics.com/bcm-hgsc-logo.png" />
+    </div>
+    }
+    <div class="wes-title-header-background">
+        <div class="wes-title-header-text wes-signatures-title">
+            electronically signed by
+        </div>
+    </div>
+    <div>
+        @foreach (var signature in Model.Signatures)
+        {
+        @if (!string.IsNullOrEmpty(signature.Name))
+        {
+        var sigArray = signature.Name.Split(", ");
+        <div class="wes-signature">
+            <img class="wes-signature-image" src="@signature.SignatureImageLocation" />
+            <div class="wes-signature-title">
+                @if (sigArray.Length > 1)
+                {
+                int length = sigArray.Length - 1;
+                string[] sigTitlesArray = new string[length];
+                Array.Copy(sigArray, 1, sigTitlesArray, sigTitlesArray.GetLowerBound(0), length);
+                var sigTitles = string.Join(", ", sigTitlesArray);
+                <span class="wes-name">@sigArray[0],&nbsp;</span><span class="wes-name-title">@sigTitles</span>
+                }
+                else
+                {
+                <span class="wes-name">@signature.Name</span>
+                }
+            </div>
+            <div class="wes-signature-title">
+                <span class="wes-name-title">@signature.Title</span>
+            </div>
+        </div>
+        }
+        }
+    </div>
+</div>

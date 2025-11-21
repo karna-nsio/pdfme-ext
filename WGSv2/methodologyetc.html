@@ -1,0 +1,235 @@
+﻿<div>
+    @if(!Model.IsWGS && Model.TestCode != 1897)
+    {
+    <!--<div id="wes-genesAnalyzed">
+        @if (!Model.IsParentalReport && !Model.IsTextReport)
+        {
+        <div class="wes-title-header-background">
+            <div class="wes-title-header-text">
+                genes analyzed
+            </div>
+        </div>
+        <div class="wes-paragraph-text wes-section-padding">
+            @if (Model.DisplayGeneList)
+            {
+            <p>
+                Genes Analyzed and their Coverage
+            </p>
+            <p>
+                @Model.GeneCoverage
+            </p>
+            }
+            else
+            {
+            <p>
+                The gene list reviewed based on the provided clinical indication can be requested; variants within these genes meeting the interpretation
+                and reporting criteria were evaluated and reported as described in the methods section.
+            </p>
+            }
+
+        </div>
+        }
+    </div>-->
+    }
+    <div id="wes-methodology">
+        <div class="wes-title-header-background">
+            <div class="wes-title-header-text">
+                methodology
+            </div>
+        </div>
+        @if (Model.IsParentalReport && Model.IsTextReport)
+        {
+        <div class="wes-paragraph-text wes-section-padding">
+            <p>
+                A PCR-based assay was used to amplify the region in which the familial sequence alteration is located. Direct sequence analysis of PCR products was performed in both forward and reverse directions using automated fluorescence dideoxy sequencing methods. The nomenclature is based on the convention recommended by the Human Genome Variation Society (http://www.hgvs.org/mutnomen/).
+            </p>
+        </div>
+        }
+        else
+        {
+        <div class="wes-paragraph-text wes-section-padding">
+            @if (Model.TestCode == 1899)
+            {
+            <p>1. The sequencing experiments were performed at another laboratory independent of Baylor Genetics. Sequencing raw data are provided to Baylor Genetics for analysis and interpretation.</p>
+            <p>2. Data analysis and interpretation are performed by the Baylor Genetics analytics pipeline. FastQ data are aligned to the human reference genome build GRCh38 using the Illumina Dragen BioIT Platform. The output of the alignment is a BAM file; QC metrics of the map-align process are recorded for quality review. QC statistics include coverage for the digital exome regions (all coding regions, UTRs of genes, noncoding genes or intronic regions that are known to be implicated in human disease), mate-pair alignment information as well as number of total and duplicate reads. Variant calling on the BAM file is performed using the Illumina Dragen haplotype-based variant calling system and the output is a VCF file. Variant calling for copy number analyses is performed using the Illumina Dragen genome wide depth based CNV caller with custom modifications from Baylor Genetics. Structural variant calling is performed using the Illumina Manta Structural Variant Caller.</p>
+            <p>3. The annotation platform leverages the GenomOncology Knowledge Management System API and provides annotations using open source data sets such as gnomAD, EVS, and ClinVar and professional resources such as HGMD Pro. This annotation system reports zygosity as well as inference of mutation types including nonsense, nonsynonymous, splicing and frameshift, among others. Synonymous variants, intronic variants not affecting splicing sites, and common benign variants are excluded from interpretation unless previously reported in the literature as possibly pathogenic variants. It should be noted that the data interpretation is based on our current understanding of the gene and variants at the time of reporting. The variants were interpreted according to ACMG guidelines (reference 1) and patient phenotypes. It should be noted that the data re-interpretation is based on our current understanding of genes and variants at the time of reanalysis request.</p>
+            <p>4. The report contains results of genes related to the patient's clinical phenotype. This interpretation is based on the clinical information provided by the referring center. Results reported in the focused report should be carefully correlated to the individual's clinical findings by the referring physician. Results of secondary finding include pathogenic and (Table 3) likely pathogenic variants in following genes associated with conditions described in ACMG recommendations (reference 2): BRCA1, BRCA2, TP53, STK11, MLH1, MSH2, MSH6, PMS2, APC, MUTYH, BMPR1A, SMAD4, VHL, MEN1, RET, PTEN, RB1, SDHD, SDHAF2, SDHC, SDHB, TSC1, TSC2, WT1, NF2, COL3A1, FBN1, TGFBR1, TGFBR2, SMAD3, ACTA2, MYH11, MYBPC3, MYH7, TNNT2, TNNI3, TPM1, MYL3, ACTC1, PRKAG2, GLA, MYL2, LMNA, RYR2, PKP2, DSP, DSC2, TMEM43, DSG2, KCNQ1, KCNH2, SCN5A, LDLR, APOB, PCSK9, ATP7B, OTC, RYR1 and CACNA1S. Results of carrier status for autosomal recessive conditions (Table 4) are limited to disorders which are recommended for carrier screening by professional societies such as ACMG or ACOG, which include pathogenic and likely pathogenic variants in CFTR, IKBKAP, HEXA, ASPA, FANCC, SMPD1, BLM, MCOLN1, GBA genes and HBB S allele.</p>
+            <p>5. The WGS report includes minor allele frequency (MAF) data for variants reported in the genome aggregation database (gnomAD, http://gnomAD.broadinstitute.org/). For example, ""251 / 31374 204 / 15408"" in the MAF column labeled as ""gnomAD TA/ HF"" means in the current gnomAD database, for the variant listed, the minor allele was observed 251 times out of 31374 chromosomes in Total Allele counts (TA), while the Highest Frequency (HF) was observed in a population with a MAF of 204/15408. N/R in the column denotes ""Not Reported"".</p>
+            <p>6. The WGS report also includes in silico prediction score by CADD(reference 3).A scaled CADD score of 20 means that a variant is amongst the top 1 % of deleterious variants in the human genome, whereas a score of 30 means that the variant is in the top 0.1 % and so forth. It should be noted that in silico prediction results may vary depending on the algorithm and databases used at the time and should only be used as a guide but not solely relied upon for variant classifications.</p>
+            <p>7. In the ""Gene / Variant"" column from the tables, the following information is listed for single nucleotide variants(SNVs) gene name:isoform:location:nucleotide:amino acid, CADD score.For copy number variants(CNV), the gene names are listed if the number of genes contained in the affected region is lower than 20.</p>
+            }
+            else if (@Model.TestCode == 1807)
+            {
+            <p>
+                1. Whole genome sequencing (WGS): For the paired end whole genome sequencing procedure, genome DNA is fragmented by sonication. Fragmented DNA undergoes End Repair, A-Tailing, and adenylation. The DNA is then ligated to the dual index Illumina TruSeq barcoded adaptors (Illumina Adapter Sequences. Illumina, Document# 1000000002694v09). Post ligation products are cleaned with AMPure XP beads to remove un-ligated adaptors or adapter-dimer molecules. The clean-up step is followed by 6 cycles of PCR amplification. The post-amplification products are cleaned once with AMPure XP beads. The library DNA is subjected to sequence analysis on Illumina NovaSeq platform for 150bp paired-end reads. As quality control measures to detect process errors, the DNA is analyzed using Fluidigm Genotyping SNP trace Assays (May MY et al, 2015). The SNPtrace data are compared to aligned whole genome sequencing data to ensure correct sample identification and assess possible contamination. The following quality control metrics of sequencing data are generally achieved: Unique Reads: >80%; Bases mapped at  Q20: >86x109; Average Coverage: >35X; Genome Covered ≥10x: 95%; Genome Covered ≥20x: 90%; SNP concordance to SNPtrace: >90%; Contamination rate by VerifyBamID: &lt;1%.
+            </p>
+            <p>
+                2. Data analysis and interpretation are performed by the Baylor Genetics analytics pipeline. Data are aligned to the human reference genome build GRCh38 using the Illumina Dragen BioIT Platform. Variant calling is performed using the Illumina Dragen haplotype-based variant calling system and Illumina Dragen genome wide depth based CNV caller with custom modifications from Baylor Genetics. Trinucleotide repeat calling is performed using the Illumina Manta Structural Variant Caller.
+            </p>
+            <p>
+                3. The automated genetic interpretation platform from Emedgene is implemented for variant annotation and interpretation with proprietary algorithms and open source data sets such as Gnomad, EVS, and ClinVar and professional resources such as HGMD Pro. Synonymous variants, intronic variants not affecting splicing sites, and common benign variants are excluded from interpretation unless previously reported in the literature as possibly pathogenic variants. The variants were interpreted according to ACMG guidelines (reference 1) and patient phenotypes. Variants are confirmed by Sanger sequencing if next-generation sequencing data quality is insufficient for that locus.
+            </p>
+            <p>
+                4. Variant types being analyzed include sequencing variant (SNV), copy number variant (CNV) in nuclear genes and mtDNA (mitochondrial DNA), and short tandem repeats (STR). Uniparental disomy (UPD) analysis is done only in trio setting. Increased region of homozygosity (ROH) is reported for those greater than 5 Mb. Sensitivity of detection is decreased for mtDNA SNVs and CNVs of heteroplasmy level lower than 5% and 10%, respectively. Pathogenic events of short tandem repeats can be detected within the genomic regions of following genes, NOTCH2NLC, ATN1, DIP2B, ATXN2, ATXN8OS, PABPN1, ATXN3, JPH3, TCF4, CACNA1A, DMPK, GLS, NOP56, CSTB, ATXN10, ATXN7, CNBP, HTT, RFC1, PHOX2B, PPP2R2B, ATXN1, TBP, C9orf72, FXN, AR, FMR1, and AFF2. Sensitivity of detection is reduced for borderline or incomplete penetrance alleles.
+            </p>
+            <p>
+                5. The WGS report also includes in silico prediction score for nonsynonymous (missense) changes by CADD (reference 3) when applicable. A scaled CADD score of 20 means that a variant is amongst the top 1% of deleterious variants in the human genome, whereas a score of 30 means that the variant is in the top 0.1% and so forth. It should be noted that in silico prediction results may vary depending on the algorithm and databases used at the time and should only be used as a guide but not solely relied upon for variant classifications.
+            </p>
+            }
+            else if (@Model.TestCode == 1809 || @Model.TestCode == 1819 || @Model.TestCode == 1859)
+            {
+            <p>
+                1. Whole genome sequencing (WGS):  Genomic DNA was fragmented and indexed to prepare individual library, the libraries were purified and pooled for sequence analysis on Illumina NovaSeq platform for paired-end reads. Internal quality control measures are performed to ensure sample integrity.
+            </p>
+            <p>
+                2. Data analysis and interpretation are performed by the Baylor Genetics analytics pipeline. Data are aligned to the human reference genome build GRCh38 using the Illumina Dragen BioIT Platform. Variant calling is performed using the Illumina Dragen haplotype-based variant calling system and Illumina Dragen genome wide depth based CNV caller with custom modifications from Baylor Genetics. Trinucleotide repeat calling is performed using the Illumina Manta Structural Variant Caller.
+            </p>
+            <p>
+                3. The automated genetic interpretation platform from Emedgene is implemented for variant annotation and interpretation with proprietary algorithms and open source data sets such as Gnomad, EVS, and ClinVar and professional resources such as HGMD Pro. Synonymous variants, intronic variants not affecting splicing sites, and common benign variants are excluded from interpretation unless previously reported in the literature as possibly pathogenic variants. The variants were interpreted according to ACMG guidelines (reference 1) and patient phenotypes. Variants are confirmed by Sanger sequencing if next-generation sequencing data quality is insufficient for that locus.
+            </p>
+            <p>
+                4. Variant types being analyzed include sequencing variant (SNV), copy number variant (CNV) in nuclear genes and mtDNA (mitochondrial DNA), and short tandem repeats (STR). Uniparental disomy (UPD) analysis is done only in trio setting. Increased region of homozygosity (ROH) is reported for those greater than 5 Mb. Sensitivity of detection is decreased for mtDNA SNVs and CNVs of heteroplasmy level lower than 5% and 10%, respectively. Pathogenic events of short tandem repeats can be detected within the genomic regions of following genes, NOTCH2NLC, ATN1, DIP2B, ATXN2, ATXN8OS, PABPN1, ATXN3, JPH3, TCF4, CACNA1A, DMPK, GLS, NOP56, CSTB, ATXN10, ATXN7, CNBP, HTT, RFC1, PHOX2B, PPP2R2B, ATXN1, TBP, C9orf72, FXN, AR, FMR1, and AFF2. Sensitivity of detection is reduced for borderline or incomplete penetrance alleles.
+            </p>
+            <p>
+                5. The report contains results of genes related to the patient's clinical phenotype. This interpretation is based on the clinical information provided by the referring center. Results reported in the focused report should be carefully correlated to the individual's clinical findings by the referring physician. Results of secondary finding include pathogenic and likely pathogenic variants in following genes associated with conditions described in ACMG recommendations (reference 2, ACMG SF v3.0): APC, ACTA2, ACTC1, ACVRL1, APOB, ATP7B, BMPR1A, BRCA1, BRCA2, BTD, CACNA1S, CASQ2, COL3A1, DSC2, DSG2, DSP, ENG, FBN1, FLNC, GAA, GLA, HFE, HNF1A, KCNH2, KCNQ1, LDLR, LMNA, MAX, MEN1, MLH1, MSH2, MSH6, MUTYH, MYBPC3, MYH11, MYH7, MYL2, MYL3, NF2, OTC, PALB2, PCSK9, PKP2, PMS2, PRKAG2, PTEN, RB1, RET, RPE65, RYR1, RYR2, SCN5A, SDHAF2, SDHB, SDHC, SDHD, SMAD3, SMAD4, STK11, TGFBR1, TGFBR2, TMEM127, TMEM43, TNNI3, TNNT2, TP53, TPM1, TRDN, TSC1, TSC2, TTN, VHL and WT1. Results of carrier status for autosomal recessive conditions are limited to disorders which are recommended for carrier screening by professional societies such as ACMG or ACOG, which include pathogenic and likely pathogenic variants in CFTR, IKBKAP, HEXA, ASPA, FANCC, SMPD1, BLM, MCOLN1, GBA genes and HBB S allele.
+            </p>
+            <p>
+                6. The WGS report also includes in silico prediction score for nonsynonymous (missense) changes by CADD (reference 3) when applicable. A scaled CADD score of 20 means that a variant is amongst the top 1% of deleterious variants in the human genome, whereas a score of 30 means that the variant is in the top 0.1% and so forth. It should be noted that in silico prediction results may vary depending on the algorithm and databases used at the time and should only be used as a guide but not solely relied upon for variant classifications.
+            </p>
+            }
+            else if (@Model.TestCode == 1857)
+            {
+            <p>
+                1. Whole genome sequencing (WGS): For the paired end whole genome sequencing procedure, genome DNA is fragmented by sonication. Fragmented DNA undergoes End Repair, A-Tailing, and adenylation. The DNA is then ligated to the dual index Illumina TruSeq barcoded adaptors (Illumina Adapter Sequences. Illumina, Document# 1000000002694v09). Post ligation products are cleaned with AMPure XP beads to remove un-ligated adaptors or adapter-dimer molecules. The clean-up step is followed by 6 cycles of PCR amplification. The post-amplification products are cleaned once with AMPure XP beads. The library DNA is subjected to sequence analysis on Illumina NovaSeq platform for 150bp paired-end reads. As quality control measures to detect process errors, the DNA is analyzed using Fluidigm Genotyping SNP trace Assays (May MY et al, 2015). The SNPtrace data are compared to aligned whole genome sequencing data to ensure correct sample identification and assess possible contamination. The following quality control metrics of sequencing data are generally achieved: Unique Reads: >80%; Bases mapped at  Q20: >86x109; Average Coverage: >35X; Genome Covered ≥10x: 95%; Genome Covered ≥20x: 90%; SNP concordance to SNPtrace: >90%; Contamination rate by VerifyBamID: <1%.
+            </p>
+            <p>
+                2. Data analysis and interpretation are performed by the Baylor Genetics analytics pipeline. Data are aligned to the human reference genome build GRCh38 using the Illumina Dragen BioIT Platform. Variant calling is performed using the Illumina Dragen haplotype-based variant calling system and Illumina Dragen genome wide depth based CNV caller with custom modifications from Baylor Genetics. Trinucleotide repeat calling is performed using the Illumina Manta Structural Variant Caller.
+            </p>
+            <p>
+                3. The automated genetic interpretation platform from Emedgene is implemented for variant annotation and interpretation with proprietary algorithms and open source data sets such as Gnomad, EVS, and ClinVar and professional resources such as HGMD Pro. Synonymous variants, intronic variants not affecting splicing sites, and common benign variants are excluded from interpretation unless previously reported in the literature as possibly pathogenic variants. The variants were interpreted according to ACMG guidelines (reference 1) and patient phenotypes. Variants are confirmed by Sanger sequencing if next-generation sequencing data quality is insufficient for that locus.
+            </p>
+            <p>
+                4. The report contains results of genes related to the patient's clinical phenotype. This interpretation is based on the clinical information provided by the referring center. Results reported in the report should be carefully correlated to the individual's clinical findings by the referring physician. Results of secondary finding include pathogenic and likely pathogenic variants in following genes associated with conditions described in ACMG recommendations (reference 2, ACMG SF v3.0): APC, ACTA2, ACTC1, ACVRL1, APOB, ATP7B, BMPR1A, BRCA1, BRCA2, BTD, CACNA1S, CASQ2, COL3A1, DSC2, DSG2, DSP, ENG, FBN1, FLNC, GAA, GLA, HFE, HNF1A, KCNH2, KCNQ1, LDLR, LMNA, MAX, MEN1, MLH1, MSH2, MSH6, MUTYH, MYBPC3, MYH11, MYH7, MYL2, MYL3, NF2, OTC, PALB2, PCSK9, PKP2, PMS2, PRKAG2, PTEN, RB1, RET, RPE65, RYR1, RYR2, SCN5A, SDHAF2, SDHB, SDHC, SDHD, SMAD3, SMAD4, STK11, TGFBR1, TGFBR2, TMEM127, TMEM43, TNNI3, TNNT2, TP53, TPM1, TRDN, TSC1, TSC2, TTN, VHL and WT1. Results of carrier status for autosomal recessive conditions are limited to disorders which are recommended for carrier screening by professional societies such as ACMG or ACOG, which include pathogenic and likely pathogenic variants in CFTR, IKBKAP, HEXA, ASPA, FANCC, SMPD1, BLM, MCOLN1, GBA genes and HBB S allele. Pathogenic variants for carrier status are only reported when both partners are carriers of the same gene.
+            </p>
+            <p>
+                5. The WGS report also includes in silico prediction score for nonsynonymous (missense) changes by CADD (reference 3) when applicable. A scaled CADD score of 20 means that a variant is amongst the top 1% of deleterious variants in the human genome, whereas a score of 30 means that the variant is in the top 0.1% and so forth. It should be noted that in silico prediction results may vary depending on the algorithm and databases used at the time and should only be used as a guide but not solely relied upon for variant classifications.
+            </p>
+            }
+            else if (@Model.TestCode == 1850 || @Model.TestCode == 1851 || @Model.TestCode == 1800 || @Model.TestCode == 1822 ||  @Model.TestCode == 1832
+            || @Model.TestCode == 1810 || @Model.TestCode == 1829 || @Model.TestCode == 1839
+            || @Model.TestCode == 1803 || @Model.TestCode == 1823 || @Model.TestCode == 1833 || @Model.TestCode == 1870)
+            {
+
+            <p>
+                1. Whole genome sequencing (WGS):  Genomic DNA was fragmented and indexed to prepare individual library, the libraries were purified and pooled for sequence analysis on Illumina NovaSeq platform for paired-end reads. Internal quality control measures are performed to ensure sample integrity.
+            </p>
+            <p>
+                2. Data analysis and interpretation are performed by the Baylor Genetics analytics pipeline. Data are aligned to the human reference genome build GRCh38 using the Illumina Dragen BioIT Platform. Variant calling is performed using the Illumina Dragen haplotype-based variant calling system and Illumina Dragen genome wide depth based CNV caller with custom modifications from Baylor Genetics. Trinucleotide repeat calling is performed using the Illumina Manta Structural Variant Caller.
+            </p>
+            <p>
+                3. The automated genetic interpretation platform from Emedgene is implemented for variant annotation and interpretation with proprietary algorithms and open source data sets such as Gnomad, EVS, and ClinVar and professional resources such as HGMD Pro. Synonymous variants, intronic variants not affecting splicing sites, and common benign variants are excluded from interpretation unless previously reported in the literature as possibly pathogenic variants. The variants were interpreted according to ACMG guidelines (reference 1) and patient phenotypes. Variants are confirmed by Sanger sequencing if next-generation sequencing data quality is insufficient for that locus.
+            </p>
+            <p>
+                4. Variant types being analyzed include sequencing variant (SNV), copy number variant (CNV) in nuclear genes and mtDNA (mitochondrial DNA), and short tandem repeats (STR). Uniparental disomy (UPD) analysis is done only in trio setting. Increased region of homozygosity (ROH) is reported for those greater than 5 Mb. Sensitivity of detection is decreased for mtDNA SNVs and CNVs of heteroplasmy level lower than 5% and 10%, respectively. Pathogenic events of short tandem repeats can be detected within the genomic regions of following genes, NOTCH2NLC, ATN1, DIP2B, ATXN2, ATXN8OS, PABPN1, ATXN3, JPH3, TCF4, CACNA1A, DMPK, GLS, NOP56, CSTB, ATXN10, ATXN7, CNBP, HTT, RFC1, PHOX2B, PPP2R2B, ATXN1, TBP, C9orf72, FXN, AR, FMR1, and AFF2. Sensitivity of detection is reduced for borderline or incomplete penetrance alleles.
+            </p>
+            @if (Model.TestCode == 1851 ||  @Model.TestCode == 1832 ||  @Model.TestCode == 1833 || @Model.TestCode == 1839)
+            {
+            <p>
+                5. The report contains results of genes related to the patient's clinical phenotype. This interpretation is based on the clinical information provided by the referring center. Results reported in the report should be carefully correlated to the individual's clinical findings by the referring physician.
+            </p>
+            }
+            else
+            {
+            <p>
+                5. The report contains results of genes related to the patient's clinical phenotype. This interpretation is based on the clinical information provided by the referring center. Results reported in the report should be carefully correlated to the individual's clinical findings by the referring physician. Results of secondary finding include pathogenic and likely pathogenic variants in following genes associated with conditions described in ACMG recommendations (reference 2, ACMG SF v3.0): APC, ACTA2, ACTC1, ACVRL1, APOB, ATP7B, BMPR1A, BRCA1, BRCA2, BTD, CACNA1S, CASQ2, COL3A1, DSC2, DSG2, DSP, ENG, FBN1, FLNC, GAA, GLA, HFE, HNF1A, KCNH2, KCNQ1, LDLR, LMNA, MAX, MEN1, MLH1, MSH2, MSH6, MUTYH, MYBPC3, MYH11, MYH7, MYL2, MYL3, NF2, OTC, PALB2, PCSK9, PKP2, PMS2, PRKAG2, PTEN, RB1, RET, RPE65, RYR1, RYR2, SCN5A, SDHAF2, SDHB, SDHC, SDHD, SMAD3, SMAD4, STK11, TGFBR1, TGFBR2, TMEM127, TMEM43, TNNI3, TNNT2, TP53, TPM1, TRDN, TSC1, TSC2, TTN, VHL and WT1.
+            </p>
+            }
+            <p>
+                6. The WGS report also includes in silico prediction score for nonsynonymous (missense) changes by CADD (reference 2) when applicable. A scaled CADD score of 20 means that a variant is amongst the top 1% of deleterious variants in the human genome, whereas a score of 30 means that the variant is in the top 0.1% and so forth. It should be noted that in silico prediction results may vary depending on the algorithm and databases used at the time and should only be used as a guide but not solely relied upon for variant classifications.
+            </p>
+            }
+            else if (@Model.TestCode == 1897) {
+            <p>
+                Data analysis and interpretation are performed by the Baylor Genetics analytics pipeline. Data are aligned to the human reference genome build GRCh38 using the Illumina Dragen BioIT Platform. Variant calling is performed using the Illumina Dragen haplotype-based variant calling system and Illumina Dragen genome wide depth based CNV caller with custom modifications from Baylor Genetics. Structural variant and trinucleotide repeat calling is performed using the Illumina Manta Structural Variant Caller.
+            </p>
+            <p>
+                The automated genetic interpretation platform from Emedgene is implemented for variant annotation and interpretation with proprietary algorithms and open source data sets such as gnomAD, EVS, and ClinVar and professional resources such as HGMD Pro. Synonymous variants, intronic variants not affecting splicing sites, and common benign variants are excluded from interpretation unless previously reported in the literature as possibly pathogenic variants. The variants were interpreted according to ACMG guidelines (reference 1) and patient phenotypes. Variants are confirmed by Sanger sequencing if next-generation sequencing data quality is insufficient for that locus.
+            </p>
+            <p>
+                Variant types being analyzed include sequencing variants, copy number variants (CNV) in nuclear genes and mtDNA (mitochondrial DNA), and short tandem repeats (STR). Uniparental disomy (UPD) analysis is done only in trio setting. Regions of homozygosity (ROH) greater than 5 Mb are reported. Sensitivity of detection is decreased for mtDNA SNVs and CNVs with heteroplasmy levels lower than 5% and 10%, respectively. Pathogenic events of short tandem repeats can be detected within the genomic regions of following genes, NOTCH2NLC, ATN1, DIP2B, ATXN2, ATXN8OS, PABPN1, ATXN3, NIPA1, JPH3, TCF4, CACNA1A, DMPK, GLS, NOP56, CSTB, ATXN10, ATXN7, CNBP, HTT, RFC1, PHOX2B, PPP2R2B, ATXN1, TBP, C9orf72, FXN, AR, FMR1, and AFF2. Sensitivity of detection is reduced for borderline or incomplete penetrance alleles.
+            </p>
+            <p>
+                The report contains results of genes related to the patient's clinical phenotype. This interpretation is based on the clinical information provided by the referring center. Results reported in the report should be carefully correlated to the individual's clinical findings by the referring physician. Results of medically actionable pathogenic variants include pathogenic and likely pathogenic variants in the following genes associated with conditions described in the ACMG recommendations (reference 2, ACMG SF v3.0): APC, ACTA2, ACTC1, ACVRL1, APOB, ATP7B, BMPR1A, BRCA1, BRCA2, BTD, CACNA1S, CASQ2, COL3A1, DSC2, DSG2, DSP, ENG, FBN1, FLNC, GAA, GLA, HFE, HNF1A, KCNH2, KCNQ1, LDLR, LMNA, MAX, MEN1, MLH1, MSH2, MSH6, MUTYH, MYBPC3, MYH11, MYH7, MYL2, MYL3, NF2, OTC, PALB2, PCSK9, PKP2, PMS2, PRKAG2, PTEN, RB1, RET, RPE65, RYR1, RYR2, SCN5A, SDHAF2, SDHB, SDHC, SDHD, SMAD3, SMAD4, STK11, TGFBR1, TGFBR2, TMEM127, TMEM43, TNNI3, TNNT2, TP53, TPM1, TRDN, TSC1, TSC2, TTN, VHL, and WT1.
+            </p>
+            }
+            else
+            {
+            <p>
+                Whole genome sequencing (WGS): The library is prepared using a PCR free 550-bp insert size protocol by the KAPA Hyper Prep kit. The library is subjected to sequence analysis on Illumina NovaSeq 6000 platform for 150 bp paired-end reads. The following quality control metrics of the sequencing data are generally achieved: average sequenced coverage over the genome > 40X, >97.5% target base (digital exome) covered at >20X, SNP concordance to genotype array: >95%. This test may not provide detection of certain genes or portions of certaingenes due to local sequence characteristics or the presence of closely related pseudogenes. Small deletions or duplications, changes from repetitive sequences may not be accurately identified by this methodology.
+            </p>
+            <p>
+                As a quality control measure, analysis includes a genotyping assay performed by the Fluidigm SNPtype platform using the SNPTrace Panel. The SNPTrace Panel consists of 90 autosomal loci and 6 allosome loci (3 SNPs each on chrX and chrY). The 90 autosomal loci include 46 SNPs that are polymorphic across all populations and 44 ancestry-informative loci. Samples and assays are transferred to a 96 Fluidigm Dynamic array, loaded to reaction chambers by an integrated fluidic circuit (IFC) controller, thermal cycled, and endpoint-imaged on the BioMark HD System (Fluidigm). The SNP data are first analyzed by SNP Genotyping Analysis Software (Fluidigm) and then by comparison with the genotype calls made from the Illumina Dragen BioIT Platform for NGS data to ensure correct sample identification. Once an assessment of identity match is established, contamination analysis is performed by using homozygous sites and computational inspection of BAM data.
+            </p>
+            <p>
+                Data analysis and interpretation are performed by the Baylor Genetics analytics pipeline. The output data from the Illumina NovaSeq are converted from BCL files to FastQ files according to each sample's specific adapter sequence using Illumina's recommended procedure. FastQ data are aligned to the human reference genome build GRCh38 using the Illumina Dragen BioIT Platform. The output of the alignment is a BAM file; QC metrics of the map-align process are recorded for quality review. QC statistics include coverage for the digital exome regions (all coding regions, UTRs of genes, noncoding genes or intronic regions that are known to be implicated in human disease), mate-pair alignment information as well as number of total and duplicate reads. Variant calling on the BAM file is performed using the Illumina Dragen haplotype-based variant calling system and the output is a VCF file. Variant calling for copy number analyses is performed using the Illumina Dragen genome wide depth based CNV caller with custom modifications from Baylor Genetics. Structural variant calling is performed using the Illumina Manta Structural Variant Caller.
+            </p>
+            <p>
+                The automated genetic interpretation platform from Emedgene is implemented for variant annotation and interpretation with proprietary algorithms and open source data sets such as Gnomad, EVS, and ClinVar and professional resources such as HGMD Pro. This system reports zygosity as well as inference of mutation types including nonsense, nonsynonymous, splicing and frameshift, among others. Synonymous variants, intronic variants not affecting splicing sites, and common benign variants are excluded from interpretation unless previously reported in the literature as possibly pathogenic variants. It should be noted that the data interpretation is based on our current understanding of the gene and variants at the time of reporting. The variants were interpreted according to ACMG guidelines (reference 2) and patient phenotypes. Variants are confirmed by Sanger sequencing if next-generation sequencing data quality is insufficient for that locus. In singleton WES analysis, Sanger sequencing is also performed for segregation analysis if parental samples are available but not undergone exome sequencing analysis.
+            </p>
+            <p>
+                The report contains results of genes related to the patient's clinical phenotype. This interpretation is based on the clinical information provided by the referring center. Results reported in the focused report should be carefully correlated to the individual's clinical findings by the referring physician. Results of secondary finding include pathogenic and (Table 3) likely pathogenic variants in following genes associated with conditions described in ACMG recommendations (reference 2): BRCA1, BRCA2, TP53, STK11, MLH1, MSH2, MSH6, PMS2, APC, MUTYH, BMPR1A, SMAD4,VHL, MEN1, RET, PTEN, RB1, SDHD, SDHAF2, SDHC, SDHB, TSC1, TSC2, WT1, NF2, COL3A1, FBN1, TGFBR1, TGFBR2, SMAD3, ACTA2,MYH11, MYBPC3, MYH7, TNNT2, TNNI3, TPM1, MYL3, ACTC1, PRKAG2, GLA, MYL2, LMNA, RYR2, PKP2, DSP, DSC2, TMEM43, DSG2,KCNQ1, KCNH2, SCN5A, LDLR, APOB, PCSK9, ATP7B, OTC, RYR1 and CACNA1S. Results of carrier status for autosomal recessive conditions(Table 4) are limited to disorders which are recommended for carrier screening by professional societies such as ACMG or ACOG, which include pathogenic and likely pathogenic variants in CFTR, IKBKAP, HEXA, ASPA, FANCC, SMPD1, BLM, MCOLN1, GBA genes and HBB S allele.
+            </p>
+            <p>
+                The WGS report includes minor allele frequency (MAF) data for variants reported in the genome aggregation database (gnomAD,http://gnomAD.broadinstitute.org/). For example, "251/31374 204/15408" in the MAF column labeled as "gnomAD TA/HF" means in the currentgnomAD database, for the variant listed, the minor allele was observed 251 times out of 31374 chromosomes in Total Allele counts (TA), while theHighest Frequency (HF) was observed in a population with a MAF of 204/15408. N/R in the column denotes "Not Reported".
+            </p>
+            <p>
+                The WGS report also includes in silico prediction score for nonsynonymous (missense) changes by CADD (reference 3). A scaled CADD scoreof 20 means that a variant is amongst the top 1% of deleterious variants in the human genome, whereas a score of 30 means that the variant is inthe top 0.1% and so forth. It should be noted that in silico prediction results may vary depending on the algorithm and databases used at the timeand should only be used as a guide but not solely relied upon for variant classifications.8. In the "Gene/Variant" column from the tables, the following information is listed for single nucleotide variants (SNVs) genename:isoform:location:nucleotide:amino acid, CADD score. For copy number variants (CNV), the gene names are listed if the number of genescontained in the affected region is lower than 20.
+            </p>
+            }
+        </div>
+        }
+
+    </div>
+    <div id="wes-limitations" class="wes-avoid-page-break">
+        <div class="wes-title-header-background">
+            <div class="wes-title-header-text">
+                limitations
+            </div>
+        </div>
+        <div class="wes-paragraph-text wes-section-padding">
+            @if (Model.IsParentalReport && Model.IsTextReport)
+            {
+            <p>
+                Individuals being studied should understand that rare diagnostic errors may occur. Possible sources of diagnostic errors include sample mix-ups, erroneous paternity identification, and genotyping errors. Genotyping errors can result from trace contamination of PCR, from maternal contamination of fetal samples, from rare genetic variants which interfere with analysis, from mosaicism at levels below standard detection, and from other sources.
+            </p>
+            }
+            else
+            {
+            <p>
+                The interpretation of nucleotide changes is based on our current understanding of the specific genes. This interpretation may change over
+                time as more information about these genes becomes available. Possible diagnostic errors include sample mix-ups, genetic variants that
+                interfere with analysis, incorrect assignment of biological parentage, and other sources. Please contact a genetic counselor at the Medical
+                Genetics Laboratories if there is reason to suspect one of these sources of error.
+            </p>
+            }
+        </div>
+    </div>
+    <div id="wes-references" class="wes-avoid-page-break">
+        <div class="wes-title-header-background">
+            <div class="wes-title-header-text">
+                references
+            </div>
+        </div>
+        <div class="wes-paragraph-text wes-section-padding">
+            <ol>
+                <li>
+                    ACMG Laboratory Quality Assurance Committee. Standards and guidelines for the interpretation of sequence variants: a joint consensus recommendation of the American College of Medical Genetics and Genomics and the Association for Molecular Pathology. Genetics in Medicine (2015) 17, 405-423. PMID: 25741868.
+                </li>
+
+                <li>
+                    A general framework for estimating the relative pathogenicity of human genetic variants. Nat Genet. (2014) 46, 310-315. PMID: 24487276.
+                </li>
+            </ol>
+        </div>
+    </div>
+</div>

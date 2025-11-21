@@ -1,0 +1,23 @@
+﻿ @if (!Model.IsTextReport)
+{
+<div class="wes-avoid-page-break">
+    <div class="wes-title-header-background">
+        <div class="wes-title-header-text">
+            recommendations
+        </div>
+    </div>
+    <div class="d-table w-100">
+        <p class="wes-paragraph-text wes-section-padding d-table-cell">
+            @if(!string.IsNullOrWhiteSpace(Model.Recommendation)){
+            var lines = Model.Recommendation.Split(new[] { '\r','\n'}, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var line in lines){
+            @line<br/>
+            }
+            }
+        </p>
+        <div class="wes-editable-field d-table-cell" id="report-recommendation" align="right">
+            <button class="wes-edit-button"><i class="fa fa-edit"></i></button>
+        </div>
+    </div>
+</div>
+}

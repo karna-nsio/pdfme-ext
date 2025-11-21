@@ -195,6 +195,8 @@ function renderTextField(schema: any, value: string): string {
   const characterSpacing = schema.characterSpacing || 0;
   const opacity = schema.opacity !== undefined ? schema.opacity : 1;
   const rotate = schema.rotate || 0;
+  const fontWeight = schema.fontWeight || 'normal';
+  const fontStyle = schema.fontStyle || 'normal';
   
   // Background color support
   const backgroundColor = schema.backgroundColor || 'transparent';
@@ -242,6 +244,8 @@ function renderTextField(schema: any, value: string): string {
     background-color: ${backgroundColor};
     text-align: ${alignment};
     font-family: ${fontName}, Arial, sans-serif;
+    font-weight: ${fontWeight};
+    font-style: ${fontStyle};
     line-height: ${lineHeight};
     letter-spacing: ${characterSpacing}pt;
     opacity: ${opacity};
@@ -275,6 +279,8 @@ function renderMultiVariableTextField(schema: any, value: string): string {
   const characterSpacing = schema.characterSpacing || 0;
   const opacity = schema.opacity !== undefined ? schema.opacity : 1;
   const rotate = schema.rotate || 0;
+  const fontWeight = schema.fontWeight || 'normal';
+  const fontStyle = schema.fontStyle || 'normal';
   
   // Background color support
   const backgroundColor = schema.backgroundColor || 'transparent';
@@ -311,6 +317,8 @@ function renderMultiVariableTextField(schema: any, value: string): string {
     background-color: ${backgroundColor};
     text-align: ${alignment};
     font-family: ${fontName}, Arial, sans-serif;
+    font-weight: ${fontWeight};
+    font-style: ${fontStyle};
     line-height: ${lineHeight};
     letter-spacing: ${characterSpacing}pt;
     opacity: ${opacity};
@@ -329,6 +337,29 @@ function renderMultiVariableTextField(schema: any, value: string): string {
     width: 100%;
     height: ${schema.height}mm;
   ">${htmlValue}</div></div>`;
+}
+
+/**
+ * Render SVG field as HTML
+ */
+function renderSVG(schema: any, value: string): string {
+  const opacity = schema.opacity !== undefined ? schema.opacity : 1;
+  const rotate = schema.rotate || 0;
+
+  // Use the SVG content directly
+  const svgContent = value || schema.content || '';
+
+  return `<div style="
+    position: absolute;
+    left: ${schema.position.x}mm;
+    top: ${schema.position.y}mm;
+    width: ${schema.width}mm;
+    height: ${schema.height}mm;
+    opacity: ${opacity};
+    transform: rotate(${rotate}deg);
+    overflow: hidden;
+    box-sizing: border-box;
+  ">${svgContent}</div>`;
 }
 
 /**
@@ -659,7 +690,10 @@ function renderField(schema: any, input: Record<string, any>): string {
     
     case 'ellipse':
       return renderEllipse(schema);
-    
+
+    case 'svg':
+      return renderSVG(schema, value);
+
     // Add more types as needed
     default:
       // Fallback to text rendering

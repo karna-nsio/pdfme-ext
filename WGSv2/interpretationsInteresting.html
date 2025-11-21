@@ -1,0 +1,153 @@
+﻿<div class="wes-interpretation wes-avoid-page-break">
+    <div class="wes-title-header-background">
+        <div class="wes-title-header-text">
+            <span>@Model.FirstOrDefault()?.SectionTitle</span>
+        </div>
+    </div>
+    <div class="wes-interpretationContent wes-section-padding">
+        <div class="wes-interpretationInfo wes-avoid-page-break">
+
+            <table class="wes-gene-table">
+                <!--This is the only way to get IronPDF to accept column width settings, and I can't figure out how to get class attribute working for col-->
+                <colgroup>
+                    <col style=" width: 100px; " />
+                    <col />
+                    <col />
+                    <col style=" width: 90px; " />
+                    <col style=" width: 100px; " />
+                    <col />
+                    <col />
+                    <col />
+                    <col />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <td class="diseaseColumn">disease</td>
+                        <td>inheritance pattern</td>
+                        <td>gene / variant</td>
+                        <td class="typeColumn">variant type</td>
+                        <td class="genotypeColumn">genotype</td>
+                        <td>inherited from</td>
+                        <td>variant classification</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var finding in @Model)
+                    {
+                    <tr>
+                        <td class="diseaseColumn wes-editable-field" id=@("variant-"+finding.VariantId)>@finding.DiseaseName</td>
+                        <td>@finding.InheritancePattern</td>
+                        <td class="wes-editable-field geneColumn" id=@("variantDisease-geneandvariant-"+finding.VariantId)>
+                            @(finding.GeneAndVariant)
+                        </td>
+                        <td>
+                            @(finding.VariantType.GetDisplayName())
+                            <!--<select class="wes-dropdown wes-variant-result wes-select" name="variantType" id=@("variantDisease-phenoType-"+finding.VariantDiseaseId)>
+                    <option value="CNV" @(finding.VariantType.ToString()=="CNV" ? "selected" : null )>Copy Number Variant</option>
+                    <option value="SNV" @(finding.VariantType.ToString()=="SNV" ? "selected" : null )>Single Nucleotide Variant</option>
+                    <option value="Not_Specified" @(finding.VariantType.ToString()=="Not_Specified" ? "selected" : null )>Not Specified</option>
+                </select>-->
+                        </td>
+                        <td>
+                            <!--@(finding.Zygosity.ToString().Replace('_', ' '))-->
+                            <select class="wes-dropdown wes-variant-result wes-select" name="zygosity" id=@("finding-zygosity-"+finding.FindingsId)>
+                                <option value="Heterozygous" @(finding.Zygosity.GetDisplayName()=="Het" ? "selected" : null)>Heterozygous</option>
+                                <option value="Homozygous" @(finding.Zygosity.GetDisplayName()=="Hom" ? "selected" : null)>Homozygous</option>
+                                <option value="Hemizygous" @(finding.Zygosity.GetDisplayName()=="Hemi" ? "selected" : null)>Hemizygous</option>
+                                <option value="Mosaic" @(finding.Zygosity.GetDisplayName()=="Mosaic" ? "selected" : null)>Mosaic</option>
+                                <option value="Heteroplasmic" @(finding.Zygosity.GetDisplayName()=="Heteroplasmic" ? "selected" : null)>Heteroplasmic</option>
+                                <option value="Homoplasmic" @(finding.Zygosity.GetDisplayName()=="Homoplasmic" ? "selected" : null)>Homoplasmic</option>
+                                <!--<option value="Low_Homozygous" @(finding.Zygosity.GetDisplayName()=="Low_Hom" ? "selected" : null)>Low Homozygous</option>
+                                <option value="Low_Heterozygous" @(finding.Zygosity.GetDisplayName()=="Low_Het" ? "selected" : null)>Low Heterozygous</option>-->
+                                <option value="Not_Specified" @(finding.Zygosity.GetDisplayName()=="Not Specified" ? "selected" : null)>Not Specified</option>
+                            </select>
+                        </td>
+                        <td class="wes-editable-field segregationColumn" id=@("finding-segregation-"+finding.FindingsId)>@finding.Segregation</td>
+                        <td>@finding.VariantClassificationTypeForTable</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        @{
+        var geneModel = @Model.FirstOrDefault(finding => finding.GenId != 0);
+        var geneDescription = geneModel?.GeneDescription;
+        var genId = geneModel?.GenId;
+        <div class="wes-interpretationGeneDisc wes-avoid-page-break">
+            <h5 class="wes-section-subtitle">gene description</h5>
+            <div class="wes-section-subtitle-divider wes-blue-color-border">&nbsp;</div>
+            <div class="d-table w-100">
+                <p class="wes-subsection-text d-table-cell">
+                    @if (!string.IsNullOrWhiteSpace(geneDescription))
+                    {
+                    var lines = geneDescription.Split(new[] { '\r', '\n' }, StringSplitOptions.None);
+                    foreach (var line in lines)
+                    {
+                    @line<br />
+                    }
+                    }
+                </p>
+                <div class="wes-editable-field d-table-cell" id=@("gene-"+genId) align="right">
+                    <button class="wes-edit-button"><i class="fa fa-edit"></i></button>
+                </div>
+            </div>
+        </div>
+        }
+        @{
+        var diseaseModel = @Model.FirstOrDefault(finding => finding.DiseaseId != 0);
+        var diseaseDescription = diseaseModel?.DiseaseDescription;
+        var diseaseId = diseaseModel?.DiseaseId;
+        <div class="wes-interpretationDiseaseDisc wes-avoid-page-break">
+            <h5 class="wes-section-subtitle">disease description</h5>
+            <div class="wes-section-subtitle-divider wes-blue-color-border">&nbsp;</div>
+            <div class="d-table w-100">
+                <p class="wes-subsection-text d-table-cell">
+                    @if (!string.IsNullOrWhiteSpace(diseaseDescription))
+                    {
+                    var lines = diseaseDescription.Split(new[] { '\r', '\n' }, StringSplitOptions.None);
+                    foreach (var line in lines)
+                    {
+                    @line<br />
+                    }
+                    }
+                </p>
+                <div class="wes-editable-field d-table-cell" id=@("disease-"+diseaseId) align="right">
+                    <button class="wes-edit-button"><i class="fa fa-edit"></i></button>
+                </div>
+            </div>
+        </div>
+        }
+        @foreach (var finding in @Model)
+        {
+        <div class="wes-interpretationVariantDetails wes-avoid-page-break">
+            <h5 class="wes-section-subtitle">variant details - <span class="wes-section-undo-text-transform">@finding.GeneAndVariant</span></h5>
+            <div class="wes-section-subtitle-divider wes-blue-color-border">&nbsp;</div>
+            <div class="d-table w-100">
+                <ul class="wes-subsection-text d-table-cell">
+                    <li class="wes-editable-field" id=@("finding-displaygenomiccoordinate-"+finding.FindingsId)>
+                        @(string.IsNullOrWhiteSpace(finding.DisplayGenomicCoordinate)
+                        ? finding.VariantNameAndCoordinates
+                        : finding.DisplayGenomicCoordinate)
+                    </li>
+                    @if (!string.IsNullOrWhiteSpace(finding.VariantDiseaseDescription))
+                    {
+                    var lines = finding.VariantDiseaseDescription.Replace("\r\n","\n").Replace("\n\r","\n").Split(new[] {'\r', '\n' }, StringSplitOptions.None);
+                    foreach (var line in lines)
+                    {
+                    <li>@line</li>
+                    }
+                    }
+                </ul>
+                <div class="wes-editable-field d-table-cell" id=@("variant-"+finding.VariantId) align="right">
+                    <button class="wes-edit-button"><i class="fa fa-edit"></i></button>
+                </div>
+            </div>
+            <div class="d-table w-100">
+                <p class="wes-subsection-text d-table-cell">
+                    @finding.Recommendations
+                </p>
+            </div>
+        </div>
+        }
+    </div>
+</div>

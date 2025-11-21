@@ -1,0 +1,295 @@
+﻿<div class="wes-title-header-background">
+    <div class="wes-title-header-text">
+        demographic information
+    </div>
+</div>
+<table class="parent-demographic-table">
+    <tr>
+        <td width="33%" class="v-align">
+            <table class="wes-demographic-info wes-patient-padding" cellspacing="0" cellpadding="0">
+                <thead class="patient">
+                    <tr>
+                        <th colspan="2">
+                            Patient
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="patient">
+                    <tr>
+                        <td class="label">
+                            Name:
+                        </td>
+                        <td class="value">
+                            @Model.PatientDTO.FullName
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            Date of Birth:
+                        </td>
+                        <td class="value">
+                            @if (Model.PatientDTO.DOB.HasValue)
+                            {
+                            @Model.PatientDTO.DOB.Value.ToString("MM/dd/yyyy")
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            Sex:
+                        </td>
+                        <td class="value">
+                            @Model.PatientDTO.Gender
+                        </td>
+                    </tr>
+                    @if((Model.IsParental.HasValue && !Model.IsParental.Value) || (Model.IsMRNDisplayed.HasValue && Model.IsMRNDisplayed.Value) )
+                    {
+                    <tr>
+                        <td class="label">
+                            Medical Record #:
+                        </td>
+                        <td class="value">
+                            @if (! (!string.IsNullOrWhiteSpace(Model.OrderSource) && Model.OrderSource.ToUpper() == "EPIC" && (Model.TestCode.ToString() == "1850" || Model.TestCode.ToString() == "1550")))
+                            {
+                            @Model.PatientDTO.MRN
+                            }
+                        </td>
+                    </tr>
+                    }
+                    <tr>
+                        <td class="label">
+                            Accession #:
+                        </td>
+                        <td class="value">
+                            @Model.PatientDTO.AccessionNumber
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            Lab Number:
+                        </td>
+                        <td class="value">
+                            @Model.LabNumber
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            Family Number:
+                        </td>
+                        <td class="value">
+                            @Model.PatientDTO.FamilyNumber
+                        </td>
+                    </tr>
+                    @if (Model.TestCode == 1840 || Model.TestCode == 1870)
+                    {
+                    <tr>
+                        <td class="label">
+                            Individual Id:
+                        </td>
+                        <td class="value">
+                            @Model.IndividualId
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            Family Id:
+                        </td>
+                        <td class="value">
+                            @Model.NiaidFamilyId
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            Batch Received:
+                        </td>
+                        <td class="value">
+                            @Model.BatchReceived
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </td>
+        <td width="33%" class="v-align">
+            <table class="wes-demographic-info wes-test-info-padding" cellspacing="0" cellpadding="0">
+                <thead class="test-info">
+                    <tr>
+                        <th colspan="2">
+                            Test Information
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="test-info">
+                    <tr>
+                        <td class="label">
+                            Test Name:
+                        </td>
+                        <td class="value">
+                            @Model.TestName
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            Test Code:
+                        </td>
+                        <td class="value">
+                            @{
+                            if(!string.IsNullOrWhiteSpace(Model.ClientTestCode) && Model.ClientTestCode.ToUpper()  !=  "BG-1500-DEFAULT" )
+                            {
+                            @: @Model.ClientTestCode
+                            }
+                            else
+                            {
+                            @: @Model.TestCode
+                            }
+                            }
+                        </td>
+                    </tr>
+                    @if (Model.TestCode != 1897)
+                    {
+                    <tr>
+                        <td class="label">
+                            Sample Type:
+                        </td>
+                        <td class="value">
+                            @Model.SampleType.ToString().Replace("__","/").Replace("_"," ")
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            Date Collected:
+                        </td>
+                        <td class="value">
+                            @if (Model.CollectionDate.HasValue)
+                            {
+                            @Model.CollectionDate.Value.ToString("MM/dd/yyyy")
+                            }
+                        </td>
+                    </tr>
+                    }
+                    <tr>
+                        <td class="label">
+                            Date Received:
+                        </td>
+                        <td class="value">
+                            @if (Model.ProbandReceivedDate.HasValue)
+                            {
+                            @Model.ProbandReceivedDate.Value.ToString("MM/dd/yyyy")
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            Date Reported:
+                        </td>
+                        <td class="value">
+                            @if (Model.ReportedDate.HasValue)
+                            {
+                            @Model.ReportedDate.Value.ToString("MM/dd/yyyy")
+                            }
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </td>
+        <td width="33%" class="v-align">
+            <div>
+                <table class="wes-demographic-info wes-recipient-padding" cellspacing="0" cellpadding="0">
+                    <thead class="recipient">
+                        <tr>
+                            <th colspan="2">
+                                Recipient
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="recipient">
+                        <tr>
+                            <td class="label">
+                                Physician Name:
+                            </td>
+                            <td class="value">
+                                @Model.Recipients.FirstOrDefault().FullName
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                Facility:
+                            </td>
+                            <td class="value">
+                                @(Model.Recipients.FirstOrDefault().HospitalCode == "NIAD" ? "NIAID" : Model.Recipients.FirstOrDefault().HospitalCode)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                Location:
+                            </td>
+                            <td class="value">
+                                @Model.Recipients.FirstOrDefault().Location
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                Phone:
+                            </td>
+                            <td class="value">
+                                @Model.Recipients.FirstOrDefault().PhoneNumber
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                Fax:
+                            </td>
+                            <td class="value">
+                                @Model.Recipients.FirstOrDefault().Fax
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            @if (Model.Recipients.Count() > 1)
+            {
+            @for (int i = 1; i < Model.Recipients.Count(); i++)
+            {
+            <div>
+                <table class="wes-demographic-info wes-recipient-padding wes-recipient-margin" cellspacing="0" cellpadding="0">
+                    <thead class="recipient">
+                        <tr class="sub-header">
+                            <td colspan="2">
+                                Additional Recipient
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody class="recipient">
+                        <tr>
+                            <td class="label">
+                                Name:
+                            </td>
+                            <td class="value">
+                                @Model.Recipients.ElementAt(@i).FullName
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                Phone:
+                            </td>
+                            <td class="value">
+                                @Model.Recipients.ElementAt(@i).PhoneNumber
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                Fax:
+                            </td>
+                            <td class="value">
+                                @Model.Recipients.ElementAt(@i).Fax
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            }
+            }
+        </td>
+    </tr>
+</table>

@@ -49,6 +49,7 @@ const TemplateEditor = ({
   onChangeTemplate,
   onPageCursorChange,
   onExportHTML,
+  onExportHTMLFragments,
   onExportJSON,
 }: Omit<DesignerProps, 'domContainer'> & {
   size: Size;
@@ -56,6 +57,7 @@ const TemplateEditor = ({
   onChangeTemplate: (t: Template) => void;
   onPageCursorChange: (newPageCursor: number) => void;
   onExportHTML?: () => void;
+  onExportHTMLFragments?: () => void;
   onExportJSON?: () => void;
 }) => {
   const past = useRef<SchemaForUI[][]>([]);
@@ -351,6 +353,7 @@ const TemplateEditor = ({
             setZoomLevel={setZoomLevel}
             {...pageManipulation}
             onExportHTML={onExportHTML}
+            onExportHTMLFragments={onExportHTMLFragments}
             onExportJSON={onExportJSON}
           />
 

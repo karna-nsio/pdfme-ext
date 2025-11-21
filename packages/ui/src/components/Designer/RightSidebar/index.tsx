@@ -96,6 +96,24 @@ const Sidebar = (props: SidebarProps) => {
     );
   };
 
+  const handleSetSectionSettings = (
+    groupId: string,
+    settings: { sectionName?: string; wrapperClass?: string; exportAsFragment?: boolean },
+  ) => {
+    setFieldGroups(
+      fieldGroups.map((g) =>
+        g.id === groupId
+          ? {
+              ...g,
+              sectionName: settings.sectionName,
+              wrapperClass: settings.wrapperClass,
+              exportAsFragment: settings.exportAsFragment,
+            }
+          : g,
+      ),
+    );
+  };
+
   const scrollbarStyles = `
     .right-sidebar-scrollable::-webkit-scrollbar {
       width: 6px;
@@ -225,6 +243,7 @@ const Sidebar = (props: SidebarProps) => {
                 onToggleGroupHide={handleToggleGroupHide}
                 onToggleGroupCollapse={handleToggleGroupCollapse}
                 onSetGroupCondition={handleSetGroupCondition}
+                onSetSectionSettings={handleSetSectionSettings}
                 selectedFieldIds={selectedFieldIds}
               />
             )}

@@ -1,0 +1,35 @@
+﻿@if(!Model.IsTextReport && Model.TestCode != 1897)
+{
+<div id="wes-qualityMetrics" class="wes-page-break-before">
+    <div class="wes-title-header-background">
+        <div class="wes-title-header-text">
+            quality metrics
+        </div>
+    </div>
+
+    <div class="wes-paragraph-text wes-section-padding">
+        @if ((Model.TestCode != 1850 || Model.TestCode != 1851 || Model.TestCode != 1870) && (Model.CoveragePercent > 0)) {
+        <div class="d-table w-100">
+            <p class="d-table-cell">
+                Percentage depth of coverage at 20x: <strong class="wes-blue-color">@(Model.CoveragePercent.Value.ToString("0.00"))%</strong>
+            </p>
+            <div class="wes-editable-field d-table-cell" id="report-coveragePercent" align="right">
+                <button class="wes-edit-button"><i class="fa fa-edit"></i></button>
+            </div>
+        </div>
+        }
+        @if (Model.CoverageMean > 0 ) {
+        <div class="d-table w-100">
+            <p class="d-table-cell">
+                Mean depth of coverage: <strong class="wes-blue-color">@(Model.CoverageMean.Value.ToString("0.00"))x</strong>
+            </p>
+            <div class="wes-editable-field d-table-cell" id="report-coverageMean" align="right">
+                <button class="wes-edit-button"><i class="fa fa-edit"></i></button>
+            </div>
+        </div>
+        }
+    </div>
+
+
+</div>
+}

@@ -14,6 +14,12 @@ const { TextArea } = Input;
 
 const headHeight = 40;
 
+interface SectionSettings {
+  sectionName?: string;
+  wrapperClass?: string;
+  exportAsFragment?: boolean;
+}
+
 interface ListViewWithGroupsProps extends Pick<
   SidebarProps,
   | 'schemas'
@@ -32,6 +38,7 @@ interface ListViewWithGroupsProps extends Pick<
   onToggleGroupHide: (groupId: string, hide: boolean) => void;
   onToggleGroupCollapse: (groupId: string) => void;
   onSetGroupCondition: (groupId: string, condition: GroupCondition | null) => void;
+  onSetSectionSettings: (groupId: string, settings: SectionSettings) => void;
   selectedFieldIds: string[];
 }
 
@@ -52,6 +59,7 @@ const ListViewWithGroups = (props: ListViewWithGroupsProps) => {
     onToggleGroupHide,
     onToggleGroupCollapse,
     onSetGroupCondition,
+    onSetSectionSettings,
     selectedFieldIds = [],
   } = props;
 
@@ -69,6 +77,11 @@ const ListViewWithGroups = (props: ListViewWithGroupsProps) => {
   const [conditionVariable, setConditionVariable] = useState('resultType');
   const [conditionOperator, setConditionOperator] = useState('==');
   const [conditionValue, setConditionValue] = useState('');
+  // Section settings state
+  const [isEditingSectionSettings, setIsEditingSectionSettings] = useState(false);
+  const [sectionNameValue, setSectionNameValue] = useState('');
+  const [wrapperClassValue, setWrapperClassValue] = useState('');
+  const [exportAsFragmentValue, setExportAsFragmentValue] = useState(true);
   const height = getSidebarContentHeight(size.height);
 
   const commitBulk = () => {
@@ -251,6 +264,35 @@ const ListViewWithGroups = (props: ListViewWithGroupsProps) => {
     setEditingGroup(null);
   };
 
+  // Handle set section settings
+  const handleSetSectionSettings = (group: FieldGroup) => {
+    setEditingGroup(group);
+    setSectionNameValue(group.sectionName || '');
+    setWrapperClassValue(group.wrapperClass || '');
+    setExportAsFragmentValue(group.exportAsFragment !== false);
+    setIsEditingSectionSettings(true);
+  };
+
+  // Commit section settings
+  const commitSectionSettings = () => {
+    if (!editingGroup) return;
+
+    onSetSectionSettings(editingGroup.id, {
+      sectionName: sectionNameValue.trim() || undefined,
+      wrapperClass: wrapperClassValue.trim() || undefined,
+      exportAsFragment: exportAsFragmentValue,
+    });
+
+    setIsEditingSectionSettings(false);
+    setEditingGroup(null);
+  };
+
+  // Cancel section settings editing
+  const cancelSectionSettings = () => {
+    setIsEditingSectionSettings(false);
+    setEditingGroup(null);
+  };
+
   // Get ungrouped fields
   const ungroupedSchemas = schemas.filter(
     (schema) => !fieldGroups.some((group) => group.fieldIds.includes(schema.id)),
@@ -402,6 +444,48 @@ const ListViewWithGroups = (props: ListViewWithGroupsProps) => {
               </>
             )}
           </div>
+        ) : isEditingSectionSettings && editingGroup ? (
+          // Section settings editor inline form
+          <div style={{ padding: '16px' }}>
+            <Text strong style={{ fontSize: '13px', display: 'block', marginBottom: '8px' }}>
+              {i18n('sectionSettings')}
+            </Text>
+
+            <Text
+              type="secondary"
+              style={{ fontSize: '11px', display: 'block', marginBottom: '12px' }}
+            >
+              {editingGroup.name}
+            </Text>
+
+            <Text style={{ fontSize: '12px', marginBottom: '4px', display: 'block' }}>
+              {i18n('sectionName')}
+            </Text>
+            <Input
+              value={sectionNameValue}
+              onChange={(e) => setSectionNameValue(e.target.value)}
+              placeholder={i18n('sectionNamePlaceholder')}
+              autoFocus
+              style={{ marginBottom: '12px' }}
+            />
+
+            <Text style={{ fontSize: '12px', marginBottom: '4px', display: 'block' }}>
+              {i18n('wrapperClass')}
+            </Text>
+            <Input
+              value={wrapperClassValue}
+              onChange={(e) => setWrapperClassValue(e.target.value)}
+              placeholder={i18n('wrapperClassPlaceholder')}
+              style={{ marginBottom: '12px' }}
+            />
+
+            <Checkbox
+              checked={exportAsFragmentValue}
+              onChange={(e) => setExportAsFragmentValue(e.target.checked)}
+            >
+              {i18n('exportAsFragment')}
+            </Checkbox>
+          </div>
         ) : (
           <div style={{ paddingLeft: '8px', paddingRight: '8px' }}>
             {/* Render groups */}
@@ -415,6 +499,7 @@ const ListViewWithGroups = (props: ListViewWithGroupsProps) => {
                 onDelete={() => handleDeleteGroup(group.id)}
                 onDeleteWithFields={() => handleDeleteGroupWithFields(group.id)}
                 onSetCondition={() => handleSetCondition(group)}
+                onSetSectionSettings={() => handleSetSectionSettings(group)}
               >
                 <SelectableSortableContainer
                   schemas={getGroupFields(group)}
@@ -496,6 +581,16 @@ const ListViewWithGroups = (props: ListViewWithGroupsProps) => {
               </Button>
               <span style={{ margin: '0 1rem' }}>/</span>
               <Button size="small" type="text" onClick={cancelSetCondition}>
+                <u> {i18n('cancel')}</u>
+              </Button>
+            </>
+          ) : isEditingSectionSettings ? (
+            <>
+              <Button size="small" type="text" onClick={commitSectionSettings}>
+                <u> {i18n('set')}</u>
+              </Button>
+              <span style={{ margin: '0 1rem' }}>/</span>
+              <Button size="small" type="text" onClick={cancelSectionSettings}>
                 <u> {i18n('cancel')}</u>
               </Button>
             </>

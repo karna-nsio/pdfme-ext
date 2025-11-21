@@ -1,0 +1,126 @@
+﻿@if (Model.Any()){
+var findingCounts = Model.Count();
+var otherFindings = Model.ToList();
+var randomFinding = Model.FirstOrDefault();
+<div>
+    <div class="wes-interpretation wes-avoid-page-break">
+        <div class="wes-title-header-background">
+            <div class="wes-title-header-text">
+                <span>@randomFinding.SectionTitle</span>
+            </div>
+        </div>
+        <div class="wes-interpretationContent wes-section-padding">
+            <div class="wes-interpretationInfo">
+                @if (!string.IsNullOrWhiteSpace(randomFinding.SectionSubtitle))
+                {
+                <h5 class="wes-section-subtitle wes-blue-color">
+                    @randomFinding.SectionSubtitle
+                </h5>
+                }
+                @if (string.Equals(randomFinding.SectionTitle, "Interpretation - Research Findings", StringComparison.InvariantCultureIgnoreCase))
+                {
+                <br />
+                <div class="wes-paragraph-text">
+                    This table includes de novo, bi-allelic, or hemizygous variants with moderate to strong supporting evidence for pathogenicity based on the variant type and zygosity. These variants may occur in a gene that is not currently known to cause disease but may be associated with disease in the future. If clinically warranted, please contact Baylor Genetics for additional analysis of the variants in the table below.
+                </div>
+                <br />
+                }
+                <table class="wes-gene-table">
+                    <!--This is the only way to get IronPDF to accept column width settings, and I can't figure out how to get class attribute working for col-->
+                    <colgroup>
+                        <col style=" width: 100px; " />
+                        <col />
+                        <col />
+                        <col style=" width: 90px; " />
+                        <col style=" width: 100px; " />
+                        <col />
+                        <col />
+                        <col />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <td class="diseaseColumn">disease</td>
+                            <td>inheritance pattern</td>
+                            <td>gene / variant</td>
+                            <td class="typeColumn">variant type</td>
+                            <td class="geneotypeColumn">genotype</td>
+                            <td>inherited from</td>
+                            <td>variant classification</td>
+                            <td>additional data</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var finding in otherFindings) {
+                        <tr>
+                            <td class="diseaseColumn wes-editable-field" id=@("variant-"+finding.VariantId)>@finding.DiseaseName</td>
+                            <td>@finding.InheritancePattern</td>
+                            <td class="wes-editable-field geneColumn" id=@("variantDisease-geneandvariant-"+finding.VariantId)>
+
+                                @(finding.GeneAndVariant)
+                                <!--:<br />
+                                @if (!string.IsNullOrWhiteSpace(finding.Variant))
+                                {
+                                var lines = finding.Variant.Split(new[] {':' }, StringSplitOptions.None);
+                                foreach (var line in lines)
+                                {
+                                @(line +  (line == lines.LastOrDefault()?"":":"))<br />
+                                }
+                                }-->
+                            </td>
+                            <td>
+                                @(finding.VariantType.GetDisplayName())
+                                <!--<select class="wes-dropdown wes-variant-result wes-select" name="variantType" id=@("variantDisease-phenoType-"+finding.VariantDiseaseId)>
+                                    <option value="CNV" @(finding.VariantType.ToString()=="CNV" ? "selected" : null )>Copy Number Variant</option>
+                                    <option value="SNV" @(finding.VariantType.ToString()=="SNV" ? "selected" : null )>Single Nucleotide Variant</option>
+                                    <option value="Not_Specified" @(finding.VariantType.ToString()=="Not_Specified" ? "selected" : null )>Not Specified</option>
+                                </select>-->
+                            </td>
+                            <td>
+                                <!--@(finding.Zygosity.ToString().Replace('_', ' '))-->
+                                <select class="wes-dropdown wes-variant-result wes-select" name="zygosity" id=@("finding-zygosity-"+finding.FindingsId)>
+                                    <option value="Heterozygous" @(finding.Zygosity.GetDisplayName()=="Het" ? "selected" : null)>Heterozygous</option>
+                                    <option value="Homozygous" @(finding.Zygosity.GetDisplayName()=="Hom" ? "selected" : null)>Homozygous</option>
+                                    <option value="Hemizygous" @(finding.Zygosity.GetDisplayName()=="Hemi" ? "selected" : null)>Hemizygous</option>
+                                    <option value="Mosaic" @(finding.Zygosity.GetDisplayName()=="Mosaic" ? "selected" : null)>Mosaic</option>
+                                    <option value="Heteroplasmic" @(finding.Zygosity.GetDisplayName()=="Heteroplasmic" ? "selected" : null)>Heteroplasmic</option>
+                                    <option value="Homoplasmic" @(finding.Zygosity.GetDisplayName()=="Homoplasmic" ? "selected" : null)>Homoplasmic</option>
+                                    <!--<option value="Low_Homozygous" @(finding.Zygosity.GetDisplayName()=="Low_Hom" ? "selected" : null)>Low Homozygous</option>
+        <option value="Low_Heterozygous" @(finding.Zygosity.GetDisplayName()=="Low_Het" ? "selected" : null)>Low Heterozygous</option>-->
+                                    <option value="Not_Specified" @(finding.Zygosity.GetDisplayName()=="Not Specified" ? "selected" : null)>Not Specified</option>
+                                </select>
+                            </td>
+                            <td class="wes-editable-field segregationColumn" id=@("finding-segregation-"+finding.FindingsId)>@finding.Segregation</td>
+                            <td>@finding.VariantClassificationTypeForTable</td>
+                            <td class="wes-editable-field" id=@("finding-additionalInformation-"+finding.FindingsId)>@finding.AdditionalInformation</td>
+                            @{
+                            if(!finding.IsForPDF){
+
+
+                            if(otherFindings.IndexOf(finding) != 0){
+                            <td bgcolor="white">
+                                <div class="wes-moveup-btn no-margin-padding " id=@(finding.FindingsId) align="left">
+                                    <button class="wes-table-button"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></button>
+                                </div>
+                            </td>
+                            }
+
+
+                            if(otherFindings.IndexOf(finding) != findingCounts-1){
+                            <td bgcolor="white">
+                                <div class="wes-movedn-btn no-margin-padding " id=@(finding.FindingsId) align="left">
+                                    <button class="wes-table-button"><i class="fa fa-long-arrow-down" aria-hidden="true"></i></button>
+                                </div>
+                            </td>
+
+                            }
+                            }
+                            }
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+}

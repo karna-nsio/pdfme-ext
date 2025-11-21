@@ -8,7 +8,7 @@ import {
   checkTemplate,
   PDFME_VERSION,
 } from '@pdfme/common';
-import { generateHTML, type GenerateHTMLProps } from '@pdfme/generator';
+import { generateHTML, generateHTMLFragments, wrapFragmentWithCSSLink, type GenerateHTMLProps, type GenerateHTMLFragmentsResult } from '@pdfme/generator';
 import { BaseUIClass } from './class.js';
 import { DESTROYED_ERR_MSG } from './constants.js';
 import DesignerComponent from './components/Designer/index.js';
@@ -160,6 +160,88 @@ class Designer extends BaseUIClass {
             } catch (error: any) {
               console.error('Failed to generate HTML:', error);
               alert('Failed to generate HTML: ' + error.message);
+            }
+          }}
+          onExportHTMLFragments={async () => {
+            const template = this.getTemplate();
+            const sampleData: Record<string, any> = {};
+
+            // Build sample data from all pages
+            template.schemas.forEach((pageSchemas) => {
+              const schemas = Array.isArray(pageSchemas) ? pageSchemas : Object.values(pageSchemas);
+              schemas.forEach((schema: any) => {
+                if (schema.type === 'text' || schema.type === 'multiVariableText') {
+                  sampleData[schema.name] = schema.content || `Sample ${schema.name}`;
+                } else if (schema.type === 'table') {
+                  sampleData[schema.name] = schema.content || '[]';
+                } else if (schema.type === 'checkbox') {
+                  sampleData[schema.name] = 'false';
+                } else if (schema.type === 'image') {
+                  sampleData[schema.name] = schema.content || '';
+                } else {
+                  sampleData[schema.name] = schema.content || '';
+                }
+              });
+            });
+
+            console.log('📄 Generating HTML fragments...');
+
+            try {
+              const result = await generateHTMLFragments({
+                template,
+                inputs: [sampleData],
+                plugins: this.getPluginsRegistry().entries().reduce((acc, [, plugin]) => {
+                  acc[plugin.propPanel.defaultSchema.type] = plugin;
+                  return acc;
+                }, {} as any),
+                options: {
+                  includeCombined: true,
+                  printFriendly: true,
+                },
+              });
+
+              // Download CSS file (styles.css - like WGSv2)
+              const cssBlob = new Blob([result.css], { type: 'text/css; charset=utf-8' });
+              const cssUrl = URL.createObjectURL(cssBlob);
+              const cssLink = document.createElement('a');
+              cssLink.href = cssUrl;
+              cssLink.download = `styles.css`;
+              document.body.appendChild(cssLink);
+              cssLink.click();
+              document.body.removeChild(cssLink);
+              URL.revokeObjectURL(cssUrl);
+
+              // Download each fragment as RAW HTML (just div content, like WGSv2)
+              for (const fragment of result.fragments) {
+                // Raw fragment - no HTML wrapper, just the div content
+                const fragmentBlob = new Blob([fragment.html], { type: 'text/html; charset=utf-8' });
+                const fragmentUrl = URL.createObjectURL(fragmentBlob);
+                const fragmentLink = document.createElement('a');
+                fragmentLink.href = fragmentUrl;
+                fragmentLink.download = `${fragment.sectionName}.html`;
+                document.body.appendChild(fragmentLink);
+                fragmentLink.click();
+                document.body.removeChild(fragmentLink);
+                URL.revokeObjectURL(fragmentUrl);
+              }
+
+              // Download ungrouped if any (raw fragment)
+              if (result.ungroupedHtml && result.ungroupedFieldIds.length > 0) {
+                const ungroupedBlob = new Blob([result.ungroupedHtml], { type: 'text/html; charset=utf-8' });
+                const ungroupedUrl = URL.createObjectURL(ungroupedBlob);
+                const ungroupedLink = document.createElement('a');
+                ungroupedLink.href = ungroupedUrl;
+                ungroupedLink.download = `ungrouped.html`;
+                document.body.appendChild(ungroupedLink);
+                ungroupedLink.click();
+                document.body.removeChild(ungroupedLink);
+                URL.revokeObjectURL(ungroupedUrl);
+              }
+
+              console.log(`✅ Exported ${result.fragments.length} fragments + CSS`);
+            } catch (error: any) {
+              console.error('❌ Failed to generate HTML fragments:', error);
+              alert('Failed to generate HTML fragments: ' + error.message);
             }
           }}
           onExportJSON={() => {

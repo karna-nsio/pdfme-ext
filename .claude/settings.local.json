@@ -6,7 +6,12 @@
       "Bash(npm run dev:*)",
       "Bash(npm run build)",
       "Bash(npm run build:ui:*)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(npm run build:common:*)",
+      "Bash(npm run build:schemas:*)",
+      "Bash(npm run build:generator:*)",
+      "WebFetch(domain:github.com)",
+      "Bash(dir \"C:\\Users\\sandi\\source\\repos\\pdfme\\WGSv2\")"
     ],
     "deny": [],
     "ask": []

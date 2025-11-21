@@ -11,6 +11,7 @@ import {
   Edit2,
   FolderX,
   Settings,
+  FileCode,
 } from 'lucide-react';
 import { Button, Dropdown, Typography } from 'antd';
 import type { MenuProps } from 'antd';
@@ -26,6 +27,7 @@ interface GroupItemProps {
   onDelete: () => void;
   onDeleteWithFields: () => void;
   onSetCondition: () => void;
+  onSetSectionSettings: () => void;
   children?: React.ReactNode;
 }
 
@@ -37,6 +39,7 @@ const GroupItem: React.FC<GroupItemProps> = ({
   onDelete,
   onDeleteWithFields,
   onSetCondition,
+  onSetSectionSettings,
   children,
 }) => {
   const i18n = useContext(I18nContext);
@@ -57,6 +60,12 @@ const GroupItem: React.FC<GroupItemProps> = ({
       label: i18n('setCondition'),
       icon: <Settings size={14} />,
       onClick: onSetCondition,
+    },
+    {
+      key: 'sectionSettings',
+      label: i18n('sectionSettings'),
+      icon: <FileCode size={14} />,
+      onClick: onSetSectionSettings,
     },
     {
       type: 'divider',
@@ -153,6 +162,16 @@ const GroupItem: React.FC<GroupItemProps> = ({
             style={{ display: 'flex', alignItems: 'center' }}
           >
             <Settings size={14} style={{ color: '#3b82f6' }} />
+          </span>
+        )}
+
+        {/* Section/Fragment indicator */}
+        {group.sectionName && (
+          <span
+            title={`Section: ${group.sectionName}${group.wrapperClass ? ` (class: ${group.wrapperClass})` : ''}`}
+            style={{ display: 'flex', alignItems: 'center' }}
+          >
+            <FileCode size={14} style={{ color: '#10b981' }} />
           </span>
         )}
 
