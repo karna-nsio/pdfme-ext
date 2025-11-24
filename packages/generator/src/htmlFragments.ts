@@ -7,6 +7,15 @@ import type { Template, Schema, FieldGroup, GroupCondition } from '@pdfme/common
 import type { Plugins } from '@pdfme/common';
 import { isBlankPdf } from '@pdfme/common';
 import { extractCSS, generateBaseCSS, type CSSExtractionOptions } from './cssExtractor.js';
+import {
+  transformPlaceholders,
+  transformFragmentToRazor,
+  transformTableToRazor,
+  transformFieldWithCondition,
+  generateCollectionLoop,
+  type ModelMapping,
+  type RazorTransformOptions,
+} from './razorTransformer.js';
 
 // ============================================
 // Types
@@ -58,6 +67,12 @@ export interface GenerateHTMLFragmentsOptions {
   onlyNamedSections?: boolean;
   /** Include print-friendly styles */
   printFriendly?: boolean;
+  /** Output format: 'html' for plain HTML, 'razor' for C# Razor syntax */
+  outputFormat?: 'html' | 'razor';
+  /** Model mapping for Razor export (maps pdfme fields to C# model paths) */
+  modelMapping?: ModelMapping;
+  /** Model prefix for Razor (default: 'Model') */
+  modelPrefix?: string;
 }
 
 // ============================================
@@ -133,15 +148,25 @@ function isFieldVisible(
 
 /**
  * Get all schemas as flat array with IDs
+ * Only includes first occurrence of each field ID to prevent duplicates
  */
 function getAllSchemas(template: Template): Schema[] {
   const schemas: Schema[] = [];
-  template.schemas.forEach((pageSchemas) => {
+  const seenIds = new Set<string>();
+
+  template.schemas.forEach((pageSchemas, pageIndex) => {
     const arr = Array.isArray(pageSchemas) ? pageSchemas : Object.values(pageSchemas);
     arr.forEach((schema: any) => {
-      schemas.push(schema);
+      const schemaId = schema.id;
+
+      // Only include first occurrence of each ID
+      if (schemaId && !seenIds.has(schemaId)) {
+        seenIds.add(schemaId);
+        schemas.push(schema);
+      }
     });
   });
+
   return schemas;
 }
 
@@ -238,9 +263,29 @@ function renderSVG(schema: any, value: string, className: string): string {
 }
 
 /**
+ * Render a datasource field with placeholder syntax {{Entity.Property}}
+ */
+function renderDatasourceField(schema: any, className: string): string {
+  const datasourceField = schema.datasourceField || 'Field';
+  // Output placeholder syntax that will be transformed to Razor
+  return `<div class="${className}">{{${datasourceField}}}</div>`;
+}
+
+/**
  * Render a field based on type
  */
-function renderField(schema: any, input: Record<string, any>, className: string): string {
+function renderField(
+  schema: any,
+  input: Record<string, any>,
+  className: string,
+  isRazor: boolean = false,
+  razorOptions: RazorTransformOptions = {}
+): string {
+  // If Razor mode and field has conditional/transform metadata, use special rendering
+  if (isRazor && (schema.razorCondition || schema.razorTransform)) {
+    return transformFieldWithCondition(schema, className, razorOptions);
+  }
+
   const value = input[schema.name] || schema.content || '';
 
   switch (schema.type) {
@@ -263,6 +308,8 @@ function renderField(schema: any, input: Record<string, any>, className: string)
       return renderEllipse(schema, className);
     case 'svg':
       return renderSVG(schema, value, className);
+    case 'datasource':
+      return renderDatasourceField(schema, className);
     default:
       return renderTextField(schema, value, className);
   }
@@ -285,7 +332,13 @@ export async function generateHTMLFragments(
     title = 'Generated Report',
     onlyNamedSections = false,
     printFriendly = true,
+    outputFormat = 'html',
+    modelMapping = {},
+    modelPrefix = 'Model',
   } = options;
+
+  const isRazor = outputFormat === 'razor';
+  const razorOptions: RazorTransformOptions = { modelMapping, modelPrefix };
 
   console.log('📄 [generateHTMLFragments] Starting fragment generation');
 
@@ -357,25 +410,98 @@ export async function generateHTMLFragments(
     let fragmentHTML = '';
     const renderedFieldIds: string[] = [];
 
+    // Check if group has loop configuration (Razor mode only)
+    const razorLoop = (group as any).razorLoop;
+    const hasLoop = isRazor && razorLoop?.enabled;
+
+    // Build set of fields to exclude when loop is enabled
+    const loopFieldNames = hasLoop
+      ? new Set((razorLoop.loopFields || []).map((f: any) => f.templateFieldName))
+      : new Set();
+
+    // Fields to exclude (recipient3-5, facility3-5 when loop is present)
+    const excludedFields = hasLoop
+      ? new Set([
+          'recipient3', 'facility3', 'recipient3Label', 'facility3Label',
+          'recipient4', 'facility4', 'recipient4Label', 'facility4Label',
+          'recipient5', 'facility5', 'recipient5Label', 'facility5Label',
+        ])
+      : new Set();
+
+    // Render normal fields (excluding loop fields)
     for (const schema of groupSchemas) {
+      // Skip fields that are part of the loop
+      if (loopFieldNames.has(schema.name) || excludedFields.has(schema.name)) {
+        continue;
+      }
+
       // Check field visibility
       if (!isFieldVisible(schema, fieldGroups, input)) {
         continue;
       }
 
       const className = classMap.get((schema as any).id || (schema as any).name) || 'pdfme-field';
-      fragmentHTML += renderField(schema, input, className);
+      fragmentHTML += renderField(schema, input, className, isRazor, razorOptions);
       renderedFieldIds.push((schema as any).id);
+    }
+
+    // Generate loop if configured
+    if (hasLoop && razorLoop.loopFields) {
+      const loopFields: Array<{
+        fieldName: string;
+        className: string;
+        propertyPath: string;
+        isLabel?: boolean;
+        labelText?: string;
+      }> = [];
+
+      // Map template fields to loop fields
+      razorLoop.loopFields.forEach((loopField: any) => {
+        const schema = groupSchemas.find((s: any) => s.name === loopField.templateFieldName);
+        if (schema) {
+          const schemaId = (schema as any).id;
+          const className = classMap.get(schemaId) || 'pdfme-field';
+          // Remove trailing numbers from className (recipient2 -> recipient)
+          const cleanClassName = className.replace(/\d+$/, '');
+
+          loopFields.push({
+            fieldName: loopField.loopFieldName,
+            className: cleanClassName,
+            propertyPath: loopField.propertyPath,
+            isLabel: loopField.isLabel || false,
+            labelText: (schema as any).content || loopField.labelText || '',
+          });
+        }
+      });
+
+      // Generate loop HTML
+      if (loopFields.length > 0) {
+        fragmentHTML += generateCollectionLoop(
+          {
+            collection: razorLoop.collection,
+            startIndex: razorLoop.startIndex,
+            loopVariable: razorLoop.loopVariable,
+            condition: razorLoop.condition,
+          },
+          loopFields,
+          razorOptions
+        );
+      }
     }
 
     // Wrap in section div (use wrapperClass if defined, like WGSv2 uses wes-resultsSummary)
     const cssClass = wrapperClass || `section-${sectionName}`;
-    const wrappedHTML = `<div class="${cssClass}">
+    let wrappedHTML = `<div class="${cssClass}">
 ${fragmentHTML}
 </div>`;
 
+    // Apply Razor transformation if outputFormat is 'razor'
+    if (isRazor) {
+      wrappedHTML = transformFragmentToRazor(wrappedHTML, group.condition, razorOptions);
+    }
+
     fragments.push({
-      sectionName,
+      sectionName: isRazor ? `${sectionName}.cshtml` : sectionName,
       groupId: group.id,
       groupName: group.name,
       html: wrappedHTML,
@@ -383,7 +509,7 @@ ${fragmentHTML}
       wrapperClass,
     });
 
-    console.log(`  Fragment: ${sectionName} (${renderedFieldIds.length} fields)`);
+    console.log(`  Fragment: ${sectionName} (${renderedFieldIds.length} fields)${isRazor ? ' [Razor]' : ''}`);
   }
 
   // Handle ungrouped fields
@@ -397,7 +523,7 @@ ${fragmentHTML}
     }
 
     const className = classMap.get((schema as any).id || (schema as any).name) || 'pdfme-field';
-    ungroupedHtml += renderField(schema, input, className);
+    ungroupedHtml += renderField(schema, input, className, isRazor, razorOptions);
     ungroupedFieldIds.push((schema as any).id);
   }
 

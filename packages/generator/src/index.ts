@@ -17,6 +17,15 @@ import type {
 } from './htmlFragments.js';
 import { extractCSS, generateBaseCSS } from './cssExtractor.js';
 import type { ExtractedCSS, CSSExtractionOptions } from './cssExtractor.js';
+import {
+  transformPlaceholders,
+  transformCondition,
+  wrapInCondition,
+  generateForEachBlock,
+  transformTableToRazor,
+  transformFragmentToRazor,
+} from './razorTransformer.js';
+import type { ModelMapping, RazorTransformOptions } from './razorTransformer.js';
 
 export {
   generate,
@@ -32,6 +41,13 @@ export {
   // CSS utilities
   extractCSS,
   generateBaseCSS,
+  // Razor transformer utilities
+  transformPlaceholders,
+  transformCondition,
+  wrapInCondition,
+  generateForEachBlock,
+  transformTableToRazor,
+  transformFragmentToRazor,
 };
 
 export type {
@@ -44,4 +60,7 @@ export type {
   // CSS types
   ExtractedCSS,
   CSSExtractionOptions,
+  // Razor types
+  ModelMapping,
+  RazorTransformOptions,
 };

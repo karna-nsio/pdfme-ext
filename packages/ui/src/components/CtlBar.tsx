@@ -97,6 +97,7 @@ type CtlBarProps = {
   removePage?: () => void;
   onExportHTML?: () => void;
   onExportHTMLFragments?: () => void;
+  onExportRazor?: () => void;
   onExportJSON?: () => void;
 };
 
@@ -115,6 +116,7 @@ const CtlBar = (props: CtlBarProps) => {
     removePage,
     onExportHTML,
     onExportHTMLFragments,
+    onExportRazor,
     onExportJSON,
   } = props;
 
@@ -140,6 +142,17 @@ const CtlBar = (props: CtlBarProps) => {
           <div onClick={onExportHTMLFragments} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <Files size={14} />
             <span>{i18n('exportHTMLFragments')}</span>
+          </div>
+        ),
+      });
+    }
+    if (onExportRazor) {
+      contextMenuItems.push({
+        key: 'export-razor',
+        label: (
+          <div onClick={onExportRazor} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <FileCode size={14} />
+            <span>{i18n('exportRazor')}</span>
           </div>
         ),
       });

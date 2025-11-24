@@ -50,6 +50,7 @@ const TemplateEditor = ({
   onPageCursorChange,
   onExportHTML,
   onExportHTMLFragments,
+  onExportRazor,
   onExportJSON,
 }: Omit<DesignerProps, 'domContainer'> & {
   size: Size;
@@ -58,6 +59,7 @@ const TemplateEditor = ({
   onPageCursorChange: (newPageCursor: number) => void;
   onExportHTML?: () => void;
   onExportHTMLFragments?: () => void;
+  onExportRazor?: () => void;
   onExportJSON?: () => void;
 }) => {
   const past = useRef<SchemaForUI[][]>([]);
@@ -354,6 +356,7 @@ const TemplateEditor = ({
             {...pageManipulation}
             onExportHTML={onExportHTML}
             onExportHTMLFragments={onExportHTMLFragments}
+            onExportRazor={onExportRazor}
             onExportJSON={onExportJSON}
           />
 

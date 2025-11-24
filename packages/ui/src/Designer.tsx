@@ -244,6 +244,67 @@ class Designer extends BaseUIClass {
               alert('Failed to generate HTML fragments: ' + error.message);
             }
           }}
+          onExportRazor={async () => {
+            const template = this.getTemplate();
+            const sampleData: Record<string, any> = {};
+
+            // Build sample data from all pages
+            template.schemas.forEach((pageSchemas) => {
+              const schemas = Array.isArray(pageSchemas) ? pageSchemas : Object.values(pageSchemas);
+              schemas.forEach((schema: any) => {
+                sampleData[schema.name] = schema.content || '';
+              });
+            });
+
+            console.log('📄 Generating Razor fragments...');
+
+            try {
+              const result = await generateHTMLFragments({
+                template,
+                inputs: [sampleData],
+                plugins: this.getPluginsRegistry().entries().reduce((acc, [, plugin]) => {
+                  acc[plugin.propPanel.defaultSchema.type] = plugin;
+                  return acc;
+                }, {} as any),
+                options: {
+                  outputFormat: 'razor',
+                  printFriendly: true,
+                },
+              });
+
+              // Download CSS file
+              const cssBlob = new Blob([result.css], { type: 'text/css; charset=utf-8' });
+              const cssUrl = URL.createObjectURL(cssBlob);
+              const cssLink = document.createElement('a');
+              cssLink.href = cssUrl;
+              cssLink.download = `styles.css`;
+              document.body.appendChild(cssLink);
+              cssLink.click();
+              document.body.removeChild(cssLink);
+              URL.revokeObjectURL(cssUrl);
+
+              // Download each fragment as .cshtml
+              for (const fragment of result.fragments) {
+                const fragmentBlob = new Blob([fragment.html], { type: 'text/html; charset=utf-8' });
+                const fragmentUrl = URL.createObjectURL(fragmentBlob);
+                const fragmentLink = document.createElement('a');
+                fragmentLink.href = fragmentUrl;
+                // sectionName already includes .cshtml extension for razor format
+                fragmentLink.download = fragment.sectionName.endsWith('.cshtml')
+                  ? fragment.sectionName
+                  : `${fragment.sectionName}.cshtml`;
+                document.body.appendChild(fragmentLink);
+                fragmentLink.click();
+                document.body.removeChild(fragmentLink);
+                URL.revokeObjectURL(fragmentUrl);
+              }
+
+              console.log(`✅ Exported ${result.fragments.length} Razor fragments + CSS`);
+            } catch (error: any) {
+              console.error('❌ Failed to generate Razor fragments:', error);
+              alert('Failed to generate Razor fragments: ' + error.message);
+            }
+          }}
           onExportJSON={() => {
             const template = this.getTemplate();
             const json = JSON.stringify(template, null, 2);

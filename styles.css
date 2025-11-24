@@ -1,0 +1,5297 @@
+/* Base Styles */
+
+html body {
+  font-family: Arial;
+  box-sizing: border-box;
+}
+
+
+@media print {
+  body {
+    background: white;
+    padding: 0;
+    margin: 0;
+  }
+  @page {
+    margin: 0;
+    size: 210mm 297mm;
+  }
+}
+
+
+/* Generated Styles */
+.pdfme-reporttitle {
+  position: absolute;
+  left: 10mm;
+  top: 12mm;
+  width: 140mm;
+  height: 8mm;
+  box-sizing: border-box;
+  font-size: 20pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-reportsubtitle {
+  position: absolute;
+  left: 11mm;
+  top: 20.5mm;
+  width: 60mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 1pt;
+}
+.pdfme-baylorlogo {
+  position: absolute;
+  left: 155.55mm;
+  top: 10mm;
+  width: 44.44999999999999mm;
+  height: 17.46mm;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pdfme-headerline {
+  position: absolute;
+  left: 10mm;
+  top: 28mm;
+  width: 195.9mm;
+  height: 0.5mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-patientnamelabel {
+  position: absolute;
+  left: 23.23mm;
+  top: 29.26mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-patientname {
+  position: absolute;
+  left: 23.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-geneticsexlabel {
+  position: absolute;
+  left: 48.23mm;
+  top: 29.26mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 200;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-geneticsex {
+  position: absolute;
+  left: 48.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-doblabel {
+  position: absolute;
+  left: 77mm;
+  top: 29mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-dob {
+  position: absolute;
+  left: 77.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-mrnlabel {
+  position: absolute;
+  left: 108mm;
+  top: 29mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-mrn {
+  position: absolute;
+  left: 107.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-accessionlabel {
+  position: absolute;
+  left: 135.23mm;
+  top: 29.26mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-accession {
+  position: absolute;
+  left: 135.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-patientidlabel {
+  position: absolute;
+  left: 167.23mm;
+  top: 29.26mm;
+  width: 25mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-patientid {
+  position: absolute;
+  left: 167.23mm;
+  top: 33.76mm;
+  width: 25mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-patientinfoline {
+  position: absolute;
+  left: 10mm;
+  top: 40mm;
+  width: 195.9mm;
+  height: 0.3mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-clinicalindicationsheading {
+  position: absolute;
+  left: 10mm;
+  top: 49mm;
+  width: 132mm;
+  height: 6mm;
+  box-sizing: border-box;
+  font-size: 12pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 1.5pt;
+}
+.pdfme-clinicalindicationsline {
+  position: absolute;
+  left: 10mm;
+  top: 55.5mm;
+  width: 132mm;
+  height: 0mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-clinicalindications {
+  position: absolute;
+  left: 10mm;
+  top: 58mm;
+  width: 133.61mm;
+  height: 37.31mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1.3;
+}
+.pdfme-resultsheading {
+  position: absolute;
+  left: 10mm;
+  top: 100mm;
+  width: 132mm;
+  height: 6mm;
+  box-sizing: border-box;
+  font-size: 12pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-resultssummaryheading {
+  position: absolute;
+  left: 10mm;
+  top: 185mm;
+  width: 132mm;
+  height: 6mm;
+  box-sizing: border-box;
+  font-size: 12pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-resultssummaryline {
+  position: absolute;
+  left: 10mm;
+  top: 190.5mm;
+  width: 132mm;
+  height: 0.4mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-resultssummary {
+  position: absolute;
+  left: 10mm;
+  top: 193mm;
+  width: 133.09mm;
+  height: 30.69mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1.3;
+}
+.pdfme-orderingproviderheading {
+  position: absolute;
+  left: 152mm;
+  top: 50mm;
+  width: 53.900000000000006mm;
+  height: 6mm;
+  box-sizing: border-box;
+  font-size: 11pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-orderingproviderline {
+  position: absolute;
+  left: 152mm;
+  top: 56.5mm;
+  width: 53.900000000000006mm;
+  height: 0.4mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-recipientlabel1 {
+  position: absolute;
+  left: 152mm;
+  top: 59mm;
+  width: 22mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-recipient1 {
+  position: absolute;
+  left: 176mm;
+  top: 59mm;
+  width: 29.900000000000006mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 8pt;
+  color: #0C2340;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-facilitylabel1 {
+  position: absolute;
+  left: 152mm;
+  top: 64mm;
+  width: 22mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-facility1 {
+  position: absolute;
+  left: 176mm;
+  top: 64mm;
+  width: 29.900000000000006mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 8pt;
+  color: #0C2340;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-locationlabel {
+  position: absolute;
+  left: 152mm;
+  top: 69mm;
+  width: 22mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-location {
+  position: absolute;
+  left: 176mm;
+  top: 69mm;
+  width: 29.900000000000006mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 8pt;
+  color: #0C2340;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-phonelabel {
+  position: absolute;
+  left: 152mm;
+  top: 74mm;
+  width: 22mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-phone {
+  position: absolute;
+  left: 176mm;
+  top: 74mm;
+  width: 29.900000000000006mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 8pt;
+  color: #0C2340;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-testinformationheading {
+  position: absolute;
+  left: 152mm;
+  top: 87mm;
+  width: 53.900000000000006mm;
+  height: 6mm;
+  box-sizing: border-box;
+  font-size: 12pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-testinformationline {
+  position: absolute;
+  left: 152mm;
+  top: 93.5mm;
+  width: 53.900000000000006mm;
+  height: 0.4mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-testcodelabel {
+  position: absolute;
+  left: 152mm;
+  top: 96mm;
+  width: 22mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-testcode {
+  position: absolute;
+  left: 191.27mm;
+  top: 96mm;
+  width: 8.73mm;
+  height: 3.97mm;
+  box-sizing: border-box;
+  font-size: 8pt;
+  color: #0C2340;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-sampletypelabel {
+  position: absolute;
+  left: 152mm;
+  top: 101mm;
+  width: 22mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-sampletype {
+  position: absolute;
+  left: 190.48mm;
+  top: 101mm;
+  width: 9.52mm;
+  height: 3.97mm;
+  box-sizing: border-box;
+  font-size: 8pt;
+  color: #0C2340;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-familylabel {
+  position: absolute;
+  left: 152mm;
+  top: 106mm;
+  width: 22mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-family {
+  position: absolute;
+  left: 186.51mm;
+  top: 106mm;
+  width: 13.49mm;
+  height: 3.97mm;
+  box-sizing: border-box;
+  font-size: 8pt;
+  color: #0C2340;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-datecollectedlabel {
+  position: absolute;
+  left: 152mm;
+  top: 111mm;
+  width: 24.34mm;
+  height: 3.97mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-datecollected {
+  position: absolute;
+  left: 183.07mm;
+  top: 111mm;
+  width: 16.93mm;
+  height: 3.97mm;
+  box-sizing: border-box;
+  font-size: 8pt;
+  color: #0C2340;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-datereportedlabel {
+  position: absolute;
+  left: 152mm;
+  top: 116mm;
+  width: 24.87mm;
+  height: 3.97mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-datereported {
+  position: absolute;
+  left: 184.13mm;
+  top: 115.74mm;
+  width: 15.87mm;
+  height: 3.97mm;
+  box-sizing: border-box;
+  font-size: 8pt;
+  color: #0C2340;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-dateamendedlabel {
+  position: absolute;
+  left: 152mm;
+  top: 121mm;
+  width: 24.34mm;
+  height: 3.97mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-dateamended {
+  position: absolute;
+  left: 183.32999999999998mm;
+  top: 121.21mm;
+  width: 16.67mm;
+  height: 3.97mm;
+  box-sizing: border-box;
+  font-size: 8pt;
+  color: #0C2340;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-optionaltestingheading {
+  position: absolute;
+  left: 152mm;
+  top: 137mm;
+  width: 53.900000000000006mm;
+  height: 6mm;
+  box-sizing: border-box;
+  font-size: 12pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-optionaltestingline {
+  position: absolute;
+  left: 152mm;
+  top: 143.5mm;
+  width: 53.900000000000006mm;
+  height: 0.4mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-rnaseqlabel {
+  position: absolute;
+  left: 152mm;
+  top: 145mm;
+  width: 22mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-rnaseq {
+  position: absolute;
+  left: 188.36mm;
+  top: 145.21mm;
+  width: 11.64mm;
+  height: 3.97mm;
+  box-sizing: border-box;
+  font-size: 8pt;
+  color: #0C2340;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-comparatorsheading {
+  position: absolute;
+  left: 153.1mm;
+  top: 157mm;
+  width: 42.6mm;
+  height: 6.09mm;
+  box-sizing: border-box;
+  font-size: 12pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-comparatorsline {
+  position: absolute;
+  left: 152mm;
+  top: 163.5mm;
+  width: 53.900000000000006mm;
+  height: 0.4mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-motherlabel {
+  position: absolute;
+  left: 152mm;
+  top: 166mm;
+  width: 22mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-mother {
+  position: absolute;
+  left: 176mm;
+  top: 166mm;
+  width: 29.900000000000006mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 8pt;
+  color: #0C2340;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-mothersecondarylabel {
+  position: absolute;
+  left: 152mm;
+  top: 171mm;
+  width: 32.81mm;
+  height: 3.97mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-mothersecondary {
+  position: absolute;
+  left: 188.62mm;
+  top: 171mm;
+  width: 11.38mm;
+  height: 3.97mm;
+  box-sizing: border-box;
+  font-size: 8pt;
+  color: #0C2340;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-fatherlabel {
+  position: absolute;
+  left: 152mm;
+  top: 177mm;
+  width: 22mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-father {
+  position: absolute;
+  left: 176mm;
+  top: 177mm;
+  width: 29.900000000000006mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 8pt;
+  color: #0C2340;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-fathersecondarylabel {
+  position: absolute;
+  left: 152mm;
+  top: 182mm;
+  width: 32.54mm;
+  height: 3.97mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-fathersecondary {
+  position: absolute;
+  left: 187.3mm;
+  top: 182mm;
+  width: 12.7mm;
+  height: 3.97mm;
+  box-sizing: border-box;
+  font-size: 8pt;
+  color: #0C2340;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-additionalrelativelabel {
+  position: absolute;
+  left: 152mm;
+  top: 188mm;
+  width: 33.34mm;
+  height: 3.97mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-additionalrelative {
+  position: absolute;
+  left: 184.13mm;
+  top: 188mm;
+  width: 15.87mm;
+  height: 3.97mm;
+  box-sizing: border-box;
+  font-size: 8pt;
+  color: #0C2340;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-additionalrelativesecondarylabel {
+  position: absolute;
+  left: 152mm;
+  top: 193mm;
+  width: 36.51mm;
+  height: 3.97mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-additionalrelativesecondary {
+  position: absolute;
+  left: 189.68mm;
+  top: 193mm;
+  width: 10.32mm;
+  height: 3.97mm;
+  box-sizing: border-box;
+  font-size: 8pt;
+  color: #0C2340;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-additionalreportrecipientsheading {
+  position: absolute;
+  left: 151.1mm;
+  top: 203.91mm;
+  width: 48.42mm;
+  height: 6.09mm;
+  box-sizing: border-box;
+  font-size: 12pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-additionalreportrecipientsline {
+  position: absolute;
+  left: 152mm;
+  top: 210.5mm;
+  width: 53.900000000000006mm;
+  height: 0.3mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-recipient2label {
+  position: absolute;
+  left: 152mm;
+  top: 213mm;
+  width: 22mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-recipient2 {
+  position: absolute;
+  left: 176mm;
+  top: 213mm;
+  width: 29.900000000000006mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 8pt;
+  color: #0C2340;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-facility2label {
+  position: absolute;
+  left: 152mm;
+  top: 218mm;
+  width: 22mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-facility2 {
+  position: absolute;
+  left: 176mm;
+  top: 218mm;
+  width: 29.900000000000006mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 8pt;
+  color: #0C2340;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-recipient3label {
+  position: absolute;
+  left: 152mm;
+  top: 224mm;
+  width: 22mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-recipient3 {
+  position: absolute;
+  left: 176mm;
+  top: 224mm;
+  width: 29.900000000000006mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 8pt;
+  color: #0C2340;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-facility3label {
+  position: absolute;
+  left: 152mm;
+  top: 229mm;
+  width: 22mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-facility3 {
+  position: absolute;
+  left: 176mm;
+  top: 229mm;
+  width: 29.900000000000006mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 8pt;
+  color: #0C2340;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-recipient4label {
+  position: absolute;
+  left: 152mm;
+  top: 235mm;
+  width: 22mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-recipient4 {
+  position: absolute;
+  left: 176mm;
+  top: 235mm;
+  width: 29.900000000000006mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 8pt;
+  color: #0C2340;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-facility4label {
+  position: absolute;
+  left: 152mm;
+  top: 240mm;
+  width: 22mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-facility4 {
+  position: absolute;
+  left: 176mm;
+  top: 240mm;
+  width: 29.900000000000006mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 8pt;
+  color: #0C2340;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-recipient5label {
+  position: absolute;
+  left: 152mm;
+  top: 246mm;
+  width: 22mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-recipient5 {
+  position: absolute;
+  left: 176mm;
+  top: 246mm;
+  width: 29.900000000000006mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 8pt;
+  color: #0C2340;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-facility5label {
+  position: absolute;
+  left: 152mm;
+  top: 251mm;
+  width: 22mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-facility5 {
+  position: absolute;
+  left: 176mm;
+  top: 251mm;
+  width: 29.900000000000006mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 8pt;
+  color: #0C2340;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-footerline {
+  position: absolute;
+  left: 10mm;
+  top: 262mm;
+  width: 195.9mm;
+  height: 0.4mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-footerbaylor {
+  position: absolute;
+  left: 10mm;
+  top: 265mm;
+  width: 50mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-footeraddress1 {
+  position: absolute;
+  left: 90mm;
+  top: 265mm;
+  width: 50mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-footerwebsite {
+  position: absolute;
+  left: 155mm;
+  top: 265mm;
+  width: 40mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: right;
+  line-height: 1;
+}
+.pdfme-footerpage {
+  position: absolute;
+  left: 10mm;
+  top: 269.5mm;
+  width: 30mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-footeraddress2 {
+  position: absolute;
+  left: 90mm;
+  top: 269.5mm;
+  width: 50mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-footerphone {
+  position: absolute;
+  left: 155mm;
+  top: 269.5mm;
+  width: 40mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: right;
+  line-height: 1;
+}
+.pdfme-footeraddress3 {
+  position: absolute;
+  left: 90mm;
+  top: 274mm;
+  width: 50mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-footerfax {
+  position: absolute;
+  left: 155mm;
+  top: 274mm;
+  width: 40mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: right;
+  line-height: 1;
+}
+.pdfme-resultsline-copy {
+  position: absolute;
+  left: 10mm;
+  top: 54.5mm;
+  width: 132mm;
+  height: 0.4mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-field361 {
+  position: absolute;
+  left: 10mm;
+  top: 107.31mm;
+  width: 132.29mm;
+  height: 16.67mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+  border: 1mm solid #0C2340;
+  opacity: 1;
+}
+.pdfme-primaryicon-copy {
+  position: absolute;
+  left: 13.15mm;
+  top: 111.53mm;
+  width: 8mm;
+  height: 8mm;
+  box-sizing: border-box;
+}
+.pdfme-primaryfindingstitle-copy {
+  position: absolute;
+  left: 22.95mm;
+  top: 111.32mm;
+  width: 60mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #ffffff;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-primaryfindingstext-copy {
+  position: absolute;
+  left: 22.95mm;
+  top: 115.27mm;
+  width: 78mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #ffffff;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1.2;
+}
+.pdfme-field361-copy {
+  position: absolute;
+  left: 10mm;
+  top: 126.57mm;
+  width: 132.56mm;
+  height: 16.67mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+  border: 1mm solid #0C2340;
+  opacity: 1;
+}
+.pdfme-primaryicon-copy-2 {
+  position: absolute;
+  left: 12.83mm;
+  top: 130.79mm;
+  width: 8mm;
+  height: 8mm;
+  box-sizing: border-box;
+}
+.pdfme-primaryfindingstitle-copy-2 {
+  position: absolute;
+  left: 22.63mm;
+  top: 130.58mm;
+  width: 60mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #ffffff;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-primaryfindingstext-copy-2 {
+  position: absolute;
+  left: 22.63mm;
+  top: 134.53mm;
+  width: 78mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #ffffff;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1.2;
+}
+.pdfme-field361-copy-2 {
+  position: absolute;
+  left: 10mm;
+  top: 146.62mm;
+  width: 132.56mm;
+  height: 16.67mm;
+  box-sizing: border-box;
+  background-color: #FFFFFF;
+  border: 0.5mm solid #0C2340;
+  opacity: 1;
+}
+.pdfme-primaryfindingstitle-copy-3 {
+  position: absolute;
+  left: 22.57mm;
+  top: 150.63mm;
+  width: 60mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-primaryfindingstext-copy-3 {
+  position: absolute;
+  left: 37.57mm;
+  top: 154.58mm;
+  width: 28.05mm;
+  height: 5.03mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1.2;
+}
+.pdfme-incidentalicon-copy {
+  position: absolute;
+  left: 13.15mm;
+  top: 151.44mm;
+  width: 8mm;
+  height: 8mm;
+  box-sizing: border-box;
+}
+.pdfme-field361-copy-3 {
+  position: absolute;
+  left: 10mm;
+  top: 166.44mm;
+  width: 132.56mm;
+  height: 16.67mm;
+  box-sizing: border-box;
+  background-color: #FFFFFF;
+  border: 0.5mm solid #0C2340;
+  opacity: 1;
+}
+.pdfme-primaryfindingstitle-copy-4 {
+  position: absolute;
+  left: 22.25mm;
+  top: 170.45mm;
+  width: 74.88mm;
+  height: 3.97mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-incidentalicon-copy-2 {
+  position: absolute;
+  left: 12.83mm;
+  top: 171.26mm;
+  width: 8mm;
+  height: 8mm;
+  box-sizing: border-box;
+}
+.pdfme-primaryfindingstext-copy-5 {
+  position: absolute;
+  left: 23.1mm;
+  top: 154.53mm;
+  width: 16.4mm;
+  height: 5.03mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1.2;
+}
+.pdfme-primaryfindingstext-copy-6 {
+  position: absolute;
+  left: 36.99mm;
+  top: 174.11mm;
+  width: 28.05mm;
+  height: 5.03mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1.2;
+}
+.pdfme-primaryfindingstext-copy-7 {
+  position: absolute;
+  left: 22.52mm;
+  top: 174.06mm;
+  width: 16.4mm;
+  height: 5.03mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1.2;
+}
+.pdfme-p2_reporttitle {
+  position: absolute;
+  left: 10mm;
+  top: 12mm;
+  width: 140mm;
+  height: 8mm;
+  box-sizing: border-box;
+  font-size: 20pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p2_reportsubtitle {
+  position: absolute;
+  left: 11mm;
+  top: 20.5mm;
+  width: 60mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 1pt;
+}
+.pdfme-p2_baylorlogo {
+  position: absolute;
+  left: 155.55mm;
+  top: 10mm;
+  width: 44.44999999999999mm;
+  height: 17.46mm;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pdfme-p2_headerline {
+  position: absolute;
+  left: 10mm;
+  top: 28mm;
+  width: 195.9mm;
+  height: 0.5mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p2_patientnamelabel {
+  position: absolute;
+  left: 23.23mm;
+  top: 29.26mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p2_patientname {
+  position: absolute;
+  left: 23.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p2_geneticsexlabel {
+  position: absolute;
+  left: 48.23mm;
+  top: 29.26mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 200;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p2_geneticsex {
+  position: absolute;
+  left: 48.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p2_doblabel {
+  position: absolute;
+  left: 77mm;
+  top: 29mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p2_dob {
+  position: absolute;
+  left: 77.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p2_mrnlabel {
+  position: absolute;
+  left: 108mm;
+  top: 29mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p2_mrn {
+  position: absolute;
+  left: 107.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p2_accessionlabel {
+  position: absolute;
+  left: 135.23mm;
+  top: 29.26mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p2_accession {
+  position: absolute;
+  left: 135.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p2_patientidlabel {
+  position: absolute;
+  left: 167.23mm;
+  top: 29.26mm;
+  width: 25mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p2_patientid {
+  position: absolute;
+  left: 167.23mm;
+  top: 33.76mm;
+  width: 25mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p2_patientinfoline {
+  position: absolute;
+  left: 10mm;
+  top: 40mm;
+  width: 195.9mm;
+  height: 0.3mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p2_variantfindingsheading {
+  position: absolute;
+  left: 10mm;
+  top: 53mm;
+  width: 195.9mm;
+  height: 6mm;
+  box-sizing: border-box;
+  font-size: 12pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-p2_varianttable {
+  position: absolute;
+  left: 10mm;
+  top: 62mm;
+  width: 195.9mm;
+  height: 75mm;
+  box-sizing: border-box;
+}
+.pdfme-p2_varianttable table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 0.3mm solid #0C2340;
+}
+.pdfme-p2_varianttable thead th {
+  background-color: #1a3a52;
+  color: #ffffff;
+  font-size: 8pt;
+  text-align: center;
+  padding: 3pt 3pt 3pt 3pt;
+}
+.pdfme-p2_varianttable tbody td {
+  color: #0C2340;
+  font-size: 7pt;
+  text-align: left;
+  padding: 4pt 3pt 4pt 3pt;
+}
+.pdfme-p2_recommendationsheading {
+  position: absolute;
+  left: 10mm;
+  top: 145mm;
+  width: 195.9mm;
+  height: 6mm;
+  box-sizing: border-box;
+  font-size: 12pt;
+  color: #0B203A;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-p2_recommendations {
+  position: absolute;
+  left: 10.289999999999992mm;
+  top: 152.99mm;
+  width: 186.8mm;
+  height: 30.96mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1.4;
+}
+.pdfme-p2_footerline {
+  position: absolute;
+  left: 10mm;
+  top: 262mm;
+  width: 195.9mm;
+  height: 0.4mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p2_footerbaylor {
+  position: absolute;
+  left: 10mm;
+  top: 265mm;
+  width: 50mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-p2_footeraddress1 {
+  position: absolute;
+  left: 90mm;
+  top: 265mm;
+  width: 50mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p2_footerwebsite {
+  position: absolute;
+  left: 155mm;
+  top: 265mm;
+  width: 40mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: right;
+  line-height: 1;
+}
+.pdfme-p2_footerpage {
+  position: absolute;
+  left: 10mm;
+  top: 269.5mm;
+  width: 30mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p2_footeraddress2 {
+  position: absolute;
+  left: 90mm;
+  top: 269.5mm;
+  width: 50mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p2_footerphone {
+  position: absolute;
+  left: 155mm;
+  top: 269.5mm;
+  width: 40mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: right;
+  line-height: 1;
+}
+.pdfme-p2_footeraddress3 {
+  position: absolute;
+  left: 90mm;
+  top: 274mm;
+  width: 50mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p2_footerfax {
+  position: absolute;
+  left: 155mm;
+  top: 274mm;
+  width: 40mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: right;
+  line-height: 1;
+}
+.pdfme-p2_headerline-copy {
+  position: absolute;
+  left: 10mm;
+  top: 151mm;
+  width: 189.97mm;
+  height: 0.4mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p3_reporttitle {
+  position: absolute;
+  left: 10mm;
+  top: 12mm;
+  width: 140mm;
+  height: 8mm;
+  box-sizing: border-box;
+  font-size: 20pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p3_reportsubtitle {
+  position: absolute;
+  left: 11mm;
+  top: 20.5mm;
+  width: 60mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 1pt;
+}
+.pdfme-p3_baylorlogo {
+  position: absolute;
+  left: 155.55mm;
+  top: 10mm;
+  width: 44.44999999999999mm;
+  height: 17.46mm;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pdfme-p3_headerline {
+  position: absolute;
+  left: 10mm;
+  top: 28mm;
+  width: 195.9mm;
+  height: 0.5mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p3_patientnamelabel {
+  position: absolute;
+  left: 23.23mm;
+  top: 29.26mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p3_patientname {
+  position: absolute;
+  left: 23.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p3_geneticsexlabel {
+  position: absolute;
+  left: 48.23mm;
+  top: 29.26mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 200;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p3_geneticsex {
+  position: absolute;
+  left: 48.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p3_doblabel {
+  position: absolute;
+  left: 77mm;
+  top: 29mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p3_dob {
+  position: absolute;
+  left: 77.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p3_mrnlabel {
+  position: absolute;
+  left: 108mm;
+  top: 29mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p3_mrn {
+  position: absolute;
+  left: 107.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p3_accessionlabel {
+  position: absolute;
+  left: 135.23mm;
+  top: 29.26mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p3_accession {
+  position: absolute;
+  left: 135.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p3_patientidlabel {
+  position: absolute;
+  left: 167.23mm;
+  top: 29.26mm;
+  width: 25mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p3_patientid {
+  position: absolute;
+  left: 167.23mm;
+  top: 33.76mm;
+  width: 25mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p3_patientinfoline {
+  position: absolute;
+  left: 10mm;
+  top: 40mm;
+  width: 195.9mm;
+  height: 0.3mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p3_genevariant {
+  position: absolute;
+  left: 109.78mm;
+  top: 49.38mm;
+  width: 90.22mm;
+  height: 5.03mm;
+  box-sizing: border-box;
+  font-size: 11pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: right;
+  line-height: 1;
+}
+.pdfme-p3_summarytable {
+  position: absolute;
+  left: 10mm;
+  top: 59mm;
+  width: 190mm;
+  height: 20.37232mm;
+  box-sizing: border-box;
+}
+.pdfme-p3_summarytable table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 0.2mm solid #cccccc;
+}
+.pdfme-p3_summarytable thead th {
+  background-color: #f0f0f0;
+  color: #0c2340;
+  font-size: 7pt;
+  text-align: center;
+  padding: 2pt 2pt 2pt 2pt;
+}
+.pdfme-p3_summarytable tbody td {
+  color: #0C2340;
+  font-size: 7pt;
+  text-align: left;
+  padding: 3pt 2pt 3pt 2pt;
+}
+.pdfme-p3_genedescheading {
+  position: absolute;
+  left: 10mm;
+  top: 86.97mm;
+  width: 189.44mm;
+  height: 5.03mm;
+  box-sizing: border-box;
+  font-size: 12pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-p3_genedesc {
+  position: absolute;
+  left: 10mm;
+  top: 95mm;
+  width: 190mm;
+  height: 11.91mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1.3;
+}
+.pdfme-p3_diseasedescheading {
+  position: absolute;
+  left: 10mm;
+  top: 109mm;
+  width: 190mm;
+  height: 5.03mm;
+  box-sizing: border-box;
+  font-size: 12pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-p3_diseasedesc {
+  position: absolute;
+  left: 10.03mm;
+  top: 116.26mm;
+  width: 189.97mm;
+  height: 52.39mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1.3;
+}
+.pdfme-p3_variantdetailsheading {
+  position: absolute;
+  left: 10mm;
+  top: 188mm;
+  width: 174.36mm;
+  height: 5.03mm;
+  box-sizing: border-box;
+  font-size: 12pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-p3_variantdetails {
+  position: absolute;
+  left: 10mm;
+  top: 195.53mm;
+  width: 187.06mm;
+  height: 60.06mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1.4;
+}
+.pdfme-p3_footerline {
+  position: absolute;
+  left: 10mm;
+  top: 262mm;
+  width: 195.9mm;
+  height: 0.4mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p3_footerbaylor {
+  position: absolute;
+  left: 10mm;
+  top: 265mm;
+  width: 50mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-p3_footeraddress1 {
+  position: absolute;
+  left: 90mm;
+  top: 265mm;
+  width: 50mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p3_footerwebsite {
+  position: absolute;
+  left: 155mm;
+  top: 265mm;
+  width: 40mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: right;
+  line-height: 1;
+}
+.pdfme-p3_footerpage {
+  position: absolute;
+  left: 10mm;
+  top: 269.5mm;
+  width: 30mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p3_footeraddress2 {
+  position: absolute;
+  left: 90mm;
+  top: 269.5mm;
+  width: 50mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p3_footerphone {
+  position: absolute;
+  left: 155mm;
+  top: 269.5mm;
+  width: 40mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: right;
+  line-height: 1;
+}
+.pdfme-p3_footeraddress3 {
+  position: absolute;
+  left: 90mm;
+  top: 274mm;
+  width: 50mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p3_footerfax {
+  position: absolute;
+  left: 155mm;
+  top: 274mm;
+  width: 40mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: right;
+  line-height: 1;
+}
+.pdfme-field363 {
+  position: absolute;
+  left: 10mm;
+  top: 46.9mm;
+  width: 45.51mm;
+  height: 7.41mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+  border: 1mm solid #0C2340;
+  opacity: 1;
+}
+.pdfme-p3_primaryfindingstitle-copy {
+  position: absolute;
+  left: 13.63mm;
+  top: 48.36mm;
+  width: 38.36mm;
+  height: 5.03mm;
+  box-sizing: border-box;
+  font-size: 11pt;
+  color: #ffffff;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-p3_headerline-copy {
+  position: absolute;
+  left: 10mm;
+  top: 93mm;
+  width: 190mm;
+  height: 0.4mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p3_headerline-copy-2 {
+  position: absolute;
+  left: 10mm;
+  top: 115mm;
+  width: 190mm;
+  height: 0.4mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p3_headerline-copy-3 {
+  position: absolute;
+  left: 10mm;
+  top: 194mm;
+  width: 190mm;
+  height: 0.4mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p4_reporttitle {
+  position: absolute;
+  left: 10mm;
+  top: 12mm;
+  width: 140mm;
+  height: 8mm;
+  box-sizing: border-box;
+  font-size: 20pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p4_reportsubtitle {
+  position: absolute;
+  left: 11mm;
+  top: 20.5mm;
+  width: 60mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 1pt;
+}
+.pdfme-p4_baylorlogo {
+  position: absolute;
+  left: 155.55mm;
+  top: 10mm;
+  width: 44.44999999999999mm;
+  height: 17.46mm;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pdfme-p4_headerline {
+  position: absolute;
+  left: 10mm;
+  top: 28mm;
+  width: 190mm;
+  height: 0.4mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p4_patientnamelabel {
+  position: absolute;
+  left: 23.23mm;
+  top: 29.26mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p4_patientname {
+  position: absolute;
+  left: 23.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p4_geneticsexlabel {
+  position: absolute;
+  left: 48.23mm;
+  top: 29.26mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 200;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p4_geneticsex {
+  position: absolute;
+  left: 48.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p4_doblabel {
+  position: absolute;
+  left: 77mm;
+  top: 29mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p4_dob {
+  position: absolute;
+  left: 77.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p4_mrnlabel {
+  position: absolute;
+  left: 108mm;
+  top: 29mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p4_mrn {
+  position: absolute;
+  left: 107.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p4_accessionlabel {
+  position: absolute;
+  left: 135.23mm;
+  top: 29.26mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p4_accession {
+  position: absolute;
+  left: 135.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p4_patientidlabel {
+  position: absolute;
+  left: 167.23mm;
+  top: 29.26mm;
+  width: 25mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p4_patientid {
+  position: absolute;
+  left: 167.23mm;
+  top: 33.76mm;
+  width: 25mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p4_patientinfoline {
+  position: absolute;
+  left: 10mm;
+  top: 40mm;
+  width: 189.97mm;
+  height: 0.3mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p4_summarytable {
+  position: absolute;
+  left: 10.03mm;
+  top: 62mm;
+  width: 189.97mm;
+  height: 20.37232mm;
+  box-sizing: border-box;
+}
+.pdfme-p4_summarytable table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 0.2mm solid #cccccc;
+}
+.pdfme-p4_summarytable thead th {
+  background-color: #f0f0f0;
+  color: #666666;
+  font-size: 7pt;
+  text-align: center;
+  padding: 2pt 2pt 2pt 2pt;
+}
+.pdfme-p4_summarytable tbody td {
+  color: #0C2340;
+  font-size: 7pt;
+  text-align: left;
+  padding: 3pt 2pt 3pt 2pt;
+}
+.pdfme-p4_footerline {
+  position: absolute;
+  left: 10mm;
+  top: 262mm;
+  width: 189.97mm;
+  height: 0.4mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p4_footerbaylor {
+  position: absolute;
+  left: 10mm;
+  top: 265mm;
+  width: 50mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-p4_footeraddress1 {
+  position: absolute;
+  left: 90mm;
+  top: 265mm;
+  width: 50mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p4_footerwebsite {
+  position: absolute;
+  left: 155mm;
+  top: 265mm;
+  width: 40mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: right;
+  line-height: 1;
+}
+.pdfme-p4_footerpage {
+  position: absolute;
+  left: 10mm;
+  top: 269.5mm;
+  width: 30mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p4_footeraddress2 {
+  position: absolute;
+  left: 90mm;
+  top: 269.5mm;
+  width: 50mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p4_footerphone {
+  position: absolute;
+  left: 155mm;
+  top: 269.5mm;
+  width: 40mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: right;
+  line-height: 1;
+}
+.pdfme-p4_footeraddress3 {
+  position: absolute;
+  left: 90mm;
+  top: 274mm;
+  width: 50mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p4_footerfax {
+  position: absolute;
+  left: 155mm;
+  top: 274mm;
+  width: 40mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: right;
+  line-height: 1;
+}
+.pdfme-p3_genevariant-copy {
+  position: absolute;
+  left: 73mm;
+  top: 51.18mm;
+  width: 127mm;
+  height: 5.03mm;
+  box-sizing: border-box;
+  font-size: 11pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: right;
+  line-height: 1;
+}
+.pdfme-field363-copy {
+  position: absolute;
+  left: 10.48mm;
+  top: 48.7mm;
+  width: 45.51mm;
+  height: 7.41mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+  border: 1mm solid #0C2340;
+  opacity: 1;
+}
+.pdfme-p3_primaryfindingstitle-copy-copy {
+  position: absolute;
+  left: 14.11mm;
+  top: 50.16mm;
+  width: 38.36mm;
+  height: 5.03mm;
+  box-sizing: border-box;
+  font-size: 11pt;
+  color: #ffffff;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-p3_genedescheading-copy {
+  position: absolute;
+  left: 10mm;
+  top: 88.97mm;
+  width: 189.44mm;
+  height: 5.03mm;
+  box-sizing: border-box;
+  font-size: 12pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-p3_genedesc-copy {
+  position: absolute;
+  left: 10mm;
+  top: 97mm;
+  width: 190mm;
+  height: 11.91mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1.3;
+}
+.pdfme-p3_diseasedescheading-copy {
+  position: absolute;
+  left: 10mm;
+  top: 111mm;
+  width: 190mm;
+  height: 5.03mm;
+  box-sizing: border-box;
+  font-size: 12pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-p3_diseasedesc-copy {
+  position: absolute;
+  left: 10.03mm;
+  top: 118.26mm;
+  width: 189.97mm;
+  height: 59.8mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1.3;
+}
+.pdfme-p3_variantdetailsheading-copy {
+  position: absolute;
+  left: 11mm;
+  top: 190mm;
+  width: 174.36mm;
+  height: 5.03mm;
+  box-sizing: border-box;
+  font-size: 12pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-p3_variantdetails-copy {
+  position: absolute;
+  left: 12.939999999999998mm;
+  top: 202.53mm;
+  width: 187.06mm;
+  height: 40.22mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1.4;
+}
+.pdfme-p3_headerline-copy-copy {
+  position: absolute;
+  left: 10mm;
+  top: 95mm;
+  width: 190mm;
+  height: 0.4mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p3_headerline-copy-2-copy {
+  position: absolute;
+  left: 10mm;
+  top: 117mm;
+  width: 190mm;
+  height: 0.4mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p3_headerline-copy-copy-2 {
+  position: absolute;
+  left: 10mm;
+  top: 200mm;
+  width: 190mm;
+  height: 0.4mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p5_reporttitle {
+  position: absolute;
+  left: 10mm;
+  top: 12mm;
+  width: 140mm;
+  height: 8mm;
+  box-sizing: border-box;
+  font-size: 20pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p5_reportsubtitle {
+  position: absolute;
+  left: 11mm;
+  top: 20.5mm;
+  width: 60mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 1pt;
+}
+.pdfme-p5_baylorlogo {
+  position: absolute;
+  left: 155.55mm;
+  top: 10mm;
+  width: 44.44999999999999mm;
+  height: 17.46mm;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pdfme-p5_headerline {
+  position: absolute;
+  left: 10mm;
+  top: 28mm;
+  width: 195.9mm;
+  height: 0.5mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p5_patientnamelabel {
+  position: absolute;
+  left: 23.23mm;
+  top: 29.26mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p5_patientname {
+  position: absolute;
+  left: 23.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p5_geneticsexlabel {
+  position: absolute;
+  left: 48.23mm;
+  top: 29.26mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 200;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p5_geneticsex {
+  position: absolute;
+  left: 48.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p5_doblabel {
+  position: absolute;
+  left: 77mm;
+  top: 29mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p5_dob {
+  position: absolute;
+  left: 77.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p5_mrnlabel {
+  position: absolute;
+  left: 108mm;
+  top: 29mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p5_mrn {
+  position: absolute;
+  left: 107.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p5_accessionlabel {
+  position: absolute;
+  left: 135.23mm;
+  top: 29.26mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p5_accession {
+  position: absolute;
+  left: 135.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p5_patientidlabel {
+  position: absolute;
+  left: 167.23mm;
+  top: 29.26mm;
+  width: 25mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p5_patientid {
+  position: absolute;
+  left: 167.23mm;
+  top: 33.76mm;
+  width: 25mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p5_patientinfoline {
+  position: absolute;
+  left: 10mm;
+  top: 40mm;
+  width: 195.9mm;
+  height: 0.3mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p5_genevariant {
+  position: absolute;
+  left: 95mm;
+  top: 56mm;
+  width: 95mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 9pt;
+  color: #ffffff;
+  text-align: right;
+  line-height: 1;
+}
+.pdfme-p5_footerline {
+  position: absolute;
+  left: 10mm;
+  top: 262mm;
+  width: 195.9mm;
+  height: 0.4mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p5_footerbaylor {
+  position: absolute;
+  left: 10mm;
+  top: 265mm;
+  width: 50mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-p5_footeraddress1 {
+  position: absolute;
+  left: 90mm;
+  top: 265mm;
+  width: 50mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p5_footerwebsite {
+  position: absolute;
+  left: 155mm;
+  top: 265mm;
+  width: 40mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: right;
+  line-height: 1;
+}
+.pdfme-p5_footerpage {
+  position: absolute;
+  left: 10mm;
+  top: 269.5mm;
+  width: 30mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p5_footeraddress2 {
+  position: absolute;
+  left: 90mm;
+  top: 269.5mm;
+  width: 50mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p5_footerphone {
+  position: absolute;
+  left: 155mm;
+  top: 269.5mm;
+  width: 40mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: right;
+  line-height: 1;
+}
+.pdfme-p5_footeraddress3 {
+  position: absolute;
+  left: 90mm;
+  top: 274mm;
+  width: 50mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p5_footerfax {
+  position: absolute;
+  left: 155mm;
+  top: 274mm;
+  width: 40mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: right;
+  line-height: 1;
+}
+.pdfme-p4_summarytable-copy {
+  position: absolute;
+  left: 10.03mm;
+  top: 59mm;
+  width: 189.97mm;
+  height: 20.37232mm;
+  box-sizing: border-box;
+}
+.pdfme-p4_summarytable-copy table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 0.2mm solid #cccccc;
+}
+.pdfme-p4_summarytable-copy thead th {
+  background-color: #f0f0f0;
+  color: #666666;
+  font-size: 7pt;
+  text-align: center;
+  padding: 2pt 2pt 2pt 2pt;
+}
+.pdfme-p4_summarytable-copy tbody td {
+  color: #0C2340;
+  font-size: 7pt;
+  text-align: left;
+  padding: 3pt 2pt 3pt 2pt;
+}
+.pdfme-field363-copy-copy {
+  position: absolute;
+  left: 10mm;
+  top: 47.7mm;
+  width: 45.51mm;
+  height: 7.41mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+  border: 1mm solid #0C2340;
+  opacity: 1;
+}
+.pdfme-p3_primaryfindingstitle-copy-copy-copy {
+  position: absolute;
+  left: 13.11mm;
+  top: 49.16mm;
+  width: 38.36mm;
+  height: 5.03mm;
+  box-sizing: border-box;
+  font-size: 11pt;
+  color: #ffffff;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-p3_genedescheading-copy-copy {
+  position: absolute;
+  left: 10.56mm;
+  top: 87.97mm;
+  width: 189.44mm;
+  height: 5.03mm;
+  box-sizing: border-box;
+  font-size: 12pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-p3_genedesc-copy-copy {
+  position: absolute;
+  left: 10mm;
+  top: 96mm;
+  width: 190mm;
+  height: 11.91mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1.3;
+}
+.pdfme-p3_diseasedescheading-copy-copy {
+  position: absolute;
+  left: 10mm;
+  top: 110mm;
+  width: 190mm;
+  height: 5.03mm;
+  box-sizing: border-box;
+  font-size: 12pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-p3_diseasedesc-copy-copy {
+  position: absolute;
+  left: 10.03mm;
+  top: 117.26mm;
+  width: 189.97mm;
+  height: 59.8mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1.3;
+}
+.pdfme-p3_variantdetailsheading-copy-copy {
+  position: absolute;
+  left: 10mm;
+  top: 189mm;
+  width: 174.36mm;
+  height: 5.03mm;
+  box-sizing: border-box;
+  font-size: 12pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-p3_variantdetails-copy-copy {
+  position: absolute;
+  left: 12.939999999999998mm;
+  top: 201.53mm;
+  width: 187.06mm;
+  height: 40.22mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1.4;
+}
+.pdfme-p3_headerline-copy-copy-copy {
+  position: absolute;
+  left: 10mm;
+  top: 94mm;
+  width: 190mm;
+  height: 0.4mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p3_headerline-copy-2-copy-copy {
+  position: absolute;
+  left: 10mm;
+  top: 116mm;
+  width: 190mm;
+  height: 0.4mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p3_genevariant-copy-copy {
+  position: absolute;
+  left: 73mm;
+  top: 50.45mm;
+  width: 127mm;
+  height: 5.03mm;
+  box-sizing: border-box;
+  font-size: 11pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: right;
+  line-height: 1;
+}
+.pdfme-p6_reporttitle {
+  position: absolute;
+  left: 10mm;
+  top: 12mm;
+  width: 140mm;
+  height: 8mm;
+  box-sizing: border-box;
+  font-size: 20pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p6_reportsubtitle {
+  position: absolute;
+  left: 11mm;
+  top: 20.5mm;
+  width: 60mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 1pt;
+}
+.pdfme-p6_baylorlogo {
+  position: absolute;
+  left: 155.55mm;
+  top: 10mm;
+  width: 44.44999999999999mm;
+  height: 17.46mm;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pdfme-p6_headerline {
+  position: absolute;
+  left: 10mm;
+  top: 28mm;
+  width: 195.9mm;
+  height: 0.5mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p6_patientnamelabel {
+  position: absolute;
+  left: 23.23mm;
+  top: 29.26mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p6_patientname {
+  position: absolute;
+  left: 23.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p6_geneticsexlabel {
+  position: absolute;
+  left: 48.23mm;
+  top: 29.26mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 200;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p6_geneticsex {
+  position: absolute;
+  left: 48.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p6_doblabel {
+  position: absolute;
+  left: 77mm;
+  top: 29mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p6_dob {
+  position: absolute;
+  left: 77.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p6_mrnlabel {
+  position: absolute;
+  left: 108mm;
+  top: 29mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p6_mrn {
+  position: absolute;
+  left: 107.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p6_accessionlabel {
+  position: absolute;
+  left: 135.23mm;
+  top: 29.26mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p6_accession {
+  position: absolute;
+  left: 135.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p6_patientidlabel {
+  position: absolute;
+  left: 167.23mm;
+  top: 29.26mm;
+  width: 25mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p6_patientid {
+  position: absolute;
+  left: 167.23mm;
+  top: 33.76mm;
+  width: 25mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p6_patientinfoline {
+  position: absolute;
+  left: 10mm;
+  top: 40mm;
+  width: 195.9mm;
+  height: 0.3mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p6_genevariant {
+  position: absolute;
+  left: 105mm;
+  top: 46mm;
+  width: 85mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 9pt;
+  color: #ffffff;
+  text-align: right;
+  line-height: 1;
+}
+.pdfme-p6_footerline {
+  position: absolute;
+  left: 10mm;
+  top: 262mm;
+  width: 195.9mm;
+  height: 0.4mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p6_footerbaylor {
+  position: absolute;
+  left: 10mm;
+  top: 265mm;
+  width: 50mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-p6_footeraddress1 {
+  position: absolute;
+  left: 90mm;
+  top: 265mm;
+  width: 50mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p6_footerwebsite {
+  position: absolute;
+  left: 155mm;
+  top: 265mm;
+  width: 40mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: right;
+  line-height: 1;
+}
+.pdfme-p6_footerpage {
+  position: absolute;
+  left: 10mm;
+  top: 269.5mm;
+  width: 30mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p6_footeraddress2 {
+  position: absolute;
+  left: 90mm;
+  top: 269.5mm;
+  width: 50mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p6_footerphone {
+  position: absolute;
+  left: 155mm;
+  top: 269.5mm;
+  width: 40mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: right;
+  line-height: 1;
+}
+.pdfme-p6_footeraddress3 {
+  position: absolute;
+  left: 90mm;
+  top: 274mm;
+  width: 50mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p6_footerfax {
+  position: absolute;
+  left: 155mm;
+  top: 274mm;
+  width: 40mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: right;
+  line-height: 1;
+}
+.pdfme-p4_summarytable-copy-copy {
+  position: absolute;
+  left: 10mm;
+  top: 59mm;
+  width: 189.97mm;
+  height: 20.37232mm;
+  box-sizing: border-box;
+}
+.pdfme-p4_summarytable-copy-copy table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 0.2mm solid #cccccc;
+}
+.pdfme-p4_summarytable-copy-copy thead th {
+  background-color: #f0f0f0;
+  color: #666666;
+  font-size: 7pt;
+  text-align: center;
+  padding: 2pt 2pt 2pt 2pt;
+}
+.pdfme-p4_summarytable-copy-copy tbody td {
+  color: #0C2340;
+  font-size: 7pt;
+  text-align: left;
+  padding: 3pt 2pt 3pt 2pt;
+}
+.pdfme-field363-copy-copy-copy {
+  position: absolute;
+  left: 10mm;
+  top: 47.7mm;
+  width: 45.51mm;
+  height: 7.41mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+  border: 1mm solid #0C2340;
+  opacity: 1;
+}
+.pdfme-p3_primaryfindingstitle-copy-copy-copy-copy {
+  position: absolute;
+  left: 13.06mm;
+  top: 49.16mm;
+  width: 38.36mm;
+  height: 5.03mm;
+  box-sizing: border-box;
+  font-size: 11pt;
+  color: #ffffff;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-p3_genedescheading-copy-copy-copy {
+  position: absolute;
+  left: 10.51mm;
+  top: 83.97mm;
+  width: 189.44mm;
+  height: 5.03mm;
+  box-sizing: border-box;
+  font-size: 12pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-p3_genedesc-copy-copy-copy {
+  position: absolute;
+  left: 10mm;
+  top: 92mm;
+  width: 190mm;
+  height: 11.91mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1.3;
+}
+.pdfme-p3_diseasedescheading-copy-copy-copy {
+  position: absolute;
+  left: 10mm;
+  top: 106mm;
+  width: 190mm;
+  height: 5.03mm;
+  box-sizing: border-box;
+  font-size: 12pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-p3_diseasedesc-copy-copy-copy {
+  position: absolute;
+  left: 10mm;
+  top: 113.26mm;
+  width: 189.97mm;
+  height: 59.8mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1.3;
+}
+.pdfme-p3_variantdetailsheading-copy-copy-copy {
+  position: absolute;
+  left: 10mm;
+  top: 180mm;
+  width: 174.36mm;
+  height: 5.03mm;
+  box-sizing: border-box;
+  font-size: 12pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-p3_variantdetails-copy-copy-copy {
+  position: absolute;
+  left: 12.89mm;
+  top: 192.53mm;
+  width: 187.06mm;
+  height: 40.22mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1.4;
+}
+.pdfme-p3_headerline-copy-copy-copy-copy {
+  position: absolute;
+  left: 10mm;
+  top: 90mm;
+  width: 190mm;
+  height: 0.4mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p3_headerline-copy-2-copy-copy-copy {
+  position: absolute;
+  left: 10mm;
+  top: 112mm;
+  width: 190mm;
+  height: 0.4mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p3_genevariant-copy-copy-copy {
+  position: absolute;
+  left: 72.95mm;
+  top: 50.45mm;
+  width: 127mm;
+  height: 5.03mm;
+  box-sizing: border-box;
+  font-size: 11pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: right;
+  line-height: 1;
+}
+.pdfme-p7_reporttitle {
+  position: absolute;
+  left: 10mm;
+  top: 12mm;
+  width: 140mm;
+  height: 8mm;
+  box-sizing: border-box;
+  font-size: 20pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p7_reportsubtitle {
+  position: absolute;
+  left: 11mm;
+  top: 20.5mm;
+  width: 60mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 1pt;
+}
+.pdfme-p7_baylorlogo {
+  position: absolute;
+  left: 155.55mm;
+  top: 10mm;
+  width: 44.44999999999999mm;
+  height: 17.46mm;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pdfme-p7_headerline {
+  position: absolute;
+  left: 10mm;
+  top: 28mm;
+  width: 190mm;
+  height: 0.53mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p7_patientnamelabel {
+  position: absolute;
+  left: 23.23mm;
+  top: 29.26mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p7_patientname {
+  position: absolute;
+  left: 23.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p7_geneticsexlabel {
+  position: absolute;
+  left: 48.23mm;
+  top: 29.26mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 200;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p7_geneticsex {
+  position: absolute;
+  left: 48.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p7_doblabel {
+  position: absolute;
+  left: 77mm;
+  top: 29mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p7_dob {
+  position: absolute;
+  left: 77.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p7_mrnlabel {
+  position: absolute;
+  left: 108mm;
+  top: 29mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p7_mrn {
+  position: absolute;
+  left: 107.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p7_accessionlabel {
+  position: absolute;
+  left: 135.23mm;
+  top: 29.26mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p7_accession {
+  position: absolute;
+  left: 135.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p7_patientidlabel {
+  position: absolute;
+  left: 167.23mm;
+  top: 29.26mm;
+  width: 25mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p7_patientid {
+  position: absolute;
+  left: 167.23mm;
+  top: 33.76mm;
+  width: 25mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p7_patientinfoline {
+  position: absolute;
+  left: 10mm;
+  top: 40mm;
+  width: 189.44mm;
+  height: 0.26mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p7_qualitymetricsheading {
+  position: absolute;
+  left: 10mm;
+  top: 48mm;
+  width: 181.5mm;
+  height: 6.09mm;
+  box-sizing: border-box;
+  font-size: 12pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-p7_metric1box {
+  position: absolute;
+  left: 20mm;
+  top: 56.77mm;
+  width: 79.64mm;
+  height: 9.79mm;
+  box-sizing: border-box;
+}
+.pdfme-p7_metric1value {
+  position: absolute;
+  left: 29.23mm;
+  top: 59.71mm;
+  width: 27.78mm;
+  height: 4.23mm;
+  box-sizing: border-box;
+  font-size: 20pt;
+  color: #1a3a52;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p7_metric1label {
+  position: absolute;
+  left: 61.19mm;
+  top: 57.21mm;
+  width: 46.3mm;
+  height: 9.79mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1.2;
+}
+.pdfme-p7_methodologyheading {
+  position: absolute;
+  left: 10mm;
+  top: 75mm;
+  width: 190mm;
+  height: 6mm;
+  box-sizing: border-box;
+  font-size: 12pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-p7_methodologycontent {
+  position: absolute;
+  left: 10mm;
+  top: 84mm;
+  width: 190mm;
+  height: 158mm;
+  box-sizing: border-box;
+  font-size: 8pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1.25;
+}
+.pdfme-p7_footerline {
+  position: absolute;
+  left: 4.099999999999994mm;
+  top: 262mm;
+  width: 189.18mm;
+  height: 0.53mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p7_footerbaylor {
+  position: absolute;
+  left: 10mm;
+  top: 265mm;
+  width: 50mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-p7_footeraddress1 {
+  position: absolute;
+  left: 90mm;
+  top: 265mm;
+  width: 50mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p7_footerwebsite {
+  position: absolute;
+  left: 155mm;
+  top: 265mm;
+  width: 40mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: right;
+  line-height: 1;
+}
+.pdfme-p7_footerpage {
+  position: absolute;
+  left: 10mm;
+  top: 269.5mm;
+  width: 30mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p7_footeraddress2 {
+  position: absolute;
+  left: 90mm;
+  top: 269.5mm;
+  width: 50mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p7_footerphone {
+  position: absolute;
+  left: 155mm;
+  top: 269.5mm;
+  width: 40mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: right;
+  line-height: 1;
+}
+.pdfme-p7_footeraddress3 {
+  position: absolute;
+  left: 90mm;
+  top: 274mm;
+  width: 50mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p7_footerfax {
+  position: absolute;
+  left: 155mm;
+  top: 274mm;
+  width: 40mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: right;
+  line-height: 1;
+}
+.pdfme-p7_metric1box-copy {
+  position: absolute;
+  left: 106.2mm;
+  top: 56.98mm;
+  width: 79.64mm;
+  height: 9.79mm;
+  box-sizing: border-box;
+}
+.pdfme-p7_metric1value-copy {
+  position: absolute;
+  left: 115.43mm;
+  top: 59.92mm;
+  width: 27.78mm;
+  height: 3.97mm;
+  box-sizing: border-box;
+  font-size: 20pt;
+  color: #1a3a52;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p7_metric1label-copy {
+  position: absolute;
+  left: 151.36mm;
+  top: 57.15mm;
+  width: 46.3mm;
+  height: 9.79mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1.2;
+}
+.pdfme-p7_headerline-copy {
+  position: absolute;
+  left: 10.56mm;
+  top: 81mm;
+  width: 189.44mm;
+  height: 0.4mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p8_reporttitle {
+  position: absolute;
+  left: 10mm;
+  top: 12mm;
+  width: 140mm;
+  height: 8mm;
+  box-sizing: border-box;
+  font-size: 20pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p8_reportsubtitle {
+  position: absolute;
+  left: 11mm;
+  top: 20.5mm;
+  width: 60mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 1pt;
+}
+.pdfme-p8_baylorlogo {
+  position: absolute;
+  left: 155.55mm;
+  top: 10mm;
+  width: 44.44999999999999mm;
+  height: 17.46mm;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pdfme-p8_headerline {
+  position: absolute;
+  left: 10mm;
+  top: 28mm;
+  width: 195.9mm;
+  height: 0.5mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p8_patientnamelabel {
+  position: absolute;
+  left: 23.23mm;
+  top: 29.26mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p8_patientname {
+  position: absolute;
+  left: 23.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p8_geneticsexlabel {
+  position: absolute;
+  left: 48.23mm;
+  top: 29.26mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 200;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p8_geneticsex {
+  position: absolute;
+  left: 48.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p8_doblabel {
+  position: absolute;
+  left: 77mm;
+  top: 29mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p8_dob {
+  position: absolute;
+  left: 77.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p8_mrnlabel {
+  position: absolute;
+  left: 108mm;
+  top: 29mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p8_mrn {
+  position: absolute;
+  left: 107.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p8_accessionlabel {
+  position: absolute;
+  left: 135.23mm;
+  top: 29.26mm;
+  width: 28mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p8_accession {
+  position: absolute;
+  left: 135.23mm;
+  top: 33.76mm;
+  width: 28mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p8_patientidlabel {
+  position: absolute;
+  left: 167.23mm;
+  top: 29.26mm;
+  width: 25mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p8_patientid {
+  position: absolute;
+  left: 167.23mm;
+  top: 33.76mm;
+  width: 25mm;
+  height: 5mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: center;
+  line-height: 1;
+}
+.pdfme-p8_patientinfoline {
+  position: absolute;
+  left: 10mm;
+  top: 40mm;
+  width: 195.9mm;
+  height: 0.3mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p8_limitationscontent {
+  position: absolute;
+  left: 10mm;
+  top: 45.2mm;
+  width: 190mm;
+  height: 38.1mm;
+  box-sizing: border-box;
+  font-size: 9pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1.25;
+}
+.pdfme-p8_limitationsheading {
+  position: absolute;
+  left: 10.03mm;
+  top: 91.91mm;
+  width: 189.97mm;
+  height: 6.09mm;
+  box-sizing: border-box;
+  font-size: 12pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-p8_limitationstext {
+  position: absolute;
+  left: 10mm;
+  top: 100.92mm;
+  width: 190mm;
+  height: 24.08mm;
+  box-sizing: border-box;
+  font-size: 9pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1.25;
+}
+.pdfme-p8_referencesheading {
+  position: absolute;
+  left: 10mm;
+  top: 131mm;
+  width: 195.9mm;
+  height: 6mm;
+  box-sizing: border-box;
+  font-size: 12pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-p8_references {
+  position: absolute;
+  left: 10mm;
+  top: 139.93mm;
+  width: 190mm;
+  height: 42.07mm;
+  box-sizing: border-box;
+  font-size: 9pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1.25;
+}
+.pdfme-p8_disclaimerheading {
+  position: absolute;
+  left: 10mm;
+  top: 188mm;
+  width: 195.9mm;
+  height: 6mm;
+  box-sizing: border-box;
+  font-size: 12pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-p8_disclaimer {
+  position: absolute;
+  left: 10mm;
+  top: 196mm;
+  width: 190mm;
+  height: 21.96mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1.25;
+}
+.pdfme-p8_signature1 {
+  position: absolute;
+  left: 32mm;
+  top: 225mm;
+  width: 35mm;
+  height: 12mm;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pdfme-p8_signature2 {
+  position: absolute;
+  left: 126mm;
+  top: 225mm;
+  width: 35mm;
+  height: 12mm;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pdfme-p8_sig1line {
+  position: absolute;
+  left: 21mm;
+  top: 239mm;
+  width: 70mm;
+  height: 0.3mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p8_sig2line {
+  position: absolute;
+  left: 116mm;
+  top: 239mm;
+  width: 70mm;
+  height: 0.3mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p8_sig1name {
+  position: absolute;
+  left: 21mm;
+  top: 241mm;
+  width: 71.44mm;
+  height: 10.05mm;
+  box-sizing: border-box;
+  font-size: 8pt;
+  color: #0C2340;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p8_sig2name {
+  position: absolute;
+  left: 116mm;
+  top: 241mm;
+  width: 70mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 8pt;
+  color: #0C2340;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p8_footerline {
+  position: absolute;
+  left: 10mm;
+  top: 262mm;
+  width: 195.9mm;
+  height: 0.4mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p8_footerbaylor {
+  position: absolute;
+  left: 10mm;
+  top: 265mm;
+  width: 50mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0.5pt;
+}
+.pdfme-p8_footeraddress1 {
+  position: absolute;
+  left: 90mm;
+  top: 265mm;
+  width: 50mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p8_footerwebsite {
+  position: absolute;
+  left: 155mm;
+  top: 265mm;
+  width: 40mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: right;
+  line-height: 1;
+}
+.pdfme-p8_footerpage {
+  position: absolute;
+  left: 10mm;
+  top: 269.5mm;
+  width: 30mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p8_footeraddress2 {
+  position: absolute;
+  left: 90mm;
+  top: 269.5mm;
+  width: 50mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p8_footerphone {
+  position: absolute;
+  left: 155mm;
+  top: 269.5mm;
+  width: 40mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: right;
+  line-height: 1;
+}
+.pdfme-p8_footeraddress3 {
+  position: absolute;
+  left: 90mm;
+  top: 274mm;
+  width: 50mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
+  line-height: 1;
+}
+.pdfme-p8_footerfax {
+  position: absolute;
+  left: 155mm;
+  top: 274mm;
+  width: 40mm;
+  height: 4mm;
+  box-sizing: border-box;
+  font-size: 10pt;
+  color: #0C2340;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: right;
+  line-height: 1;
+}
+.pdfme-p7_headerline-copy-copy {
+  position: absolute;
+  left: 10mm;
+  top: 98mm;
+  width: 189.44mm;
+  height: 0.4mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p7_headerline-copy-copy-2 {
+  position: absolute;
+  left: 10.560000000000002mm;
+  top: 137mm;
+  width: 189.44mm;
+  height: 0.4mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+.pdfme-p7_headerline-copy-copy-3 {
+  position: absolute;
+  left: 10.560000000000002mm;
+  top: 194mm;
+  width: 189.44mm;
+  height: 0.4mm;
+  box-sizing: border-box;
+  background-color: #0C2340;
+}
+
+@media print {
+  .avoid-page-break {
+    page-break-inside: avoid;
+  }
+  .page-break {
+    page-break-after: always;
+  }
+}

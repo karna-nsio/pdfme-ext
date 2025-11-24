@@ -66,6 +66,7 @@ export const Dict = z.object({
   wrapperClassPlaceholder: z.string(),
   exportAsFragment: z.string(),
   exportHTMLFragments: z.string(),
+  exportRazor: z.string(),
   // --------------------validation-------------------
   'validation.uniqueName': z.string(),
   'validation.hexColor': z.string(),
