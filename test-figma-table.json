@@ -1,0 +1,134 @@
+{
+  "type": "table",
+  "name": "medical_findings",
+  "position": { "x": 10, "y": 10 },
+  "width": 277,
+  "height": 150,
+  "showHead": true,
+  "head": [
+    "Disease",
+    "Inheritance Pattern",
+    "Gene / Variant",
+    "Genotype",
+    "Variant Type",
+    "Inherited From",
+    "Variant Classification"
+  ],
+  "headWidthPercentages": [15, 12, 18, 12, 12, 12, 19],
+  "content": "[[\"Cornelia De Lange Syndrome 1\",\"Autosomal Dominant\",\"NIPBL c.2479del, p.R87Gfs*20\",\"Heterozygous\",\"Sequence Variant\",\"De Novo\",\"Pathogenic\"],[\"KMT2D-Related Disorders\",\"Autosomal Dominant\",\"KMT2D: c.1952C>G, p.S651W\",\"Heterozygous\",\"Sequence Variant\",\"De Novo\",\"Variant of Uncertain Significance\"],[\"Neurodevelopmental Disorder\",\"Autosomal Dominant\",\"BAZ2B:HG38 chr2:159670492-159491775 del 21.28(kb)\",\"Heterozygous\",\"Sequence Variant\",\"De Novo\",\"Variant of Uncertain Significance\"],[\"KCNQ1-Related Arrhythmias\",\"Autosomal Dominant\",\"KCNQ1: c.1552C>T, p.R518*\",\"Heterozygous\",\"Sequence Variant\",\"N/A\",\"Pathogenic\"]]",
+  "tableStyles": {
+    "borderColor": "#888888",
+    "borderWidth": 0.3
+  },
+  "headStyles": {
+    "fontWeight": "bold",
+    "fontSize": 10,
+    "fontColor": "#ffffff",
+    "backgroundColor": "#2c5282",
+    "alignment": "center",
+    "verticalAlignment": "middle",
+    "lineHeight": 1.2,
+    "characterSpacing": 0,
+    "padding": {
+      "top": 8,
+      "bottom": 8,
+      "left": 5,
+      "right": 5
+    },
+    "borderColor": "#888888",
+    "borderWidth": {
+      "top": 0.1,
+      "bottom": 0.1,
+      "left": 0.1,
+      "right": 0.1
+    }
+  },
+  "bodyStyles": {
+    "fontWeight": "normal",
+    "fontSize": 9,
+    "fontColor": "#000000",
+    "backgroundColor": "#ffffff",
+    "alternateBackgroundColor": "#f9fafb",
+    "alignment": "left",
+    "verticalAlignment": "middle",
+    "lineHeight": 1.3,
+    "characterSpacing": 0,
+    "padding": {
+      "top": 6,
+      "bottom": 6,
+      "left": 5,
+      "right": 5
+    },
+    "borderColor": "#888888",
+    "borderWidth": {
+      "top": 0.1,
+      "bottom": 0.1,
+      "left": 0.1,
+      "right": 0.1
+    }
+  },
+  "rowGroups": [
+    {
+      "title": "PRIMARY FINDINGS",
+      "startRow": 0,
+      "colspan": true,
+      "visible": true,
+      "styles": {
+        "fontWeight": "bold",
+        "fontSize": 11,
+        "fontColor": "#ffffff",
+        "backgroundColor": "#1a3a52",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "lineHeight": 1.2,
+        "characterSpacing": 0,
+        "padding": {
+          "top": 6,
+          "bottom": 6,
+          "left": 10,
+          "right": 10
+        },
+        "borderColor": "",
+        "borderWidth": {
+          "top": 0,
+          "bottom": 0,
+          "left": 0,
+          "right": 0
+        }
+      }
+    },
+    {
+      "title": "ACMG SECONDARY FINDINGS",
+      "startRow": 3,
+      "colspan": true,
+      "visible": true,
+      "styles": {
+        "fontWeight": "bold",
+        "fontSize": 11,
+        "fontColor": "#ffffff",
+        "backgroundColor": "#1a3a52",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "lineHeight": 1.2,
+        "characterSpacing": 0,
+        "padding": {
+          "top": 6,
+          "bottom": 6,
+          "left": 10,
+          "right": 10
+        },
+        "borderColor": "",
+        "borderWidth": {
+          "top": 0,
+          "bottom": 0,
+          "left": 0,
+          "right": 0
+        }
+      }
+    }
+  ],
+  "columnStyles": {},
+  "rowStyles": {},
+  "cellStyles": {},
+  "cellMerge": {}
+}

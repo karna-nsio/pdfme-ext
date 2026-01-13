@@ -1,0 +1,191 @@
+{
+  "basePdf": {
+    "width": 210,
+    "height": 297,
+    "padding": [10, 10, 10, 10]
+  },
+  "schemas": [
+    [
+      {
+        "type": "table",
+        "name": "medical_findings_table",
+        "position": {
+          "x": 10,
+          "y": 10
+        },
+        "width": 199,
+        "height": 100,
+        "showHead": true,
+        "head": [
+          "Disease",
+          "Inheritance Pattern",
+          "Gene / Variant",
+          "Genotype",
+          "Variant Type",
+          "Inherited From",
+          "Variant Classification"
+        ],
+        "headWidthPercentages": [
+          16.67,
+          21.28,
+          12.29,
+          14.54,
+          7.80,
+          12.29,
+          12.29
+        ],
+        "content": "[[\"Cornelia De Lange Syndrome 1\",\"Autosomal Dominant\",\"NIPBL c.2479del, p.R87Gfs*20\",\"Heterozygous\",\"Sequence Variant\",\"De Novo\",\"Pathogenic\"],[\"KMT2D-Related Disorders\",\"Autosomal Dominant\",\"KMT2D: c.1952C>G, p.S651W\",\"Heterozygous\",\"Sequence Variant\",\"De Novo\",\"Variant of Uncertain Significance\"],[\"Neurodevelopmental Disorder\",\"Autosomal Dominant\",\"BAZ2B:HG38 chr2:159670492-159491775 del 21.28(kb)\",\"Heterozygous\",\"Sequence Variant\",\"De Novo\",\"Variant of Uncertain Significance\"],[\"KCNQ1-Related Arrhythmias\",\"Autosomal Dominant\",\"KCNQ1: c.1552C>T, p.R518*\",\"Heterozygous\",\"Sequence Variant\",\"N/A\",\"Pathogenic\"]]",
+        "tableStyles": {
+          "borderColor": "#0C2340",
+          "borderWidth": 0.5
+        },
+        "headStyles": {
+          "fontName": "DIN Next LT Pro",
+          "fontWeight": "700",
+          "fontStyle": "normal",
+          "fontSize": 10,
+          "fontColor": "#0C2340",
+          "backgroundColor": "#E7E9EC",
+          "alignment": "center",
+          "verticalAlignment": "bottom",
+          "lineHeight": 1.2,
+          "characterSpacing": 0,
+          "padding": {
+            "top": 8,
+            "bottom": 4,
+            "left": 8,
+            "right": 8
+          },
+          "borderColor": "#0C2340",
+          "borderWidth": {
+            "top": 0.5,
+            "bottom": 1.5,
+            "left": 0,
+            "right": 0
+          },
+          "textTransform": "capitalize"
+        },
+        "bodyStyles": {
+          "fontName": "DIN Next LT Pro",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "fontSize": 10,
+          "fontColor": "#0C2340",
+          "backgroundColor": "#FFFFFF",
+          "alternateBackgroundColor": "#F9FBFB",
+          "alignment": "center",
+          "verticalAlignment": "top",
+          "lineHeight": 1.2,
+          "characterSpacing": 0,
+          "padding": {
+            "top": 8,
+            "bottom": 8,
+            "left": 8,
+            "right": 8
+          },
+          "borderColor": "#0C2340",
+          "borderWidth": {
+            "top": 0,
+            "bottom": 0.5,
+            "left": 0,
+            "right": 0
+          }
+        },
+        "rowGroups": [
+          {
+            "title": "PRIMARY FINDINGS",
+            "startRow": 0,
+            "colspan": true,
+            "visible": true,
+            "styles": {
+              "fontName": "DIN Next LT Pro",
+              "fontWeight": "700",
+              "fontStyle": "normal",
+              "fontSize": 9,
+              "fontColor": "#FFFFFF",
+              "backgroundColor": "#0C2340",
+              "alignment": "left",
+              "verticalAlignment": "middle",
+              "lineHeight": 1.22,
+              "characterSpacing": 0,
+              "padding": {
+                "top": 4,
+                "bottom": 4,
+                "left": 8,
+                "right": 8
+              },
+              "borderColor": "#0C2340",
+              "borderWidth": {
+                "top": 0,
+                "bottom": 0,
+                "left": 0,
+                "right": 0
+              },
+              "textTransform": "uppercase"
+            }
+          },
+          {
+            "title": "ACMG SECONDARY FINDINGS",
+            "startRow": 3,
+            "colspan": true,
+            "visible": true,
+            "styles": {
+              "fontName": "DIN Next LT Pro",
+              "fontWeight": "700",
+              "fontStyle": "normal",
+              "fontSize": 9,
+              "fontColor": "#FFFFFF",
+              "backgroundColor": "#0C2340",
+              "alignment": "left",
+              "verticalAlignment": "middle",
+              "lineHeight": 1.22,
+              "characterSpacing": 0,
+              "padding": {
+                "top": 4,
+                "bottom": 4,
+                "left": 8,
+                "right": 8
+              },
+              "borderColor": "#0C2340",
+              "borderWidth": {
+                "top": 0,
+                "bottom": 0,
+                "left": 0,
+                "right": 0
+              },
+              "textTransform": "uppercase"
+            }
+          }
+        ],
+        "rowStyles": {
+          "0": {
+            "fontWeight": "700"
+          },
+          "1": {
+            "fontWeight": "700"
+          },
+          "2": {
+            "fontWeight": "700"
+          },
+          "3": {
+            "fontWeight": "700"
+          }
+        },
+        "columnStyles": {
+          "alignment": {
+            "0": "left",
+            "1": "center",
+            "2": "center",
+            "3": "center",
+            "4": "center",
+            "5": "center",
+            "6": "center"
+          }
+        },
+        "cellStyles": {},
+        "cellMerge": {},
+        "columnConditions": {}
+      }
+    ]
+  ]
+}

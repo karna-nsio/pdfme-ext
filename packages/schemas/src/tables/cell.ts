@@ -99,6 +99,10 @@ const cellSchema: Plugin<CellSchema> = {
       schema: {
         ...schema,
         type: 'text',
+        fontWeight: schema.fontWeight as any, // 🆕
+        fontStyle: (schema.fontStyle === 'oblique' ? 'italic' : schema.fontStyle) as 'normal' | 'italic', // 🆕 Map oblique to italic
+        strikethrough: schema.textDecoration === 'line-through', // 🆕
+        underline: schema.textDecoration === 'underline', // 🆕
         backgroundColor: '',
         position: {
           x: position.x + borderWidth.left + padding.left,
@@ -115,9 +119,35 @@ const cellSchema: Plugin<CellSchema> = {
     rootElement.style.backgroundColor = backgroundColor;
 
     const textDiv = createTextDiv(schema);
+
+    // Apply new font properties to text div 🆕
+    if (schema.fontWeight) {
+      textDiv.style.fontWeight = schema.fontWeight;
+    }
+    if (schema.fontStyle) {
+      textDiv.style.fontStyle = schema.fontStyle;
+    }
+    if (schema.textDecoration) {
+      textDiv.style.textDecoration = schema.textDecoration;
+    }
+    if (schema.textTransform) {
+      textDiv.style.textTransform = schema.textTransform;
+    }
+    if (schema.whiteSpace) {
+      textDiv.style.whiteSpace = schema.whiteSpace;
+    }
+    if (schema.wordBreak) {
+      textDiv.style.wordBreak = schema.wordBreak;
+    }
+
     await textUiRender({
       ...arg,
-      schema: { ...schema, backgroundColor: '' },
+      schema: {
+        ...schema,
+        backgroundColor: '',
+        fontWeight: schema.fontWeight as any,
+        fontStyle: (schema.fontStyle === 'oblique' ? 'italic' : schema.fontStyle) as 'normal' | 'italic' | undefined,
+      },
       rootElement: textDiv,
     });
     rootElement.appendChild(textDiv);

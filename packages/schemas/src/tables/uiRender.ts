@@ -111,18 +111,70 @@ const drawBorder = (
   }
 };
 
+const renderRowGroupUi = (args: {
+  rowGroup: any;
+  arg: UIRenderProps<TableSchema>;
+  offsetY: number;
+}) => {
+  const { rowGroup, arg, offsetY } = args;
+
+  if (!rowGroup.cell || !rowGroup.visible) return;
+
+  const cell = rowGroup.cell;
+  const div = document.createElement('div');
+  div.style.position = 'absolute';
+  div.style.top = `${offsetY}mm`;
+  div.style.left = '0mm';
+  div.style.width = `${cell.width}mm`;
+  div.style.height = `${cell.height}mm`;
+  div.style.boxSizing = 'border-box';
+  div.style.cursor = 'default';
+
+  arg.rootElement.appendChild(div);
+
+  void cellUiRender({
+    ...arg,
+    stopEditing: () => {},
+    mode: 'viewer',
+    onChange: () => {},
+    value: cell.raw,
+    placeholder: '',
+    rootElement: div,
+    schema: {
+      name: '',
+      type: 'cell',
+      content: cell.raw,
+      position: { x: 0, y: offsetY },
+      width: cell.width,
+      height: cell.height,
+      ...convertToCellStyle(cell.styles),
+    },
+  });
+
+  return cell.height;
+};
+
 const renderRowUi = (args: {
   rows: RowType[];
   arg: UIRenderProps<TableSchema>;
   editingPosition: { rowIndex: number; colIndex: number };
   onChangeEditingPosition: (position: { rowIndex: number; colIndex: number }) => void;
   offsetY?: number;
+  rowGroups?: any[];
 }) => {
-  const { rows, arg, onChangeEditingPosition, offsetY = 0, editingPosition } = args;
+  const { rows, arg, onChangeEditingPosition, offsetY = 0, editingPosition, rowGroups = [] } = args;
   const value = JSON.parse(arg.value || '[]') as string[][];
 
   let rowOffsetY = offsetY;
   rows.forEach((row, rowIndex) => {
+    // Check if a row group should be inserted before this row
+    const rowGroup = rowGroups.find(rg => rg.startRow === rowIndex);
+    if (rowGroup && rowGroup.visible) {
+      const groupHeight = renderRowGroupUi({ rowGroup, arg, offsetY: rowOffsetY });
+      if (groupHeight) {
+        rowOffsetY += groupHeight;
+      }
+    }
     const { cells, height, section } = row;
     let colOffsetX = 0;
     Object.values(cells).forEach((cell, colIndex) => {
@@ -204,8 +256,10 @@ const resetEditingPosition = () => {
 
 export const uiRender = async (arg: UIRenderProps<TableSchema>) => {
   const { rootElement, onChange, schema, value, mode, scale} = arg;
-  const body = getBody(value);
-  const bodyWidthRange = getBodyWithRange(value, schema.__bodyRange);
+  // Use value if provided, otherwise fall back to schema.content, or empty array
+  const contentValue = value || schema.content || '[]';
+  const body = getBody(contentValue);
+  const bodyWidthRange = getBodyWithRange(contentValue, schema.__bodyRange);
   const table = await createSingleTable(bodyWidthRange, arg);
   const showHead = table.settings.showHead;
 
@@ -227,6 +281,7 @@ export const uiRender = async (arg: UIRenderProps<TableSchema>) => {
       arg,
       editingPosition: headEditingPosition,
       onChangeEditingPosition: (p) => handleChangeEditingPosition(p, headEditingPosition),
+      rowGroups: [],
     });
   }
 
@@ -239,6 +294,7 @@ export const uiRender = async (arg: UIRenderProps<TableSchema>) => {
       handleChangeEditingPosition(p, bodyEditingPosition);
     },
     offsetY,
+    rowGroups: table.rowGroups || [],
   });
 
   const createAddRowButton = () =>
@@ -429,7 +485,21 @@ export const uiRender = async (arg: UIRenderProps<TableSchema>) => {
     resetEditingPosition();
   }
 
-  const tableHeight = showHead ? table.getHeight() : table.getBodyHeight();
+  // Calculate total height including row groups
+  let tableHeight = showHead ? table.getHeadHeight() : 0;
+
+  // Add body rows height with row groups
+  let currentRowIndex = 0;
+  for (const row of table.body) {
+    // Check if row group should be added before this row
+    const rowGroup = (table.rowGroups || []).find(rg => rg.startRow === currentRowIndex && rg.visible);
+    if (rowGroup && rowGroup.cell) {
+      tableHeight += rowGroup.cell.height;
+    }
+    tableHeight += row.height;
+    currentRowIndex++;
+  }
+
   if (schema.height !== tableHeight && onChange) {
     onChange({ key: 'height', value: tableHeight });
   }

@@ -90,6 +90,7 @@ export const Dict = z.object({
   'schemas.padding': z.string(),
 
   'schemas.text.fontName': z.string(),
+  'schemas.text.fontWeight': z.string(),
   'schemas.text.size': z.string(),
   'schemas.text.spacing': z.string(),
   'schemas.text.textAlign': z.string(),
@@ -115,6 +116,10 @@ export const Dict = z.object({
   'schemas.table.headStyle': z.string(),
   'schemas.table.bodyStyle': z.string(),
   'schemas.table.columnStyle': z.string(),
+  'schemas.table.rowGroups': z.string(),
+  'schemas.table.rowGroupTitle': z.string(),
+  'schemas.table.startRow': z.string(),
+  'schemas.table.spanAllColumns': z.string(),
 
   'schemas.date.format': z.string(),
   'schemas.date.locale': z.string(),

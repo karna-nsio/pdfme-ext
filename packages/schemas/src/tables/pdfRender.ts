@@ -94,6 +94,24 @@ async function drawTableBorder(
   });
 }
 
+// 🆕 Draw row group header
+async function drawRowGroup(
+  arg: PDFRenderProps<TableSchema>,
+  table: Table,
+  rowGroup: any,
+  cursor: Pos,
+): Promise<void> {
+  if (!rowGroup.cell) return;
+
+  const cell = rowGroup.cell;
+  cell.x = cursor.x;
+  cell.y = cursor.y;
+
+  await drawCell(arg, cell);
+
+  cursor.y += cell.height;
+}
+
 async function drawTable(arg: PDFRenderProps<TableSchema>, table: Table): Promise<void> {
   const settings = table.settings;
   const startY = settings.startY;
@@ -108,8 +126,17 @@ async function drawTable(arg: PDFRenderProps<TableSchema>, table: Table): Promis
     }
   }
 
+  // 🆕 Draw body with row groups
+  let currentBodyRowIndex = 0;
   for (const row of table.body) {
+    // Check if row group should be inserted before this row
+    const rowGroup = table.rowGroups.find(rg => rg.startRow === currentBodyRowIndex);
+    if (rowGroup && rowGroup.visible) {
+      await drawRowGroup(arg, table, rowGroup, cursor);
+    }
+
     await drawRow(arg, table, row, cursor, table.columns);
+    currentBodyRowIndex++;
   }
 
   await drawTableBorder(arg, table, startPos, cursor);
@@ -118,10 +145,9 @@ async function drawTable(arg: PDFRenderProps<TableSchema>, table: Table): Promis
 export const pdfRender = async (arg: PDFRenderProps<TableSchema>) => {
   const { value, schema, basePdf, options, _cache } = arg;
 
-  const body = getBodyWithRange(
-    typeof value !== 'string' ? JSON.stringify(value || '[]') : value,
-    schema.__bodyRange,
-  );
+  // Use value if provided, otherwise fall back to schema.content, or empty array
+  const contentValue = typeof value !== 'string' ? JSON.stringify(value || '[]') : (value || schema.content || '[]');
+  const body = getBodyWithRange(contentValue, schema.__bodyRange);
 
   // Create a properly typed CreateTableArgs object
   const createTableArgs: CreateTableArgs = {

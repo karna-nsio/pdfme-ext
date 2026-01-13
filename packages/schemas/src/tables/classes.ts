@@ -21,6 +21,12 @@ export class Cell {
   x = 0;
   y = 0;
 
+  // 🆕 Cell merging properties
+  colSpan = 1;
+  rowSpan = 1;
+  isMerged = false;
+  mergedWith?: { row: number; col: number };
+
   constructor(raw: string, styles: Styles, section: Section) {
     this.styles = styles;
     this.section = section;
@@ -93,6 +99,25 @@ export class Row {
   }
 }
 
+// 🆕 RowGroup class for section headers
+export class RowGroup {
+  title: string;
+  startRow: number;
+  endRow?: number;
+  styles: Styles;
+  colspan: boolean;
+  visible: boolean;
+  cell?: Cell;
+
+  constructor(title: string, startRow: number, styles: Styles, colspan: boolean = true, visible: boolean = true) {
+    this.title = title;
+    this.startRow = startRow;
+    this.styles = styles;
+    this.colspan = colspan;
+    this.visible = visible;
+  }
+}
+
 export class Table {
   readonly settings: Settings;
   readonly styles: StylesProps;
@@ -100,6 +125,7 @@ export class Table {
   readonly columns: Column[];
   readonly head: Row[];
   readonly body: Row[];
+  readonly rowGroups: RowGroup[] = []; // 🆕
 
   constructor(input: TableInput, content: ContentSettings) {
     this.settings = input.settings;
@@ -138,6 +164,10 @@ export class Table {
 
   getWidth() {
     return this.settings.tableWidth;
+  }
+
+  getCalculatedWidth() {
+    return this.columns.reduce((sum, column) => sum + column.width, 0);
   }
 
   getHeight() {

@@ -7,6 +7,8 @@ type BoxDimensions = Spacing;
 
 export interface CellStyle {
   fontName?: string;
+  fontWeight?: 'normal' | 'bold' | '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900';
+  fontStyle?: 'normal' | 'italic' | 'oblique';
   alignment: ALIGNMENT;
   verticalAlignment: VERTICAL_ALIGNMENT;
   fontSize: number;
@@ -17,9 +19,22 @@ export interface CellStyle {
   borderColor: string;
   borderWidth: BoxDimensions;
   padding: BoxDimensions;
+  textDecoration?: 'none' | 'underline' | 'line-through';
+  textTransform?: 'none' | 'uppercase' | 'lowercase' | 'capitalize';
+  whiteSpace?: 'normal' | 'nowrap' | 'pre-wrap';
+  wordBreak?: 'normal' | 'break-all' | 'break-word';
 }
 
 export type CellSchema = Schema & CellStyle;
+
+export interface RowGroupConfig {
+  title: string;
+  startRow: number;
+  endRow?: number;
+  styles?: Partial<CellStyle>;
+  colspan?: boolean;
+  visible?: boolean;
+}
 
 export interface TableSchema extends Schema {
   showHead: boolean;
@@ -35,7 +50,24 @@ export interface TableSchema extends Schema {
   columnStyles: {
     alignment?: { [colIndex: number]: ALIGNMENT };
   };
-  
+
+  // 🆕 Advanced styling features
+  rowGroups?: RowGroupConfig[];
+  rowStyles?: { [rowIndex: number]: Partial<CellStyle> };
+  cellStyles?: {
+    [rowIndex: number]: {
+      [colIndex: number]: Partial<CellStyle>;
+    };
+  };
+  cellMerge?: {
+    [rowIndex: number]: {
+      [colIndex: number]: {
+        colspan?: number;
+        rowspan?: number;
+      };
+    };
+  };
+
   // 🆕 Column-level conditional visibility
   columnConditions?: {
     [colIndex: number]: {
@@ -49,6 +81,8 @@ export interface TableSchema extends Schema {
 
 export interface Styles {
   fontName: string | undefined;
+  fontWeight?: string;
+  fontStyle?: string;
   backgroundColor: string;
   textColor: string;
   lineHeight: number;
@@ -62,6 +96,10 @@ export interface Styles {
   cellWidth: number;
   minCellHeight: number;
   minCellWidth: number;
+  textDecoration?: string;
+  textTransform?: string;
+  whiteSpace?: string;
+  wordBreak?: string;
 }
 
 export interface TableInput {
@@ -91,6 +129,12 @@ export interface StylesProps {
   bodyStyles: Partial<Styles>;
   alternateRowStyles: Partial<Styles>;
   columnStyles: { [key: string]: Partial<Styles> };
+  rowStyles?: { [rowIndex: number]: Partial<CellStyle> };
+  cellStyles?: {
+    [rowIndex: number]: {
+      [colIndex: number]: Partial<CellStyle>;
+    };
+  };
 }
 
 export type Section = 'head' | 'body';

@@ -49,6 +49,35 @@ export const propPanel: PropPanel<TableSchema> = {
           },
         },
       },
+      '--------': { type: 'void', widget: 'Divider' },
+      rowGroups: {
+        title: i18n('schemas.table.rowGroups') || 'Row Groups',
+        type: 'array',
+        span: 24,
+        items: {
+          type: 'object',
+          properties: {
+            title: {
+              title: i18n('schemas.table.rowGroupTitle') || 'Title',
+              type: 'string',
+              widget: 'input',
+            },
+            startRow: {
+              title: i18n('schemas.table.startRow') || 'Start Row',
+              type: 'number',
+              widget: 'inputNumber',
+              props: { min: 0 },
+            },
+            colspan: {
+              title: i18n('schemas.table.spanAllColumns') || 'Span All Columns',
+              type: 'boolean',
+              widget: 'checkbox',
+              default: true,
+            },
+          },
+        },
+      },
+      '---------': { type: 'void', widget: 'Divider' },
       headStyles: {
         hidden: !showHead,
         title: i18n('schemas.table.headStyle'),
@@ -91,6 +120,7 @@ export const propPanel: PropPanel<TableSchema> = {
       borderWidth: 0.3,
     },
     headStyles: Object.assign(getDefaultCellStyles(), {
+      fontWeight: 'bold', // 🆕 Bold headers by default
       fontColor: '#ffffff',
       backgroundColor: '#2980ba',
       borderColor: '',
@@ -100,6 +130,10 @@ export const propPanel: PropPanel<TableSchema> = {
       alternateBackgroundColor: '#f5f5f5',
     }),
     columnStyles: {},
-    columnConditions: {},  // 🆕 Empty column conditions by default
+    columnConditions: {},
+    rowGroups: [], // 🆕
+    rowStyles: {}, // 🆕
+    cellStyles: {}, // 🆕
+    cellMerge: {}, // 🆕
   },
 };

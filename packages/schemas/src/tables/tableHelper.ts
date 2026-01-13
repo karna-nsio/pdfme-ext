@@ -17,9 +17,9 @@ import type {
   StylesProps,
   Section,
 } from './types.js';
-import { Cell, Column, Row, Table } from './classes.js';
+import { Cell, Column, Row, Table, RowGroup } from './classes.js';
 
-type StyleProp = 'styles' | 'headStyles' | 'bodyStyles' | 'alternateRowStyles' | 'columnStyles';
+type StyleProp = 'styles' | 'headStyles' | 'bodyStyles' | 'alternateRowStyles' | 'columnStyles' | 'rowStyles' | 'cellStyles';
 
 interface CreateTableArgs {
   schema: Schema;
@@ -44,6 +44,12 @@ interface UserOptions {
   alternateRowStyles?: Partial<Styles>;
   columnStyles?: {
     [key: string]: Partial<Styles>;
+  };
+  rowStyles?: { [rowIndex: number]: Partial<CellStyle> };
+  cellStyles?: {
+    [rowIndex: number]: {
+      [colIndex: number]: Partial<CellStyle>;
+    };
   };
 }
 
@@ -125,9 +131,21 @@ function cellStyles(
 
   const colStyles = styles.columnStyles[column.index] || styles.columnStyles[column.index] || {};
 
-  const rowStyles =
+  const alternateRowStyles =
     sectionName === 'body' && rowIndex % 2 === 0
       ? Object.assign({}, styles.alternateRowStyles)
+      : {};
+
+  // 🆕 Apply schema's rowStyles for specific rows
+  const schemaRowStyles =
+    sectionName === 'body' && styles.rowStyles && styles.rowStyles[rowIndex]
+      ? mapCellStyle(styles.rowStyles[rowIndex] as CellStyle)
+      : {};
+
+  // 🆕 Apply schema's cellStyles for specific cells
+  const schemaCellStyles =
+    sectionName === 'body' && styles.cellStyles && styles.cellStyles[rowIndex] && styles.cellStyles[rowIndex][column.index]
+      ? mapCellStyle(styles.cellStyles[rowIndex][column.index] as CellStyle)
       : {};
 
   const defaultStyle = {
@@ -145,24 +163,34 @@ function cellStyles(
     minCellHeight: 0,
     minCellWidth: 0,
   };
-  return Object.assign(defaultStyle, otherStyles, rowStyles, colStyles) as Styles;
+  // Apply styles in order of precedence: default < section < alternateRow < column < row < cell
+  return Object.assign(defaultStyle, otherStyles, alternateRowStyles, colStyles, schemaRowStyles, schemaCellStyles) as Styles;
 }
 
 function mapCellStyle(style: CellStyle): Partial<Styles> {
-  return {
-    fontName: style.fontName,
-    alignment: style.alignment,
-    verticalAlignment: style.verticalAlignment,
-    fontSize: style.fontSize,
-    lineHeight: style.lineHeight,
-    characterSpacing: style.characterSpacing,
-    backgroundColor: style.backgroundColor,
-    // ---
-    textColor: style.fontColor,
-    lineColor: style.borderColor,
-    lineWidth: style.borderWidth,
-    cellPadding: style.padding,
-  };
+  const result: Partial<Styles> = {};
+
+  if (style.fontName !== undefined) result.fontName = style.fontName;
+  if (style.fontWeight !== undefined) result.fontWeight = style.fontWeight;
+  if (style.fontStyle !== undefined) result.fontStyle = style.fontStyle;
+  if (style.alignment !== undefined) result.alignment = style.alignment;
+  if (style.verticalAlignment !== undefined) result.verticalAlignment = style.verticalAlignment;
+  if (style.fontSize !== undefined) result.fontSize = style.fontSize;
+  if (style.lineHeight !== undefined) result.lineHeight = style.lineHeight;
+  if (style.characterSpacing !== undefined) result.characterSpacing = style.characterSpacing;
+  if (style.backgroundColor !== undefined) result.backgroundColor = style.backgroundColor;
+  if (style.textDecoration !== undefined) result.textDecoration = style.textDecoration;
+  if (style.textTransform !== undefined) result.textTransform = style.textTransform;
+  if (style.whiteSpace !== undefined) result.whiteSpace = style.whiteSpace;
+  if (style.wordBreak !== undefined) result.wordBreak = style.wordBreak;
+
+  // Map to different property names
+  if (style.fontColor !== undefined) result.textColor = style.fontColor;
+  if (style.borderColor !== undefined) result.lineColor = style.borderColor;
+  if (style.borderWidth !== undefined) result.lineWidth = style.borderWidth;
+  if (style.padding !== undefined) result.cellPadding = style.padding;
+
+  return result;
 }
 
 function getTableOptions(schema: TableSchema, body: string[][]): UserOptions {
@@ -201,6 +229,8 @@ function getTableOptions(schema: TableSchema, body: string[][]): UserOptions {
     bodyStyles: mapCellStyle(schema.bodyStyles),
     alternateRowStyles: { backgroundColor: schema.bodyStyles.alternateBackgroundColor },
     columnStyles,
+    rowStyles: schema.rowStyles || {},
+    cellStyles: schema.cellStyles || {},
     margin: { top: 0, right: 0, left: schema.position.x, bottom: 0 },
   };
 }
@@ -212,11 +242,17 @@ function parseStyles(cInput: UserOptions) {
     bodyStyles: {},
     alternateRowStyles: {},
     columnStyles: {},
+    rowStyles: {},
+    cellStyles: {},
   };
   for (const prop of Object.keys(styleOptions) as StyleProp[]) {
     if (prop === 'columnStyles') {
       const current = cInput[prop];
       styleOptions.columnStyles = Object.assign({}, current);
+    } else if (prop === 'rowStyles') {
+      styleOptions.rowStyles = cInput.rowStyles || {};
+    } else if (prop === 'cellStyles') {
+      styleOptions.cellStyles = cInput.cellStyles || {};
     } else {
       const allOptions = [cInput];
       const styles = allOptions.map((opts) => opts[prop] || {});
@@ -250,7 +286,51 @@ function parseInput(schema: TableSchema, body: string[][]): TableInput {
   return { content, styles, settings };
 }
 
-export function createSingleTable(body: string[][], args: CreateTableArgs) {
+// 🆕 Create row groups from schema
+function createRowGroups(schema: TableSchema, fallbackFontName: string): RowGroup[] {
+  if (!schema.rowGroups || schema.rowGroups.length === 0) {
+    return [];
+  }
+
+  return schema.rowGroups
+    .filter(rg => rg.visible !== false)
+    .map(config => {
+      const defaultStyles: Styles = {
+        fontName: fallbackFontName,
+        fontWeight: 'bold',
+        fontStyle: 'normal',
+        backgroundColor: '#2c5282',
+        textColor: '#ffffff',
+        lineHeight: 1.2,
+        characterSpacing: 0,
+        alignment: 'left',
+        verticalAlignment: 'middle',
+        fontSize: 11,
+        cellPadding: { top: 6, bottom: 6, left: 10, right: 10 },
+        lineColor: '#000000',
+        lineWidth: { top: 0, bottom: 0, left: 0, right: 0 },
+        minCellHeight: 0,
+        minCellWidth: 0,
+        cellWidth: 0,
+      };
+
+      // Merge with provided styles
+      const styles = config.styles ? {
+        ...defaultStyles,
+        ...mapCellStyle(config.styles as CellStyle),
+      } : defaultStyles;
+
+      return new RowGroup(
+        config.title,
+        config.startRow,
+        styles,
+        config.colspan !== false,
+        config.visible !== false
+      );
+    });
+}
+
+export async function createSingleTable(body: string[][], args: CreateTableArgs) {
   const { options, _cache, basePdf } = args;
   if (!isBlankPdf(basePdf)) {
     console.warn(
@@ -279,10 +359,25 @@ export function createSingleTable(body: string[][], args: CreateTableArgs) {
 
   const content = parseContent4Table(input, fallbackFontName);
 
-  return Table.create({
+  const table = await Table.create({
     input,
     content,
     font,
     _cache: _cache as unknown as Map<string | number, FontKitFont>,
   });
+
+  // 🆕 Create and attach row groups
+  const rowGroups = createRowGroups(schema, fallbackFontName);
+  table.rowGroups.push(...rowGroups);
+
+  // 🆕 Create cells for row groups that span all columns
+  for (const rowGroup of table.rowGroups) {
+    if (rowGroup.colspan) {
+      rowGroup.cell = new Cell(rowGroup.title, rowGroup.styles, 'body');
+      rowGroup.cell.width = table.getCalculatedWidth();
+      rowGroup.cell.height = rowGroup.cell.getContentHeight();
+    }
+  }
+
+  return table;
 }
