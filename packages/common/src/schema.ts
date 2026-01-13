@@ -122,6 +122,9 @@ export const Dict = z.object({
   'schemas.select.options': z.string(),
   'schemas.select.optionPlaceholder': z.string(),
 
+  'schemas.datasource.field': z.string(),
+  'schemas.datasource.placeholder': z.string(),
+
   'schemas.radioGroup.groupName': z.string(),
 });
 export const Mode = z.enum(['viewer', 'form', 'designer']);
@@ -264,6 +267,22 @@ export const UIOptions = CommonOptions.extend({
   maxZoom: z.number().optional(),
   sidebarOpen: z.boolean().optional(),
   zoomLevel: z.number().optional(),
+  // Datasource field dynamic options support
+  datasourceOptions: z.array(z.object({
+    label: z.string(),
+    value: z.string(),
+    description: z.string().optional(),
+    disabled: z.boolean().optional(),
+    entity: z.string().optional(),
+    property: z.string().optional(),
+    type: z.string().optional(),
+    sample: z.string().optional(),
+    is_phi_data: z.boolean().optional(),
+    is_required: z.boolean().optional(),
+    is_dynamic: z.boolean().optional(),
+    fieldCategory: z.string().optional(),
+    dataSource: z.record(z.string(), z.any()).optional(),
+  })).optional(),
 });
 
 const HTMLElementSchema: z.ZodSchema<HTMLElement> = z.any().refine((v) => v instanceof HTMLElement);

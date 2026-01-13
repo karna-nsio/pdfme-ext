@@ -1,0 +1,120 @@
+<html>
+    <body><link rel="stylesheet" href="./styles.css">
+        <div class="wes-interpretation">
+            <div class="pdfme-p2_variantfindingsheading">VARIANT FINDINGS</div>
+            <div class="pdfme-p2_varianttable">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Disease</th>
+                            <th>Gene / Variant</th>
+                            <th>Variant Classification</th>
+                            <th>Variant Type</th>
+                            <th>Genotype</th>
+                            <th>Inheritance Pattern</th>
+                            <th>Inherited From</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var finding in @Model)
+                        {
+                        <tr>
+                            <td>@finding.DiseaseName</td>
+                            <td>@finding.GeneAndVariant</td>
+                            <td>@finding.VariantClassificationTypeForTable</td>
+                            <td>@finding.VariantType.GetDisplayName()</td>
+                            <td>@finding.Zygosity.GetDisplayName()</td>
+                            <td>@finding.InheritancePattern</td>
+                            <td>@finding.Segregation</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            @{
+            var geneModel = @Model.FirstOrDefault(finding => finding.GenId != 0);
+            var geneDescription = geneModel?.GeneDescription;
+            <div class="pdfme-p3_genedescheading">GENE DESCRIPTION</div>
+            <div class="pdfme-p3_genedesc">
+                @if (!string.IsNullOrWhiteSpace(geneDescription))
+                {
+                var lines = geneDescription.Split(new[] { '\r', '\n' }, StringSplitOptions.None);
+                foreach (var line in lines)
+                {
+                @line<br />
+                }
+                }
+            </div>
+            }
+
+            @{
+            var diseaseModel = @Model.FirstOrDefault(finding => finding.DiseaseId != 0);
+            var diseaseDescription = diseaseModel?.DiseaseDescription;
+            <div class="pdfme-p3_diseasedescheading">DISEASE DESCRIPTION</div>
+            <div class="pdfme-p3_diseasedesc">
+                @if (!string.IsNullOrWhiteSpace(diseaseDescription))
+                {
+                var lines = diseaseDescription.Split(new[] { '\r', '\n' }, StringSplitOptions.None);
+                foreach (var line in lines)
+                {
+                @line<br />
+                }
+                }
+            </div>
+            }
+
+            @foreach (var finding in @Model)
+            {
+            <div class="pdfme-p3_genevariant">@finding.GeneAndVariant</div>
+            <div class="pdfme-p3_summarytable">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Disease</th>
+                            <th>Gene / Variant</th>
+                            <th>Variant Classification</th>
+                            <th>Variant Type</th>
+                            <th>Genotype</th>
+                            <th>Inheritance Pattern</th>
+                            <th>Inherited From</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>@finding.DiseaseName</td>
+                            <td>@finding.GeneAndVariant</td>
+                            <td>@finding.VariantClassificationTypeForTable</td>
+                            <td>@finding.VariantType.GetDisplayName()</td>
+                            <td>@finding.Zygosity.GetDisplayName()</td>
+                            <td>@finding.InheritancePattern</td>
+                            <td>@finding.Segregation</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="pdfme-p3_variantdetailsheading">VARIANT DETAILS - @finding.GeneAndVariant</div>
+            <div class="pdfme-p3_variantdetails">
+                @if (!string.IsNullOrWhiteSpace(finding.DisplayGenomicCoordinate))
+                {
+                @finding.DisplayGenomicCoordinate
+                }
+                else if (!string.IsNullOrWhiteSpace(finding.VariantNameAndCoordinates))
+                {
+                @finding.VariantNameAndCoordinates
+                }
+                <br />
+                @if (!string.IsNullOrWhiteSpace(finding.VariantDiseaseDescription))
+                {
+                var lines = finding.VariantDiseaseDescription.Replace("\r\n","\n").Replace("\n\r","\n").Split(new[] {'\r', '\n' }, StringSplitOptions.None);
+                foreach (var line in lines)
+                {
+                @line<br />
+                }
+                }
+            </div>
+            <div class="pdfme-field363"></div>
+            }
+        </div>
+    </body>
+</html>

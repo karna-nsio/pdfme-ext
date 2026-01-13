@@ -1,0 +1,57 @@
+<html>
+    <body><link rel="stylesheet" href="./styles.css">
+        <div class="wes-demographic-section">
+            <div class="pdfme-headerline"></div><div class="pdfme-patientnamelabel">Patient Name</div><div class="pdfme-patientname">@Model.PatientDTO.FullName</div><div class="pdfme-geneticsexlabel">Genetic Sex</div><div class="pdfme-geneticsex">@Model.PatientDTO.Gender</div><div class="pdfme-doblabel">DOB</div><div class="pdfme-dob">
+            @if (Model.PatientDTO.DOB.HasValue)
+            {
+                @Model.PatientDTO.DOB.Value.ToString("MM/dd/yyyy")
+            }
+            </div><div class="pdfme-mrnlabel">MRN #</div><div class="pdfme-mrn">
+            @if((Model.IsParental.HasValue && !Model.IsParental.Value) || (Model.IsMRNDisplayed.HasValue && Model.IsMRNDisplayed.Value))
+            {
+                @if (!((!string.IsNullOrWhiteSpace(Model.OrderSource) && Model.OrderSource.ToUpper() == "EPIC" && (Model.TestCode.ToString() == "1850" || Model.TestCode.ToString() == "1550"))))
+                {
+                    @Model.PatientDTO.MRN
+                }
+            }
+            </div><div class="pdfme-accessionlabel">Accession #</div><div class="pdfme-accession">@Model.PatientDTO.AccessionNumber</div><div class="pdfme-patientidlabel">Lab #</div><div class="pdfme-patientid">@Model.LabNumber</div><div class="pdfme-patientinfoline"></div><div class="pdfme-orderingproviderheading">Ordering Provider</div><div class="pdfme-orderingproviderline"></div><div class="pdfme-recipientlabel1">Recipient</div><div class="pdfme-recipient1">@Model.Recipients.FirstOrDefault().FullName</div><div class="pdfme-facilitylabel1">Facility</div><div class="pdfme-facility1">
+            @(Model.Recipients.FirstOrDefault().HospitalCode == "NIAD" ? "NIAID" : Model.Recipients.FirstOrDefault().HospitalCode)
+            </div><div class="pdfme-locationlabel">Location</div><div class="pdfme-location">@Model.Recipients.FirstOrDefault().Location</div><div class="pdfme-phonelabel">Phone #</div><div class="pdfme-phone">@Model.Recipients.FirstOrDefault().PhoneNumber</div><div class="pdfme-testinformationheading">Test Information</div><div class="pdfme-testinformationline"></div><div class="pdfme-testcodelabel">Test Code</div><div class="pdfme-testcode">
+            @{
+                if(!string.IsNullOrWhiteSpace(Model.ClientTestCode) && Model.ClientTestCode.ToUpper() != "BG-1500-DEFAULT")
+                {
+                    @: @Model.ClientTestCode
+                }
+                else
+                {
+                    @: @Model.TestCode
+                }
+            }
+            </div><div class="pdfme-sampletypelabel">Sample Type</div><div class="pdfme-sampletype">
+            @if (Model.TestCode != 1897)
+            {
+                @Model.SampleType.ToString().Replace("__","/").Replace("_"," ")
+            }
+            </div><div class="pdfme-familylabel">Family #</div><div class="pdfme-family">@Model.PatientDTO.FamilyNumber</div><div class="pdfme-datecollectedlabel">Date Collected</div><div class="pdfme-datecollected">
+            @if (Model.CollectionDate.HasValue)
+            {
+                @Model.CollectionDate.Value.ToString("MM/dd/yyyy")
+            }
+            </div><div class="pdfme-datereportedlabel">Date Reported</div><div class="pdfme-datereported">
+            @if (Model.ReportedDate.HasValue)
+            {
+                @Model.ReportedDate.Value.ToString("MM/dd/yyyy")
+            }
+            </div><div class="pdfme-dateamendedlabel">Date Amended</div><div class="pdfme-dateamended">@Model.Addendums.OrderByDescending(x =&gt; x.CreatedDate).First().CreatedDate</div><div class="pdfme-optionaltestingheading">Optional Testing</div><div class="pdfme-optionaltestingline"></div><div class="pdfme-rnaseqlabel">RNAseq</div><div class="pdfme-rnaseq">@Model.Findings</div><div class="pdfme-comparatorsheading">Comparators</div><div class="pdfme-comparatorsline"></div><div class="pdfme-motherlabel">Mother</div><div class="pdfme-mother">@Model.Comparators.Mother.FullName</div><div class="pdfme-mothersecondarylabel">Secondary Findings</div><div class="pdfme-mothersecondary">@Model.Comparators.Mother.AccessionNumber</div><div class="pdfme-fatherlabel">Father</div><div class="pdfme-father">@Model.Comparators.Father.FullName</div><div class="pdfme-fathersecondarylabel">Secondary Findings</div><div class="pdfme-fathersecondary">@Model.Comparators.Father.AccessionNumber</div><div class="pdfme-additionalrelativelabel">Additional Relative</div><div class="pdfme-additionalrelative">@Model.Comparators.OtherRelative.FullName</div><div class="pdfme-additionalrelativesecondarylabel">Secondary Findings</div><div class="pdfme-additionalrelativesecondary">@Model.Comparators.OtherRelative.AccessionNumber</div><div class="pdfme-additionalreportrecipientsheading"> Report Recipients</div><div class="pdfme-additionalreportrecipientsline"></div>@if (Model.Recipients.Count() > 1)
+            {
+                @for (int i = 1; i < Model.Recipients.Count(); i++)
+                {
+                    <div class="pdfme-recipient2label">Recipient</div>
+                    <div class="pdfme-recipient">@Model.Recipients.ElementAt(@i).FullName</div>
+                    <div class="pdfme-facility2label">Facility</div>
+                    <div class="pdfme-facility">@Model.Recipients.ElementAt(@i).HospitalCode</div>
+                }
+            }
+            </div>
+    </body>
+    </html> 

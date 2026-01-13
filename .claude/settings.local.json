@@ -11,7 +11,13 @@
       "Bash(npm run build:schemas:*)",
       "Bash(npm run build:generator:*)",
       "WebFetch(domain:github.com)",
-      "Bash(dir \"C:\\Users\\sandi\\source\\repos\\pdfme\\WGSv2\")"
+      "Bash(dir \"C:\\Users\\sandi\\source\\repos\\pdfme\\WGSv2\")",
+      "Bash(python3:*)",
+      "Bash(node convert_inline_to_css.js:*)",
+      "Bash(node:*)",
+      "Bash(cat:*)",
+      "Bash(dir:*)",
+      "Bash(mkdir:*)"
     ],
     "deny": [],
     "ask": []

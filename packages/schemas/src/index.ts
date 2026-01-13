@@ -10,6 +10,7 @@ import dateTime from './date/dateTime.js';
 import date from './date/date.js';
 import time from './date/time.js';
 import select from './select/index.js';
+import datasource from './datasource/index.js';
 import radioGroup from './radioGroup/index.js';
 import checkbox from './checkbox/index.js';
 
@@ -31,6 +32,7 @@ export {
   date,
   time,
   select,
+  datasource,
   radioGroup,
   checkbox,
 };

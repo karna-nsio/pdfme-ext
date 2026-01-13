@@ -1,4 +1,4 @@
-import type { Template, Schema, SchemaForUI, FieldGroup, GroupCondition } from '@pdfme/common';
+import type { Template, Schema, SchemaForUI, FieldGroup, GroupCondition, Font } from '@pdfme/common';
 import type { Plugins } from '@pdfme/common';
 import { isBlankPdf } from '@pdfme/common';
 
@@ -10,6 +10,7 @@ export interface GenerateHTMLProps {
     title?: string;
     includeStyles?: boolean;
     printFriendly?: boolean;
+    font?: Font;
   };
 }
 
@@ -30,6 +31,61 @@ function escapeHTML(str: string): string {
     "'": '&#039;',
   };
   return String(str || '').replace(/[&<>"']/g, (char) => map[char]);
+}
+
+/**
+ * Convert ArrayBuffer to base64 data URL for @font-face
+ */
+function arrayBufferToBase64(buffer: ArrayBuffer): string {
+  let binary = '';
+  const bytes = new Uint8Array(buffer);
+  const len = bytes.byteLength;
+  for (let i = 0; i < len; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return btoa(binary);
+}
+
+/**
+ * Generate @font-face CSS from font data
+ */
+function generateFontFaceCSS(fonts: Font = {}): string {
+  const fontFaces: string[] = [];
+
+  for (const [fontName, fontConfig] of Object.entries(fonts)) {
+    // Skip default fonts that are already available in browsers
+    if (fontConfig.fallback) continue;
+
+    let fontSrc = '';
+
+    if (typeof fontConfig.data === 'string') {
+      // URL or data URL
+      if (fontConfig.data.startsWith('http://') || fontConfig.data.startsWith('https://')) {
+        fontSrc = `url('${fontConfig.data}')`;
+      } else if (fontConfig.data.startsWith('data:')) {
+        fontSrc = `url('${fontConfig.data}')`;
+      } else {
+        // Assume it's a base64 string
+        fontSrc = `url('data:font/opentype;base64,${fontConfig.data}')`;
+      }
+    } else if (fontConfig.data instanceof ArrayBuffer) {
+      // Convert ArrayBuffer to base64
+      const base64 = arrayBufferToBase64(fontConfig.data);
+      fontSrc = `url('data:font/opentype;base64,${base64}')`;
+    }
+
+    if (fontSrc) {
+      fontFaces.push(`
+  @font-face {
+    font-family: '${fontName}';
+    src: ${fontSrc} format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }`);
+    }
+  }
+
+  return fontFaces.join('\n');
 }
 
 // ============================================
@@ -609,11 +665,12 @@ function renderRectangle(schema: any): string {
   const borderWidth = schema.borderWidth || 1;
   const opacity = schema.opacity !== undefined ? schema.opacity : 1;
   const rotate = schema.rotate || 0;
-  
+  const radius = schema.radius || 0;
+
   // Rectangle can be filled or just border
   const filled = schema.filled !== false; // Default to filled
   const backgroundColor = filled ? color : 'transparent';
-  
+
   return `<div style="
     position: absolute;
     left: ${schema.position.x}mm;
@@ -622,6 +679,7 @@ function renderRectangle(schema: any): string {
     height: ${schema.height}mm;
     background-color: ${backgroundColor};
     border: ${borderWidth}mm solid ${borderColor};
+    border-radius: ${radius}mm;
     opacity: ${opacity};
     transform: rotate(${rotate}deg);
     transform-origin: 0 0;
@@ -739,38 +797,46 @@ function renderPage(
 /**
  * Generate document styles
  */
-function getDocumentStyles(options: { printFriendly?: boolean }): string {
-  const { printFriendly = true } = options;
-  
+function getDocumentStyles(options: {
+  printFriendly?: boolean;
+  font?: Font;
+}): string {
+  const { printFriendly = true, font } = options;
+
+  // Generate @font-face CSS for custom fonts
+  const fontFaceCSS = font ? generateFontFaceCSS(font) : '';
+
   return `<style>
+    ${fontFaceCSS}
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-    
+
     body {
       font-family: Arial, Helvetica, sans-serif;
       background: #f0f0f0;
       padding: 20px;
       margin: 0;
     }
-    
+
     .pdf-page {
       background: white;
       box-shadow: 0 2px 8px rgba(0,0,0,0.15);
       margin: 0 auto 20px;
       position: relative;
     }
-    
+
     .field {
       box-sizing: border-box;
     }
-    
+
     table {
       border-collapse: collapse;
     }
-    
+
     ${printFriendly ? `
     @media print {
       body {
@@ -778,17 +844,17 @@ function getDocumentStyles(options: { printFriendly?: boolean }): string {
         padding: 0;
         margin: 0;
       }
-      
+
       .pdf-page {
         box-shadow: none;
         margin: 0;
         page-break-after: always;
       }
-      
+
       .pdf-page:last-child {
         page-break-after: auto;
       }
-      
+
       /* Ensure exact sizing for print */
       @page {
         margin: 0;
@@ -808,6 +874,7 @@ export async function generateHTML(props: GenerateHTMLProps): Promise<string> {
     title = 'Generated Report',
     includeStyles = true,
     printFriendly = true,
+    font,
   } = options;
 
   console.log('📄 [generateHTML] Starting HTML generation');
@@ -846,7 +913,7 @@ export async function generateHTML(props: GenerateHTMLProps): Promise<string> {
   }
 
   // Build complete HTML document
-  const styles = includeStyles ? getDocumentStyles({ printFriendly }) : '';
+  const styles = includeStyles ? getDocumentStyles({ printFriendly, font }) : '';
   
   const html = `<!DOCTYPE html>
 <html lang="en">

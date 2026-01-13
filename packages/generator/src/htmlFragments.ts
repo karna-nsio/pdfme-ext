@@ -3,7 +3,7 @@
  * Exports pdfme templates as separate HTML fragments per group
  */
 
-import type { Template, Schema, FieldGroup, GroupCondition } from '@pdfme/common';
+import type { Template, Schema, FieldGroup, GroupCondition, Font } from '@pdfme/common';
 import type { Plugins } from '@pdfme/common';
 import { isBlankPdf } from '@pdfme/common';
 import { extractCSS, generateBaseCSS, type CSSExtractionOptions } from './cssExtractor.js';
@@ -73,6 +73,8 @@ export interface GenerateHTMLFragmentsOptions {
   modelMapping?: ModelMapping;
   /** Model prefix for Razor (default: 'Model') */
   modelPrefix?: string;
+  /** Font data for @font-face generation */
+  font?: Font;
 }
 
 // ============================================
@@ -91,6 +93,61 @@ function escapeHTML(str: string): string {
     "'": '&#039;',
   };
   return String(str || '').replace(/[&<>"']/g, (char) => map[char]);
+}
+
+/**
+ * Convert ArrayBuffer to base64 data URL for @font-face
+ */
+function arrayBufferToBase64(buffer: ArrayBuffer): string {
+  let binary = '';
+  const bytes = new Uint8Array(buffer);
+  const len = bytes.byteLength;
+  for (let i = 0; i < len; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return btoa(binary);
+}
+
+/**
+ * Generate @font-face CSS from font data
+ */
+function generateFontFaceCSS(fonts: Font = {}): string {
+  const fontFaces: string[] = [];
+
+  for (const [fontName, fontConfig] of Object.entries(fonts)) {
+    // Skip default fonts that are already available in browsers
+    if (fontConfig.fallback) continue;
+
+    let fontSrc = '';
+
+    if (typeof fontConfig.data === 'string') {
+      // URL or data URL
+      if (fontConfig.data.startsWith('http://') || fontConfig.data.startsWith('https://')) {
+        fontSrc = `url('${fontConfig.data}')`;
+      } else if (fontConfig.data.startsWith('data:')) {
+        fontSrc = `url('${fontConfig.data}')`;
+      } else {
+        // Assume it's a base64 string
+        fontSrc = `url('data:font/opentype;base64,${fontConfig.data}')`;
+      }
+    } else if (fontConfig.data instanceof ArrayBuffer) {
+      // Convert ArrayBuffer to base64
+      const base64 = arrayBufferToBase64(fontConfig.data);
+      fontSrc = `url('data:font/opentype;base64,${base64}')`;
+    }
+
+    if (fontSrc) {
+      fontFaces.push(`
+@font-face {
+  font-family: '${fontName}';
+  src: ${fontSrc} format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}`);
+    }
+  }
+
+  return fontFaces.join('\n');
 }
 
 /**
@@ -335,6 +392,7 @@ export async function generateHTMLFragments(
     outputFormat = 'html',
     modelMapping = {},
     modelPrefix = 'Model',
+    font,
   } = options;
 
   const isRazor = outputFormat === 'razor';
@@ -364,7 +422,12 @@ export async function generateHTMLFragments(
     minify: cssOptions.minify,
   });
 
-  const combinedCSS = `${baseCSS}\n\n${fieldCSS}`;
+  // Generate @font-face CSS for custom fonts
+  const fontFaceCSS = font ? generateFontFaceCSS(font) : '';
+
+  const combinedCSS = fontFaceCSS
+    ? `${fontFaceCSS}\n\n${baseCSS}\n\n${fieldCSS}`
+    : `${baseCSS}\n\n${fieldCSS}`;
 
   // Track which fields are in groups
   const groupedFieldIds = new Set<string>();

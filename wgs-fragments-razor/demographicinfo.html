@@ -1,0 +1,33 @@
+<html>
+    <body><link rel="stylesheet" href="./styles.css">
+<div class="wes-demographic-section">
+<div class="pdfme-headerline"></div><div class="pdfme-patientnamelabel">Patient Name</div><div class="pdfme-patientname">@Model.PatientDTO.FullName</div><div class="pdfme-geneticsexlabel">Genetic Sex</div><div class="pdfme-geneticsex">@Model.PatientDTO.Gender</div><div class="pdfme-doblabel">DOB</div><div class="pdfme-dob">@if (Model.PatientDTO.DOB.HasValue)
+{@Model.PatientDTO.DOB.Value.ToString("MM/dd/yyyy")}</div>@if((Model.IsParental.HasValue && !Model.IsParental.Value) || (Model.IsMRNDisplayed.HasValue && Model.IsMRNDisplayed.Value) )
+{<div class="pdfme-mrnlabel">MRN #</div><div class="pdfme-mrn">@if (! (!string.IsNullOrWhiteSpace(Model.OrderSource) && Model.OrderSource.ToUpper() == "EPIC" && (Model.TestCode.ToString() == "1850" || Model.TestCode.ToString() == "1550")))
+{@Model.PatientDTO.MRN}</div>}<div class="pdfme-accessionlabel">Accession #</div><div class="pdfme-accession">@Model.PatientDTO.AccessionNumber</div><div class="pdfme-patientidlabel">Lab #</div><div class="pdfme-patientid">@Model.LabNumber</div>@if (Model.TestCode == 1840 || Model.TestCode == 1870)
+{<div class="pdfme-individualidlabel">Individual Id</div><div class="pdfme-individualid">@Model.IndividualId</div><div class="pdfme-familyidlabel">Family Id</div><div class="pdfme-familyid">@Model.NiaidFamilyId</div><div class="pdfme-batchreceivedlabel">Batch Received</div><div class="pdfme-batchreceived">@Model.BatchReceived</div>}<div class="pdfme-familylabel">Family #</div><div class="pdfme-family">@Model.PatientDTO.FamilyNumber</div><div class="pdfme-patientinfoline"></div><div class="pdfme-orderingproviderheading">Ordering Provider</div><div class="pdfme-orderingproviderline"></div><div class="pdfme-recipientlabel1">Recipient</div><div class="pdfme-recipient1">@Model.Recipients.FirstOrDefault().FullName</div><div class="pdfme-facilitylabel1">Facility</div><div class="pdfme-facility1">@(Model.Recipients.FirstOrDefault().HospitalCode == "NIAD" ? "NIAID" : Model.Recipients.FirstOrDefault().HospitalCode)</div><div class="pdfme-locationlabel">Location</div><div class="pdfme-location">@Model.Recipients.FirstOrDefault().Location</div><div class="pdfme-phonelabel">Phone #</div><div class="pdfme-phone">@Model.Recipients.FirstOrDefault().PhoneNumber</div><div class="pdfme-testinformationheading">Test Information</div><div class="pdfme-testinformationline"></div><div class="pdfme-testcodelabel">Test Code</div><div class="pdfme-testcode">@{
+if(!string.IsNullOrWhiteSpace(Model.ClientTestCode) && Model.ClientTestCode.ToUpper()  !=  "BG-1500-DEFAULT" )
+{@Model.ClientTestCode}
+else
+{@Model.TestCode}
+}</div>@if (Model.TestCode != 1897)
+{<div class="pdfme-sampletypelabel">Sample Type</div><div class="pdfme-sampletype">@Model.SampleType.ToString().Replace("__","/").Replace("_"," ")</div>}<div class="pdfme-datecollectedlabel">Date Collected</div><div class="pdfme-datecollected">@if (Model.CollectionDate.HasValue)
+{@Model.CollectionDate.Value.ToString("MM/dd/yyyy")}</div><div class="pdfme-datereportedlabel">Date Reported</div><div class="pdfme-datereported">@if (Model.ReportedDate.HasValue)
+{@Model.ReportedDate.Value.ToString("MM/dd/yyyy")}</div><div class="pdfme-dateamendedlabel">Date Amended</div><div class="pdfme-dateamended">@if (Model.AmendedDate.HasValue)
+{@Model.AmendedDate.Value.ToString("MM/dd/yyyy")}</div><div class="pdfme-optionaltestingheading">Optional Testing</div><div class="pdfme-optionaltestingline"></div><div class="pdfme-rnaseqlabel">RNAseq</div><div class="pdfme-rnaseq">@Model.RNASeqStatus</div><div class="pdfme-comparatorsheading">Comparators</div><div class="pdfme-comparatorsline"></div>@if (Model.MotherInfo != null)
+{<div class="pdfme-motherlabel">Mother</div><div class="pdfme-mother">@Model.MotherInfo.LabNumber</div><div class="pdfme-mothersecondarylabel">Secondary Findings</div><div class="pdfme-mothersecondary">@Model.MotherInfo.SecondaryFindings</div>}@if (Model.FatherInfo != null)
+{<div class="pdfme-fatherlabel">Father</div><div class="pdfme-father">@Model.FatherInfo.LabNumber</div><div class="pdfme-fathersecondarylabel">Secondary Findings</div><div class="pdfme-fathersecondary">@Model.FatherInfo.SecondaryFindings</div>}@if (Model.AdditionalRelativeInfo != null)
+{<div class="pdfme-additionalrelativelabel">Additional Relative</div><div class="pdfme-additionalrelative">@Model.AdditionalRelativeInfo.LabNumber</div><div class="pdfme-additionalrelativesecondarylabel">Secondary Findings</div><div class="pdfme-additionalrelativesecondary">@Model.AdditionalRelativeInfo.SecondaryFindings</div>}@if (Model.Recipients.Count() > 1)
+{<div class="pdfme-additionalreportrecipientsheading"> Report Recipients</div><div class="pdfme-additionalreportrecipientsline"></div>@for (int i = 1; i < Math.Min(Model.Recipients.Count(), 5); i++)
+{
+@if (i == 1)
+{<div class="pdfme-recipient2label">Recipient</div><div class="pdfme-recipient2">@Model.Recipients.ElementAt(i).FullName</div><div class="pdfme-facility2label">Facility</div><div class="pdfme-facility2">@Model.Recipients.ElementAt(i).HospitalCode</div>}
+@if (i == 2)
+{<div class="pdfme-recipient3label">Recipient</div><div class="pdfme-recipient3">@Model.Recipients.ElementAt(i).FullName</div><div class="pdfme-facility3label">Facility</div><div class="pdfme-facility3">@Model.Recipients.ElementAt(i).HospitalCode</div>}
+@if (i == 3)
+{<div class="pdfme-recipient4label">Recipient</div><div class="pdfme-recipient4">@Model.Recipients.ElementAt(i).FullName</div><div class="pdfme-facility4label">Facility</div><div class="pdfme-facility4">@Model.Recipients.ElementAt(i).HospitalCode</div>}
+@if (i == 4)
+{<div class="pdfme-recipient5label">Recipient</div><div class="pdfme-recipient5">@Model.Recipients.ElementAt(i).FullName</div><div class="pdfme-facility5label">Facility</div><div class="pdfme-facility5">@Model.Recipients.ElementAt(i).HospitalCode</div>}
+}}
+</div>
+</body></html>

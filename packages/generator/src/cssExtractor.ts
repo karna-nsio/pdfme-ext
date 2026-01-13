@@ -219,6 +219,9 @@ export function extractCSS(
           'background-color': schema.filled !== false ? (schema.color || '#000000') : 'transparent',
           'border': `${schema.borderWidth || 1}mm solid ${schema.borderColor || schema.color || '#000000'}`,
         };
+        if (schema.radius && schema.radius > 0) {
+          typeStyles['border-radius'] = `${schema.radius}mm`;
+        }
         if (schema.opacity !== undefined) typeStyles['opacity'] = String(schema.opacity);
         break;
 

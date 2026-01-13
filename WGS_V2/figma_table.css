@@ -1,0 +1,2009 @@
+/* Table */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+
+width: 564px;
+height: 276px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Table Headers */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: flex-start;
+padding: 8px 8px 4px;
+gap: 4px;
+
+width: 564px;
+height: 36px;
+
+/* Deep Blue/50 */
+background: #E7E9EC;
+/* Deep Blue/500 */
+border-width: 0.5px 0px 1.5px 0px;
+border-style: solid;
+border-color: #0C2340;
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Disease */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-end;
+padding: 0px;
+
+margin: 0 auto;
+width: 94px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 94px;
+height: 12px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 700;
+font-size: 10px;
+line-height: 12px;
+/* identical to box height */
+display: flex;
+align-items: flex-end;
+text-transform: capitalize;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Gene / Variant */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-end;
+padding: 0px;
+
+margin: 0 auto;
+width: 120px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 32px;
+height: 24px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 700;
+font-size: 10px;
+line-height: 12px;
+display: flex;
+align-items: flex-end;
+text-align: center;
+text-transform: capitalize;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Variant Classification */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-end;
+padding: 0px;
+
+margin: 0 auto;
+width: 60px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 60px;
+height: 24px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 700;
+font-size: 10px;
+line-height: 12px;
+display: flex;
+align-items: flex-end;
+text-align: center;
+text-transform: capitalize;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Variant Type */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-end;
+padding: 0px;
+
+margin: 0 auto;
+width: 44px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 32px;
+height: 24px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 700;
+font-size: 10px;
+line-height: 12px;
+display: flex;
+align-items: flex-end;
+text-align: center;
+text-transform: capitalize;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Genotype */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-end;
+padding: 0px;
+
+margin: 0 auto;
+width: 62px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 4;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 42px;
+height: 12px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 700;
+font-size: 10px;
+line-height: 12px;
+/* identical to box height */
+display: flex;
+align-items: flex-end;
+text-align: center;
+text-transform: capitalize;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Inheritance Pattern */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-end;
+padding: 0px;
+
+margin: 0 auto;
+width: 51px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 5;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 51px;
+height: 24px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 700;
+font-size: 10px;
+line-height: 12px;
+display: flex;
+align-items: flex-end;
+text-align: center;
+text-transform: capitalize;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Inherited From */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-end;
+padding: 0px;
+
+margin: 0 auto;
+width: 41px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 6;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 41px;
+height: 24px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 700;
+font-size: 10px;
+line-height: 12px;
+display: flex;
+align-items: flex-end;
+text-align: center;
+text-transform: capitalize;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Table Subheader */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 4px 8px;
+
+width: 564px;
+height: 19px;
+
+/* Deep Blue/500 */
+background: #0C2340;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Label */
+
+width: 78px;
+height: 11px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 700;
+font-size: 9px;
+line-height: 11px;
+/* identical to box height */
+display: flex;
+align-items: center;
+text-transform: uppercase;
+
+/* Grey/0 */
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Table Rows */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: flex-start;
+padding: 8px;
+gap: 4px;
+
+width: 564px;
+height: 49px;
+
+/* Grey/0 */
+background: #FFFFFF;
+/* Deep Blue/500 */
+border-bottom: 0.5px solid #0C2340;
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Disease Name */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+
+margin: 0 auto;
+width: 94px;
+height: 33px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 94px;
+height: 22px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 700;
+font-size: 9px;
+line-height: 11px;
+display: flex;
+align-items: center;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Gene / Variant */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+
+margin: 0 auto;
+width: 120px;
+height: 33px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 120px;
+height: 33px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 400;
+font-size: 9px;
+line-height: 11px;
+display: flex;
+align-items: center;
+text-align: center;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Variant Classification */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+
+margin: 0 auto;
+width: 59px;
+height: 33px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 59px;
+height: 11px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 400;
+font-size: 9px;
+line-height: 11px;
+/* identical to box height */
+display: flex;
+align-items: center;
+text-align: center;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Variant Type */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+
+margin: 0 auto;
+width: 44px;
+height: 33px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 44px;
+height: 24px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 400;
+font-size: 10px;
+line-height: 12px;
+display: flex;
+align-items: center;
+text-align: center;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Genotype */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+
+margin: 0 auto;
+width: 62px;
+height: 33px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 4;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 62px;
+height: 12px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 400;
+font-size: 10px;
+line-height: 12px;
+/* identical to box height */
+display: flex;
+align-items: center;
+text-align: center;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Inheritance Pattern */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+
+margin: 0 auto;
+width: 50px;
+height: 33px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 5;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 50px;
+height: 22px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 400;
+font-size: 9px;
+line-height: 11px;
+display: flex;
+align-items: center;
+text-align: center;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Inherited From */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+
+margin: 0 auto;
+width: 40px;
+height: 33px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 6;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 40px;
+height: 11px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 400;
+font-size: 9px;
+line-height: 11px;
+/* identical to box height */
+display: flex;
+align-items: center;
+text-align: center;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Table Rows */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: flex-start;
+padding: 8px;
+gap: 4px;
+
+width: 564px;
+height: 52px;
+
+/* Grey/100 */
+background: #F9FBFB;
+/* Deep Blue/500 */
+border-bottom: 0.5px solid #0C2340;
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Disease Name */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+
+margin: 0 auto;
+width: 94px;
+height: 36px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 94px;
+height: 22px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 700;
+font-size: 9px;
+line-height: 11px;
+display: flex;
+align-items: center;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Gene / Variant */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+
+margin: 0 auto;
+width: 120px;
+height: 36px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 120px;
+height: 36px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 400;
+font-size: 10px;
+line-height: 12px;
+display: flex;
+align-items: center;
+text-align: center;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Variant Classification */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+
+margin: 0 auto;
+width: 59px;
+height: 36px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 59px;
+height: 36px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 400;
+font-size: 10px;
+line-height: 12px;
+display: flex;
+align-items: center;
+text-align: center;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Variant Type */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+
+margin: 0 auto;
+width: 44px;
+height: 36px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 44px;
+height: 24px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 400;
+font-size: 10px;
+line-height: 12px;
+display: flex;
+align-items: center;
+text-align: center;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Genotype */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+
+margin: 0 auto;
+width: 62px;
+height: 36px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 4;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 62px;
+height: 12px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 400;
+font-size: 10px;
+line-height: 12px;
+/* identical to box height */
+display: flex;
+align-items: center;
+text-align: center;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Inheritance Pattern */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+
+margin: 0 auto;
+width: 50px;
+height: 36px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 5;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 50px;
+height: 22px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 400;
+font-size: 9px;
+line-height: 11px;
+display: flex;
+align-items: center;
+text-align: center;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Inherited From */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+
+margin: 0 auto;
+width: 40px;
+height: 36px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 6;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 40px;
+height: 11px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 400;
+font-size: 9px;
+line-height: 11px;
+/* identical to box height */
+display: flex;
+align-items: center;
+text-align: center;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Table Rows */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: flex-start;
+padding: 8px;
+gap: 4px;
+
+width: 564px;
+height: 52px;
+
+/* Grey/0 */
+background: #FFFFFF;
+/* Deep Blue/500 */
+border-bottom: 0.5px solid #0C2340;
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 4;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Disease Name */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+
+margin: 0 auto;
+width: 94px;
+height: 36px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 94px;
+height: 24px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 700;
+font-size: 10px;
+line-height: 12px;
+display: flex;
+align-items: center;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Gene / Variant */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+
+margin: 0 auto;
+width: 120px;
+height: 36px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 120px;
+height: 36px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 400;
+font-size: 10px;
+line-height: 12px;
+display: flex;
+align-items: center;
+text-align: center;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Variant Classification */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+
+margin: 0 auto;
+width: 59px;
+height: 36px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 59px;
+height: 36px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 400;
+font-size: 10px;
+line-height: 12px;
+display: flex;
+align-items: center;
+text-align: center;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Variant Type */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+
+margin: 0 auto;
+width: 44px;
+height: 36px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 44px;
+height: 24px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 400;
+font-size: 10px;
+line-height: 12px;
+display: flex;
+align-items: center;
+text-align: center;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Genotype */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+
+margin: 0 auto;
+width: 62px;
+height: 36px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 4;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 62px;
+height: 12px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 400;
+font-size: 10px;
+line-height: 12px;
+/* identical to box height */
+display: flex;
+align-items: center;
+text-align: center;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Inheritance Pattern */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+
+margin: 0 auto;
+width: 50px;
+height: 36px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 5;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 50px;
+height: 22px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 400;
+font-size: 9px;
+line-height: 11px;
+display: flex;
+align-items: center;
+text-align: center;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Inherited From */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+
+margin: 0 auto;
+width: 40px;
+height: 36px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 6;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 40px;
+height: 12px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 400;
+font-size: 10px;
+line-height: 12px;
+/* identical to box height */
+display: flex;
+align-items: center;
+text-align: center;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Table Rows */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: flex-start;
+padding: 8px;
+gap: 4px;
+
+display: none;
+width: 564px;
+height: 40px;
+
+/* Grey/0 */
+background: #FFFFFF;
+/* Deep Blue/500 */
+border-bottom: 0.5px solid #0C2340;
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 5;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Table Rows */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: flex-start;
+padding: 8px;
+gap: 4px;
+
+display: none;
+width: 564px;
+height: 40px;
+
+/* Grey/0 */
+background: #FFFFFF;
+/* Deep Blue/500 */
+border-bottom: 0.5px solid #0C2340;
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 6;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Table Subheader */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 4px 8px;
+
+width: 564px;
+height: 19px;
+
+/* Deep Blue/500 */
+background: #0C2340;
+
+/* Inside auto layout */
+flex: none;
+order: 7;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Label */
+
+width: 115px;
+height: 11px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 700;
+font-size: 9px;
+line-height: 11px;
+/* identical to box height */
+display: flex;
+align-items: center;
+text-transform: uppercase;
+
+/* Grey/0 */
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Table Rows */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: flex-start;
+padding: 8px;
+gap: 4px;
+
+display: none;
+width: 564px;
+height: 40px;
+
+/* Grey/0 */
+background: #FFFFFF;
+/* Deep Blue/500 */
+border-bottom: 0.5px solid #0C2340;
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 8;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Table Rows */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: flex-start;
+padding: 8px;
+gap: 4px;
+
+display: none;
+width: 564px;
+height: 40px;
+
+/* Grey/0 */
+background: #FFFFFF;
+/* Deep Blue/500 */
+border-bottom: 0.5px solid #0C2340;
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 9;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Table Rows */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: flex-start;
+padding: 8px;
+gap: 4px;
+
+display: none;
+width: 564px;
+height: 40px;
+
+/* Grey/0 */
+background: #FFFFFF;
+/* Deep Blue/500 */
+border-bottom: 0.5px solid #0C2340;
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 10;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Table Rows */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: flex-start;
+padding: 8px;
+gap: 4px;
+
+display: none;
+width: 564px;
+height: 40px;
+
+/* Grey/0 */
+background: #FFFFFF;
+/* Deep Blue/500 */
+border-bottom: 0.5px solid #0C2340;
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 11;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Table Rows */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: flex-start;
+padding: 8px;
+gap: 4px;
+
+width: 564px;
+height: 49px;
+
+/* Grey/0 */
+background: #FFFFFF;
+/* Deep Blue/500 */
+border-bottom: 0.5px solid #0C2340;
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 12;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Disease Name */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+
+margin: 0 auto;
+width: 94px;
+height: 33px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 94px;
+height: 22px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 700;
+font-size: 9px;
+line-height: 11px;
+display: flex;
+align-items: center;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Gene / Variant */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+
+margin: 0 auto;
+width: 120px;
+height: 33px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 120px;
+height: 33px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 400;
+font-size: 9px;
+line-height: 11px;
+display: flex;
+align-items: center;
+text-align: center;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Variant Classification */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+
+margin: 0 auto;
+width: 59px;
+height: 33px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 59px;
+height: 11px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 400;
+font-size: 9px;
+line-height: 11px;
+/* identical to box height */
+display: flex;
+align-items: center;
+text-align: center;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Variant Type */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+
+margin: 0 auto;
+width: 44px;
+height: 33px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 44px;
+height: 24px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 400;
+font-size: 10px;
+line-height: 12px;
+display: flex;
+align-items: center;
+text-align: center;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Genotype */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+
+margin: 0 auto;
+width: 62px;
+height: 33px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 4;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 62px;
+height: 12px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 400;
+font-size: 10px;
+line-height: 12px;
+/* identical to box height */
+display: flex;
+align-items: center;
+text-align: center;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Inheritance Pattern */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+
+margin: 0 auto;
+width: 50px;
+height: 33px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 5;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 50px;
+height: 22px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 400;
+font-size: 9px;
+line-height: 11px;
+display: flex;
+align-items: center;
+text-align: center;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Inherited From */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+
+margin: 0 auto;
+width: 40px;
+height: 33px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 6;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cell Data */
+
+width: 40px;
+height: 11px;
+
+font-family: 'DIN Next LT Pro';
+font-style: normal;
+font-weight: 400;
+font-size: 9px;
+line-height: 11px;
+/* identical to box height */
+display: flex;
+align-items: center;
+text-align: center;
+
+/* Deep Blue/500 */
+color: #0C2340;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;

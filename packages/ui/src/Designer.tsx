@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import JSZip from 'jszip';
 import {
   cloneDeep,
   Template,
@@ -76,7 +77,8 @@ class Designer extends BaseUIClass {
         options: {
           title: title || 'Report',
           includeStyles: true,
-          printFriendly: true
+          printFriendly: true,
+          font: this.getFont()
         }
       });
       
@@ -197,48 +199,38 @@ class Designer extends BaseUIClass {
                 options: {
                   includeCombined: true,
                   printFriendly: true,
+                  font: this.getFont(),
                 },
               });
 
-              // Download CSS file (styles.css - like WGSv2)
-              const cssBlob = new Blob([result.css], { type: 'text/css; charset=utf-8' });
-              const cssUrl = URL.createObjectURL(cssBlob);
-              const cssLink = document.createElement('a');
-              cssLink.href = cssUrl;
-              cssLink.download = `styles.css`;
-              document.body.appendChild(cssLink);
-              cssLink.click();
-              document.body.removeChild(cssLink);
-              URL.revokeObjectURL(cssUrl);
+              // Create zip file with all fragments and CSS
+              const zip = new JSZip();
 
-              // Download each fragment as RAW HTML (just div content, like WGSv2)
+              // Add CSS file to zip
+              zip.file('styles.css', result.css);
+
+              // Add each fragment to zip (raw HTML - just div content)
               for (const fragment of result.fragments) {
-                // Raw fragment - no HTML wrapper, just the div content
-                const fragmentBlob = new Blob([fragment.html], { type: 'text/html; charset=utf-8' });
-                const fragmentUrl = URL.createObjectURL(fragmentBlob);
-                const fragmentLink = document.createElement('a');
-                fragmentLink.href = fragmentUrl;
-                fragmentLink.download = `${fragment.sectionName}.html`;
-                document.body.appendChild(fragmentLink);
-                fragmentLink.click();
-                document.body.removeChild(fragmentLink);
-                URL.revokeObjectURL(fragmentUrl);
+                zip.file(`${fragment.sectionName}.html`, fragment.html);
               }
 
-              // Download ungrouped if any (raw fragment)
+              // Add ungrouped if any
               if (result.ungroupedHtml && result.ungroupedFieldIds.length > 0) {
-                const ungroupedBlob = new Blob([result.ungroupedHtml], { type: 'text/html; charset=utf-8' });
-                const ungroupedUrl = URL.createObjectURL(ungroupedBlob);
-                const ungroupedLink = document.createElement('a');
-                ungroupedLink.href = ungroupedUrl;
-                ungroupedLink.download = `ungrouped.html`;
-                document.body.appendChild(ungroupedLink);
-                ungroupedLink.click();
-                document.body.removeChild(ungroupedLink);
-                URL.revokeObjectURL(ungroupedUrl);
+                zip.file('ungrouped.html', result.ungroupedHtml);
               }
 
-              console.log(`✅ Exported ${result.fragments.length} fragments + CSS`);
+              // Generate and download zip file
+              const zipBlob = await zip.generateAsync({ type: 'blob' });
+              const zipUrl = URL.createObjectURL(zipBlob);
+              const zipLink = document.createElement('a');
+              zipLink.href = zipUrl;
+              zipLink.download = `html-fragments-${new Date().toISOString().split('T')[0]}.zip`;
+              document.body.appendChild(zipLink);
+              zipLink.click();
+              document.body.removeChild(zipLink);
+              URL.revokeObjectURL(zipUrl);
+
+              console.log(`✅ Exported ${result.fragments.length} fragments + CSS as ZIP`);
             } catch (error: any) {
               console.error('❌ Failed to generate HTML fragments:', error);
               alert('Failed to generate HTML fragments: ' + error.message);
@@ -269,37 +261,36 @@ class Designer extends BaseUIClass {
                 options: {
                   outputFormat: 'razor',
                   printFriendly: true,
+                  font: this.getFont(),
                 },
               });
 
-              // Download CSS file
-              const cssBlob = new Blob([result.css], { type: 'text/css; charset=utf-8' });
-              const cssUrl = URL.createObjectURL(cssBlob);
-              const cssLink = document.createElement('a');
-              cssLink.href = cssUrl;
-              cssLink.download = `styles.css`;
-              document.body.appendChild(cssLink);
-              cssLink.click();
-              document.body.removeChild(cssLink);
-              URL.revokeObjectURL(cssUrl);
+              // Create zip file with all fragments and CSS
+              const zip = new JSZip();
 
-              // Download each fragment as .cshtml
+              // Add CSS file to zip
+              zip.file('styles.css', result.css);
+
+              // Add each fragment to zip
               for (const fragment of result.fragments) {
-                const fragmentBlob = new Blob([fragment.html], { type: 'text/html; charset=utf-8' });
-                const fragmentUrl = URL.createObjectURL(fragmentBlob);
-                const fragmentLink = document.createElement('a');
-                fragmentLink.href = fragmentUrl;
-                // sectionName already includes .cshtml extension for razor format
-                fragmentLink.download = fragment.sectionName.endsWith('.cshtml')
+                const filename = fragment.sectionName.endsWith('.cshtml')
                   ? fragment.sectionName
                   : `${fragment.sectionName}.cshtml`;
-                document.body.appendChild(fragmentLink);
-                fragmentLink.click();
-                document.body.removeChild(fragmentLink);
-                URL.revokeObjectURL(fragmentUrl);
+                zip.file(filename, fragment.html);
               }
 
-              console.log(`✅ Exported ${result.fragments.length} Razor fragments + CSS`);
+              // Generate and download zip file
+              const zipBlob = await zip.generateAsync({ type: 'blob' });
+              const zipUrl = URL.createObjectURL(zipBlob);
+              const zipLink = document.createElement('a');
+              zipLink.href = zipUrl;
+              zipLink.download = `razor-fragments-${new Date().toISOString().split('T')[0]}.zip`;
+              document.body.appendChild(zipLink);
+              zipLink.click();
+              document.body.removeChild(zipLink);
+              URL.revokeObjectURL(zipUrl);
+
+              console.log(`✅ Exported ${result.fragments.length} Razor fragments + CSS as ZIP`);
             } catch (error: any) {
               console.error('❌ Failed to generate Razor fragments:', error);
               alert('Failed to generate Razor fragments: ' + error.message);

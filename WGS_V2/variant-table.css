@@ -1,0 +1,299 @@
+/* ============================================
+   VARIANT FINDINGS TABLE STYLES
+   Figma Design CSS - 100% Match
+   ============================================ */
+
+/* Variant Findings Heading */
+.pdfme-p2_variantfindingsheading {
+  position: absolute;
+  left: 10mm;
+  top: 53mm;
+  width: 195.9mm;
+  height: 6mm;
+  box-sizing: border-box;
+  font-size: 12pt;
+  color: #0C2340;
+  font-family: DIN Next LT Pro, Arial, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  text-align: left;
+  line-height: 1.17;
+  letter-spacing: 0.96pt;
+}
+
+/* Table Container */
+.pdfme-p2_varianttable {
+  position: absolute;
+  left: 10mm;
+  top: 62mm;
+  width: 195.9mm;
+  height: 75mm;
+  box-sizing: border-box;
+}
+
+/* Table container - flexbox layout */
+.pdfme-p2_varianttable table {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  width: 564px;
+  height: 276px;
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+/* ============================================
+   TABLE HEADER
+   ============================================ */
+
+/* Table header row */
+.pdfme-p2_varianttable thead {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.pdfme-p2_varianttable thead tr {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 8px 8px 4px;
+  gap: 4px;
+  width: 564px;
+  height: 36px;
+  background: #E7E9EC;
+  border-width: 0.5px 0px 1.5px 0px;
+  border-style: solid;
+  border-color: #0C2340;
+  border-radius: 0px;
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+/* Header cells - base styles */
+.pdfme-p2_varianttable thead th {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  padding: 0px;
+  height: 24px;
+  font-family: 'DIN Next LT Pro', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 10px;
+  line-height: 12px;
+  text-transform: capitalize;
+  color: #0C2340;
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 1;
+}
+
+/* Specific column widths for header cells */
+.pdfme-p2_varianttable thead th:nth-child(1) {
+  width: 94px;
+  justify-content: flex-start;
+}
+
+.pdfme-p2_varianttable thead th:nth-child(2) {
+  width: 120px;
+  justify-content: center;
+  text-align: center;
+}
+
+.pdfme-p2_varianttable thead th:nth-child(3) {
+  width: 60px;
+  justify-content: center;
+  text-align: center;
+}
+
+.pdfme-p2_varianttable thead th:nth-child(4) {
+  width: 44px;
+  justify-content: center;
+  text-align: center;
+}
+
+.pdfme-p2_varianttable thead th:nth-child(5) {
+  width: 62px;
+  justify-content: center;
+  text-align: center;
+}
+
+.pdfme-p2_varianttable thead th:nth-child(6) {
+  width: 51px;
+  justify-content: center;
+  text-align: center;
+}
+
+.pdfme-p2_varianttable thead th:nth-child(7) {
+  width: 41px;
+  justify-content: center;
+  text-align: center;
+}
+
+/* ============================================
+   TABLE BODY
+   ============================================ */
+
+/* Table body */
+.pdfme-p2_varianttable tbody {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Table body rows */
+.pdfme-p2_varianttable tbody tr {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 8px;
+  gap: 4px;
+  width: 564px;
+  background: #FFFFFF;
+  border-bottom: 0.5px solid #0C2340;
+  border-radius: 0px;
+  flex: none;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+/* Alternating row colors */
+.pdfme-p2_varianttable tbody tr:nth-child(even) {
+  background: #F9FBFB;
+}
+
+/* Body cells - base styles */
+.pdfme-p2_varianttable tbody td {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  font-family: 'DIN Next LT Pro', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  color: #0C2340;
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 1;
+}
+
+/* Specific column widths and styles for body cells */
+.pdfme-p2_varianttable tbody td:nth-child(1) {
+  width: 94px;
+  font-weight: 700;
+  font-size: 9px;
+  line-height: 11px;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.pdfme-p2_varianttable tbody td:nth-child(2) {
+  width: 120px;
+  font-weight: 400;
+  font-size: 9px;
+  line-height: 11px;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: center;
+}
+
+.pdfme-p2_varianttable tbody td:nth-child(3) {
+  width: 59px;
+  font-weight: 400;
+  font-size: 9px;
+  line-height: 11px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.pdfme-p2_varianttable tbody td:nth-child(4) {
+  width: 44px;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.pdfme-p2_varianttable tbody td:nth-child(5) {
+  width: 62px;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.pdfme-p2_varianttable tbody td:nth-child(6) {
+  width: 50px;
+  font-weight: 400;
+  font-size: 9px;
+  line-height: 11px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.pdfme-p2_varianttable tbody td:nth-child(7) {
+  width: 40px;
+  font-weight: 400;
+  font-size: 9px;
+  line-height: 11px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* ============================================
+   TABLE SUBHEADERS
+   (PRIMARY FINDINGS / ACMG SECONDARY FINDINGS)
+   ============================================ */
+
+.pdfme-p2_varianttable tbody tr.table-subheader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 4px 8px;
+  gap: 0px;
+  width: 564px;
+  height: 19px;
+  background: #0C2340;
+  border-bottom: none;
+  flex: none;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.pdfme-p2_varianttable tbody tr.table-subheader td {
+  width: 100%;
+  height: 11px;
+  font-family: 'DIN Next LT Pro', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 9px;
+  line-height: 11px;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}

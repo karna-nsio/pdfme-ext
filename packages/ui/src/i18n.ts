@@ -109,6 +109,8 @@ const dictEn: { [key in keyof Dict]: string } = {
   'schemas.date.locale': 'Locale',
   'schemas.select.options': 'Options',
   'schemas.select.optionPlaceholder': 'Enter an option',
+  'schemas.datasource.field': 'Data Source Field',
+  'schemas.datasource.placeholder': 'Select a field to bind',
   'schemas.radioGroup.groupName': 'Group Name',
 };
 
@@ -218,6 +220,8 @@ const dictZh: { [key in keyof Dict]: string } = {
   'schemas.date.locale': ' 语言环境',
   'schemas.select.options': '选项',
   'schemas.select.optionPlaceholder': '请输入选项',
+  'schemas.datasource.field': '数据源字段',
+  'schemas.datasource.placeholder': '选择要绑定的字段',
   'schemas.radioGroup.groupName': '组名',
 };
 
@@ -327,6 +331,8 @@ const dictJa: { [key in keyof Dict]: string } = {
   'schemas.date.locale': 'ロケール',
   'schemas.select.options': 'オプション',
   'schemas.select.optionPlaceholder': 'オプションを入力してください',
+  'schemas.datasource.field': 'データソースフィールド',
+  'schemas.datasource.placeholder': 'バインドするフィールドを選択',
   'schemas.radioGroup.groupName': 'グループ名',
 };
 
@@ -436,6 +442,8 @@ const dictKo: { [key in keyof Dict]: string } = {
   'schemas.date.locale': ' 장소',
   'schemas.select.options': '옵션',
   'schemas.select.optionPlaceholder': '옵션을 입력하세요',
+  'schemas.datasource.field': '데이터 소스 필드',
+  'schemas.datasource.placeholder': '바인딩할 필드 선택',
   'schemas.radioGroup.groupName': '그룹 이름',
 };
 
@@ -546,6 +554,8 @@ const dictAr: { [key in keyof Dict]: string } = {
   'schemas.date.locale': 'لغة',
   'schemas.select.options': 'خيارات',
   'schemas.select.optionPlaceholder': 'أدخل خيارًا',
+  'schemas.datasource.field': 'حقل مصدر البيانات',
+  'schemas.datasource.placeholder': 'حدد حقلاً للربط',
   'schemas.radioGroup.groupName': 'اسم المجموعة',
 };
 
@@ -655,6 +665,8 @@ const dictTh: { [key in keyof Dict]: string } = {
   'schemas.date.locale': 'สถาน',
   'schemas.select.options': 'ตัวเลือก',
   'schemas.select.optionPlaceholder': 'กรอกตัวเลือก',
+  'schemas.datasource.field': 'ฟิลด์แหล่งข้อมูล',
+  'schemas.datasource.placeholder': 'เลือกฟิลด์ที่จะผูก',
   'schemas.radioGroup.groupName': 'ชื่อกลุ่ม',
 };
 
@@ -767,6 +779,8 @@ const dictIt: { [key in keyof Dict]: string } = {
   'schemas.date.locale': 'Locale',
   'schemas.select.options': 'Opzioni',
   'schemas.select.optionPlaceholder': "Inserisci un'opzione",
+  'schemas.datasource.field': 'Campo Origine Dati',
+  'schemas.datasource.placeholder': 'Seleziona un campo da associare',
   'schemas.radioGroup.groupName': 'Nome del Gruppo',
 };
 
@@ -876,6 +890,8 @@ const dictPl: { [key in keyof Dict]: string } = {
   'schemas.date.locale': 'Widownia',
   'schemas.select.options': 'Opcje',
   'schemas.select.optionPlaceholder': 'Wpisz opcję',
+  'schemas.datasource.field': 'Pole Źródła Danych',
+  'schemas.datasource.placeholder': 'Wybierz pole do powiązania',
   'schemas.radioGroup.groupName': 'Nazwa grupy',
 };
 
@@ -988,6 +1004,8 @@ const dictDe: { [key in keyof Dict]: string } = {
   'schemas.date.locale': 'Gebietsschema',
   'schemas.select.options': 'Optionen',
   'schemas.select.optionPlaceholder': 'Geben Sie eine Option ein',
+  'schemas.datasource.field': 'Datenquellenfeld',
+  'schemas.datasource.placeholder': 'Wählen Sie ein Feld zum Binden',
   'schemas.radioGroup.groupName': 'Gruppenname',
 };
 
@@ -1099,6 +1117,8 @@ const dictEs: { [key in keyof Dict]: string } = {
   'schemas.date.locale': 'Lugar',
   'schemas.select.options': 'Opciones',
   'schemas.select.optionPlaceholder': 'Ingrese una opción',
+  'schemas.datasource.field': 'Campo de Fuente de Datos',
+  'schemas.datasource.placeholder': 'Seleccione un campo para vincular',
   'schemas.radioGroup.groupName': 'Nombre del grupo',
 };
 
@@ -1211,6 +1231,8 @@ const dictFr: { [key in keyof Dict]: string } = {
   'schemas.date.locale': 'Lieu',
   'schemas.select.options': 'Options',
   'schemas.select.optionPlaceholder': 'Entrez une option',
+  'schemas.datasource.field': 'Champ Source de Données',
+  'schemas.datasource.placeholder': 'Sélectionnez un champ à lier',
   'schemas.radioGroup.groupName': 'Nom du groupe',
 };
 
