@@ -293,7 +293,7 @@ function createRowGroups(schema: TableSchema, fallbackFontName: string): RowGrou
   }
 
   return schema.rowGroups
-    .filter(rg => rg.visible !== false)
+    .filter(rg => rg && rg.visible !== false)
     .map(config => {
       const defaultStyles: Styles = {
         fontName: fallbackFontName,

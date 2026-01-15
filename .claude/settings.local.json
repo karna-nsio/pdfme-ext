@@ -12,7 +12,12 @@
       "Bash(npm run build:generator:*)",
       "WebFetch(domain:github.com)",
       "Bash(dir \"C:\\Users\\sandi\\source\\repos\\pdfme\\WGSv2\")",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "WebFetch(domain:xrender.fun)",
+      "Bash(find:*)",
+      "Bash(git checkout:*)",
+      "Bash(npx tsc:*)",
+      "Bash(awk:*)"
     ],
     "deny": [],
     "ask": []
