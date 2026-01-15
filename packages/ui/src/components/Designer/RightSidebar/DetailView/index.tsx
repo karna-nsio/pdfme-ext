@@ -20,6 +20,7 @@ import FieldConditionEditor from './FieldConditionEditor.js';
 import TableTabsWidget from './TableTabsWidget.js';
 import TabWrapper from './TabWrapper.js';
 import RowGroupsBuilderWidget from './RowGroupsBuilderWidget.js';
+import InlineSectionsWidget from './InlineSectionsWidget.js';
 import { InternalNamePath, ValidateErrorEntity } from 'rc-field-form/es/interface.js';
 
 // Import FormRender as a default import
@@ -72,6 +73,8 @@ const DetailView = (props: DetailViewProps) => {
       TableTabs: (p) => <TableTabsWidget {...p} {...props} options={options} widgets={newWidgets} i18n={typedI18n} />,
       // Row Groups Builder widget for visual section header management
       RowGroupsBuilder: (p) => <RowGroupsBuilderWidget {...props} {...p} options={options} widgets={newWidgets} i18n={typedI18n} />,
+      // Inline Sections widget for flat, card-free section editing
+      InlineSections: (p) => <InlineSectionsWidget {...props} {...p} options={options} widgets={newWidgets} i18n={typedI18n} />,
       // Field condition editor widget
       FieldConditionWidget: (p) => {
         const currentCondition = p.value as any;
