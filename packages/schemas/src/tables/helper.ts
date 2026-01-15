@@ -175,7 +175,6 @@ export const getCellPropPanelSchema = (arg: {
           },
         }
       : {}),
-    '-': { type: 'void', widget: 'Divider' },
     borderWidth: {
       title: i18n('schemas.borderWidth'),
       type: 'object',
@@ -183,7 +182,6 @@ export const getCellPropPanelSchema = (arg: {
       span: 24,
       properties: getBoxDimensionProp(0.1),
     },
-    '--': { type: 'void', widget: 'Divider' },
     padding: {
       title: i18n('schemas.padding'),
       type: 'object',

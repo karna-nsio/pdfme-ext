@@ -17,6 +17,46 @@ export const propPanel: PropPanel<TableSchema> = {
     const font = options.font || { [DEFAULT_FONT_NAME]: { data: '', fallback: true } };
     const fontNames = Object.keys(font);
     const fallbackFontName = getFallbackFontName(font);
+
+    // Flatten header properties to avoid card wrapper
+    const headerCellProps = getCellPropPanelSchema({ i18n, fallbackFontName, fontNames });
+    const flattenedHeaderProps = Object.keys(headerCellProps).reduce((acc, key) => {
+      const field = (headerCellProps as any)[key];
+      const isNestedObject = field.widget === 'lineTitle' || field.type === 'object';
+
+      acc[`headStyles.${key}`] = {
+        ...field,
+        span: 24, // Full width for each field
+        labelWidth: isNestedObject ? undefined : 120, // Fixed label width for simple fields only
+        __tab: 'header',
+        hidden: !showHead,
+        props: isNestedObject ? field.props : {
+          ...field.props,
+          style: { width: '100%' },
+        },
+      };
+      return acc;
+    }, {} as Record<string, any>);
+
+    // Flatten body properties to avoid card wrapper
+    const bodyCellProps = getCellPropPanelSchema({ i18n, fallbackFontName, fontNames, isBody: true });
+    const flattenedBodyProps = Object.keys(bodyCellProps).reduce((acc, key) => {
+      const field = (bodyCellProps as any)[key];
+      const isNestedObject = field.widget === 'lineTitle' || field.type === 'object';
+
+      acc[`bodyStyles.${key}`] = {
+        ...field,
+        span: 24, // Full width for each field
+        labelWidth: isNestedObject ? undefined : 120, // Fixed label width for simple fields only
+        __tab: 'body',
+        props: isNestedObject ? field.props : {
+          ...field.props,
+          style: { width: '100%' },
+        },
+      };
+      return acc;
+    }, {} as Record<string, any>);
+
     return {
       __tableTabsEnabled: {
         type: 'void',
@@ -65,82 +105,82 @@ export const propPanel: PropPanel<TableSchema> = {
         props: {
           hideTitle: true,
           addBtnProps: { block: true },
+          cardProps: {
+            bordered: false,
+            style: { border: 'none', boxShadow: 'none', background: 'transparent', marginBottom: 0 },
+            bodyStyle: { padding: 0 }
+          },
         },
         items: {
           type: 'object',
           displayType: 'row',
           properties: {
-            // Basic Settings (top level - no card to maintain data structure)
             title: {
               title: 'Title',
               type: 'string',
               widget: 'input',
               span: 24,
-              props: { placeholder: 'Primary Findings' },
+              labelWidth: 120,
+              props: { placeholder: 'Primary Findings', style: { width: '100%' } },
               default: '',
             },
             startRow: {
               title: 'Start Row',
               type: 'number',
               widget: 'inputNumber',
-              props: { min: 0 },
-              span: 12,
+              props: { min: 0, style: { width: '100%' } },
+              span: 24,
+              labelWidth: 120,
               default: 0,
             },
             visible: {
               title: 'Visible',
               type: 'boolean',
               widget: 'checkbox',
-              span: 12,
+              span: 24,
+              labelWidth: 120,
               default: true,
             },
             colspan: {
               title: 'Span All Columns',
               type: 'boolean',
               widget: 'checkbox',
-              span: 12,
+              span: 24,
+              labelWidth: 120,
               default: true,
             },
-            '---divider-appearance': { type: 'void', widget: 'Divider', span: 24 },
-
-            // Appearance Card (collapsed by default - acts as accordion)
             styles: {
-              title: 'Appearance',
               type: 'object',
-              widget: 'Card',
+              displayType: 'row',
               span: 24,
-              props: {
-                defaultCollapsed: true,
-              },
               properties: {
-                // Colors Section
                 backgroundColor: {
                   title: 'Background Color',
                   type: 'string',
                   widget: 'color',
-                  props: { disabledAlpha: true },
+                  props: { disabledAlpha: true, style: { width: '100%' } },
                   rules: [{ pattern: HEX_COLOR_PATTERN, message: i18n('validation.hexColor') }],
-                  span: 12,
+                  span: 24,
+                  labelWidth: 120,
                   default: '#0C2340',
                 },
                 fontColor: {
                   title: 'Text Color',
                   type: 'string',
                   widget: 'color',
-                  props: { disabledAlpha: true },
+                  props: { disabledAlpha: true, style: { width: '100%' } },
                   rules: [{ pattern: HEX_COLOR_PATTERN, message: i18n('validation.hexColor') }],
-                  span: 12,
+                  span: 24,
+                  labelWidth: 120,
                   default: '#FFFFFF',
                 },
-                '---typography': { type: 'void', widget: 'Divider', span: 24 },
-
-                // Typography Section
                 fontName: {
                   title: 'Font Family',
                   type: 'string',
                   widget: 'select',
-                  props: { options: fontNames.map((name) => ({ label: name, value: name })) },
+                  props: { options: fontNames.map((name) => ({ label: name, value: name })), style: { width: '100%' } },
                   span: 24,
+                  labelWidth: 120,
                 },
                 fontWeight: {
                   title: 'Font Weight',
@@ -152,35 +192,37 @@ export const propPanel: PropPanel<TableSchema> = {
                       { label: 'Bold', value: 'bold' },
                       { label: '700', value: '700' },
                     ],
+                    style: { width: '100%' },
                   },
-                  span: 12,
+                  span: 24,
+                  labelWidth: 120,
                   default: '700',
                 },
                 fontSize: {
                   title: 'Font Size',
                   type: 'number',
                   widget: 'inputNumber',
-                  props: { min: 0 },
-                  span: 12,
+                  props: { min: 0, style: { width: '100%' } },
+                  span: 24,
+                  labelWidth: 120,
                   default: 9,
                 },
                 lineHeight: {
                   title: 'Line Height',
                   type: 'number',
                   widget: 'inputNumber',
-                  props: { step: 0.1, min: 0 },
-                  span: 12,
+                  props: { step: 0.1, min: 0, style: { width: '100%' } },
+                  span: 24,
+                  labelWidth: 120,
                 },
                 characterSpacing: {
                   title: 'Letter Spacing',
                   type: 'number',
                   widget: 'inputNumber',
-                  props: { min: 0, step: 0.1 },
-                  span: 12,
+                  props: { min: 0, step: 0.1, style: { width: '100%' } },
+                  span: 24,
+                  labelWidth: 120,
                 },
-                '---alignment': { type: 'void', widget: 'Divider', span: 24 },
-
-                // Alignment Section
                 alignment: {
                   title: 'Text Align',
                   type: 'string',
@@ -191,8 +233,10 @@ export const propPanel: PropPanel<TableSchema> = {
                       { label: i18n('schemas.center'), value: 'center' },
                       { label: i18n('schemas.right'), value: 'right' },
                     ],
+                    style: { width: '100%' },
                   },
-                  span: 12,
+                  span: 24,
+                  labelWidth: 120,
                   default: 'left',
                 },
                 verticalAlignment: {
@@ -205,8 +249,10 @@ export const propPanel: PropPanel<TableSchema> = {
                       { label: i18n('schemas.middle'), value: 'middle' },
                       { label: i18n('schemas.bottom'), value: 'bottom' },
                     ],
+                    style: { width: '100%' },
                   },
-                  span: 12,
+                  span: 24,
+                  labelWidth: 120,
                   default: 'middle',
                 },
                 textTransform: {
@@ -220,13 +266,12 @@ export const propPanel: PropPanel<TableSchema> = {
                       { label: 'lowercase', value: 'lowercase' },
                       { label: 'Capitalize', value: 'capitalize' },
                     ],
+                    style: { width: '100%' },
                   },
                   span: 24,
+                  labelWidth: 120,
                   default: 'uppercase',
                 },
-                '---spacing': { type: 'void', widget: 'Divider', span: 24 },
-
-                // Padding & Border Section
                 padding: {
                   title: i18n('schemas.padding'),
                   type: 'object',
@@ -272,9 +317,10 @@ export const propPanel: PropPanel<TableSchema> = {
                   title: i18n('schemas.borderColor'),
                   type: 'string',
                   widget: 'color',
-                  props: { disabledAlpha: true },
+                  props: { disabledAlpha: true, style: { width: '100%' } },
                   rules: [{ pattern: HEX_COLOR_PATTERN, message: i18n('validation.hexColor') }],
                   span: 24,
+                  labelWidth: 120,
                 },
                 borderWidth: {
                   title: i18n('schemas.borderWidth'),
@@ -317,24 +363,8 @@ export const propPanel: PropPanel<TableSchema> = {
           },
         },
       },
-      '---------': { type: 'void', widget: 'Divider', __tab: 'header' },
-      headStyles: {
-        hidden: !showHead,
-        title: i18n('schemas.table.headStyle'),
-        type: 'object',
-        widget: 'Card',
-        span: 24,
-        __tab: 'header',
-        properties: getCellPropPanelSchema({ i18n, fallbackFontName, fontNames }),
-      },
-      bodyStyles: {
-        title: i18n('schemas.table.bodyStyle'),
-        type: 'object',
-        widget: 'Card',
-        span: 24,
-        __tab: 'body',
-        properties: getCellPropPanelSchema({ i18n, fallbackFontName, fontNames, isBody: true }),
-      },
+      ...flattenedHeaderProps,
+      ...flattenedBodyProps,
       columnStyles: {
         title: i18n('schemas.table.columnStyle'),
         type: 'object',
