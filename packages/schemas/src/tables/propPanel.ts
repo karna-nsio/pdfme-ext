@@ -26,14 +26,9 @@ export const propPanel: PropPanel<TableSchema> = {
 
       acc[`headStyles.${key}`] = {
         ...field,
-        span: 24, // Full width for each field
-        labelWidth: isNestedObject ? undefined : 120, // Fixed label width for simple fields only
+        span: isNestedObject ? 24 : 12, // Half width for simple fields (2 per row), full width for nested
         __tab: 'header',
         hidden: !showHead,
-        props: isNestedObject ? field.props : {
-          ...field.props,
-          style: { width: '100%' },
-        },
       };
       return acc;
     }, {} as Record<string, any>);
@@ -46,13 +41,8 @@ export const propPanel: PropPanel<TableSchema> = {
 
       acc[`bodyStyles.${key}`] = {
         ...field,
-        span: 24, // Full width for each field
-        labelWidth: isNestedObject ? undefined : 120, // Fixed label width for simple fields only
+        span: isNestedObject ? 24 : 12, // Half width for simple fields (2 per row), full width for nested
         __tab: 'body',
-        props: isNestedObject ? field.props : {
-          ...field.props,
-          style: { width: '100%' },
-        },
       };
       return acc;
     }, {} as Record<string, any>);
@@ -70,31 +60,22 @@ export const propPanel: PropPanel<TableSchema> = {
         span: 24,
         __tab: 'basic',
       },
-      '-------': { type: 'void', widget: 'Divider', __tab: 'basic' },
-      tableStyles: {
-        title: i18n('schemas.table.tableStyle'),
-        type: 'object',
-        widget: 'Card',
-        span: 24,
+      'tableStyles.borderWidth': {
+        title: i18n('schemas.borderWidth'),
+        type: 'number',
+        widget: 'inputNumber',
+        props: { min: 0, step: 0.1 },
+        span: 12,
         __tab: 'basic',
-        properties: {
-          borderWidth: {
-            title: i18n('schemas.borderWidth'),
-            type: 'number',
-            widget: 'inputNumber',
-            props: { min: 0, step: 0.1 },
-            step: 1,
-          },
-          borderColor: {
-            title: i18n('schemas.borderColor'),
-            type: 'string',
-            widget: 'color',
-            props: {
-              disabledAlpha: true,
-            },
-            rules: [{ pattern: HEX_COLOR_PATTERN, message: i18n('validation.hexColor') }],
-          },
-        },
+      },
+      'tableStyles.borderColor': {
+        title: i18n('schemas.borderColor'),
+        type: 'string',
+        widget: 'color',
+        props: { disabledAlpha: true },
+        rules: [{ pattern: HEX_COLOR_PATTERN, message: i18n('validation.hexColor') }],
+        span: 12,
+        __tab: 'basic',
       },
       '--------': { type: 'void', widget: 'Divider', __tab: 'sections' },
       rowGroups: {
@@ -119,34 +100,30 @@ export const propPanel: PropPanel<TableSchema> = {
               title: 'Title',
               type: 'string',
               widget: 'input',
-              span: 24,
-              labelWidth: 120,
-              props: { placeholder: 'Primary Findings', style: { width: '100%' } },
+              span: 12,
+              props: { placeholder: 'Primary Findings' },
               default: '',
             },
             startRow: {
               title: 'Start Row',
               type: 'number',
               widget: 'inputNumber',
-              props: { min: 0, style: { width: '100%' } },
-              span: 24,
-              labelWidth: 120,
+              props: { min: 0 },
+              span: 12,
               default: 0,
             },
             visible: {
               title: 'Visible',
               type: 'boolean',
               widget: 'checkbox',
-              span: 24,
-              labelWidth: 120,
+              span: 12,
               default: true,
             },
             colspan: {
               title: 'Span All Columns',
               type: 'boolean',
               widget: 'checkbox',
-              span: 24,
-              labelWidth: 120,
+              span: 12,
               default: true,
             },
             styles: {
@@ -158,29 +135,26 @@ export const propPanel: PropPanel<TableSchema> = {
                   title: 'Background Color',
                   type: 'string',
                   widget: 'color',
-                  props: { disabledAlpha: true, style: { width: '100%' } },
+                  props: { disabledAlpha: true },
                   rules: [{ pattern: HEX_COLOR_PATTERN, message: i18n('validation.hexColor') }],
-                  span: 24,
-                  labelWidth: 120,
+                  span: 12,
                   default: '#0C2340',
                 },
                 fontColor: {
                   title: 'Text Color',
                   type: 'string',
                   widget: 'color',
-                  props: { disabledAlpha: true, style: { width: '100%' } },
+                  props: { disabledAlpha: true },
                   rules: [{ pattern: HEX_COLOR_PATTERN, message: i18n('validation.hexColor') }],
-                  span: 24,
-                  labelWidth: 120,
+                  span: 12,
                   default: '#FFFFFF',
                 },
                 fontName: {
                   title: 'Font Family',
                   type: 'string',
                   widget: 'select',
-                  props: { options: fontNames.map((name) => ({ label: name, value: name })), style: { width: '100%' } },
-                  span: 24,
-                  labelWidth: 120,
+                  props: { options: fontNames.map((name) => ({ label: name, value: name })) },
+                  span: 12,
                 },
                 fontWeight: {
                   title: 'Font Weight',
@@ -192,36 +166,31 @@ export const propPanel: PropPanel<TableSchema> = {
                       { label: 'Bold', value: 'bold' },
                       { label: '700', value: '700' },
                     ],
-                    style: { width: '100%' },
                   },
-                  span: 24,
-                  labelWidth: 120,
+                  span: 12,
                   default: '700',
                 },
                 fontSize: {
                   title: 'Font Size',
                   type: 'number',
                   widget: 'inputNumber',
-                  props: { min: 0, style: { width: '100%' } },
-                  span: 24,
-                  labelWidth: 120,
+                  props: { min: 0 },
+                  span: 12,
                   default: 9,
                 },
                 lineHeight: {
                   title: 'Line Height',
                   type: 'number',
                   widget: 'inputNumber',
-                  props: { step: 0.1, min: 0, style: { width: '100%' } },
-                  span: 24,
-                  labelWidth: 120,
+                  props: { step: 0.1, min: 0 },
+                  span: 12,
                 },
                 characterSpacing: {
                   title: 'Letter Spacing',
                   type: 'number',
                   widget: 'inputNumber',
-                  props: { min: 0, step: 0.1, style: { width: '100%' } },
-                  span: 24,
-                  labelWidth: 120,
+                  props: { min: 0, step: 0.1 },
+                  span: 12,
                 },
                 alignment: {
                   title: 'Text Align',
@@ -233,10 +202,8 @@ export const propPanel: PropPanel<TableSchema> = {
                       { label: i18n('schemas.center'), value: 'center' },
                       { label: i18n('schemas.right'), value: 'right' },
                     ],
-                    style: { width: '100%' },
                   },
-                  span: 24,
-                  labelWidth: 120,
+                  span: 12,
                   default: 'left',
                 },
                 verticalAlignment: {
@@ -249,10 +216,8 @@ export const propPanel: PropPanel<TableSchema> = {
                       { label: i18n('schemas.middle'), value: 'middle' },
                       { label: i18n('schemas.bottom'), value: 'bottom' },
                     ],
-                    style: { width: '100%' },
                   },
-                  span: 24,
-                  labelWidth: 120,
+                  span: 12,
                   default: 'middle',
                 },
                 textTransform: {
@@ -266,10 +231,8 @@ export const propPanel: PropPanel<TableSchema> = {
                       { label: 'lowercase', value: 'lowercase' },
                       { label: 'Capitalize', value: 'capitalize' },
                     ],
-                    style: { width: '100%' },
                   },
-                  span: 24,
-                  labelWidth: 120,
+                  span: 12,
                   default: 'uppercase',
                 },
                 padding: {
@@ -317,10 +280,9 @@ export const propPanel: PropPanel<TableSchema> = {
                   title: i18n('schemas.borderColor'),
                   type: 'string',
                   widget: 'color',
-                  props: { disabledAlpha: true, style: { width: '100%' } },
+                  props: { disabledAlpha: true },
                   rules: [{ pattern: HEX_COLOR_PATTERN, message: i18n('validation.hexColor') }],
-                  span: 24,
-                  labelWidth: 120,
+                  span: 12,
                 },
                 borderWidth: {
                   title: i18n('schemas.borderWidth'),

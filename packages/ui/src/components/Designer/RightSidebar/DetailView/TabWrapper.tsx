@@ -61,7 +61,7 @@ const TabWrapper: React.FC<TabWrapperProps> = ({ schema, form, widgets, watch, l
       if (tabProperties.has(key)) {
         schemas[key] = {
           type: 'object',
-          displayType: schema.displayType || 'row',
+          displayType: schema.displayType || 'column',
           properties: tabProperties.get(key),
         };
       }
