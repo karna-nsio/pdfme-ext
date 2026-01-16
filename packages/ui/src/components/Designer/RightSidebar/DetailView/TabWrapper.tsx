@@ -108,7 +108,6 @@ const TabWrapper: React.FC<TabWrapperProps> = ({ schema, form, widgets, watch, l
       <div style={{ padding: '12px 0' }}>
         {activeTabSchema && (
           <FormRenderComponent
-            key={activeTab}
             form={form}
             schema={activeTabSchema}
             widgets={widgets}
