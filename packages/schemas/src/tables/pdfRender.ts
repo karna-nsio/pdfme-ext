@@ -132,6 +132,8 @@ async function drawTable(arg: PDFRenderProps<TableSchema>, table: Table): Promis
     // Check if row group should be inserted before this row
     const rowGroup = table.rowGroups.find(rg => rg.startRow === currentBodyRowIndex);
     if (rowGroup && rowGroup.visible) {
+      // Reset cursor x position to table start before drawing row group
+      cursor.x = margin.left;
       await drawRowGroup(arg, table, rowGroup, cursor);
     }
 
