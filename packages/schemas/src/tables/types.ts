@@ -31,6 +31,7 @@ export interface RowGroupConfig {
   title: string;
   startRow: number;
   endRow?: number;
+  height?: number;
   styles?: Partial<CellStyle>;
   colspan?: boolean;
   visible?: boolean;

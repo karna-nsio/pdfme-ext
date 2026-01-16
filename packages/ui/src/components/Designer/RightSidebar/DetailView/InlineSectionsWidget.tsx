@@ -39,6 +39,7 @@ const InlineSectionsWidget: React.FC<any> = (props) => {
     const defaultSection = {
       title: '',
       startRow: 0,
+      height: 1,
       visible: true,
       colspan: true,
       styles: {
@@ -238,6 +239,7 @@ const InlineSectionsWidget: React.FC<any> = (props) => {
           <div style={{ marginBottom: '8px' }}>
             {renderField(index, 'Title', 'title', section.title, 'input', undefined, 12)}
             {renderField(index, 'Start Row', 'startRow', section.startRow, 'number', undefined, 12)}
+            {renderField(index, 'Row Height', 'height', section.height, 'number', undefined, 12)}
             {renderField(index, 'Visible', 'visible', section.visible, 'checkbox', undefined, 12)}
             {renderField(index, 'Span All Columns', 'colspan', section.colspan, 'checkbox', undefined, 12)}
           </div>

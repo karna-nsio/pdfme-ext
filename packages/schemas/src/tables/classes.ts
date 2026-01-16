@@ -104,17 +104,19 @@ export class RowGroup {
   title: string;
   startRow: number;
   endRow?: number;
+  height?: number;
   styles: Styles;
   colspan: boolean;
   visible: boolean;
   cell?: Cell;
 
-  constructor(title: string, startRow: number, styles: Styles, colspan: boolean = true, visible: boolean = true) {
+  constructor(title: string, startRow: number, styles: Styles, colspan: boolean = true, visible: boolean = true, height?: number) {
     this.title = title;
     this.startRow = startRow;
     this.styles = styles;
     this.colspan = colspan;
     this.visible = visible;
+    this.height = height;
   }
 }
 

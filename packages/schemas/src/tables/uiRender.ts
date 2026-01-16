@@ -39,12 +39,18 @@ const cellUiRender = cell.ui;
 
 const convertToCellStyle = (styles: Styles): CellStyle => ({
   fontName: styles.fontName,
+  fontWeight: styles.fontWeight as CellStyle['fontWeight'],
+  fontStyle: styles.fontStyle as CellStyle['fontStyle'],
   alignment: styles.alignment,
   verticalAlignment: styles.verticalAlignment,
   fontSize: styles.fontSize,
   lineHeight: styles.lineHeight,
   characterSpacing: styles.characterSpacing,
   backgroundColor: styles.backgroundColor,
+  textDecoration: styles.textDecoration as CellStyle['textDecoration'],
+  textTransform: styles.textTransform as CellStyle['textTransform'],
+  whiteSpace: styles.whiteSpace as CellStyle['whiteSpace'],
+  wordBreak: styles.wordBreak as CellStyle['wordBreak'],
   // ---
   fontColor: styles.textColor,
   borderColor: styles.lineColor,
@@ -121,6 +127,14 @@ const renderRowGroupUi = (args: {
   if (!rowGroup.cell || !rowGroup.visible) return;
 
   const cell = rowGroup.cell;
+
+  console.log('=== Row Group Debug ===');
+  console.log('Title:', rowGroup.title);
+  console.log('Height from schema:', rowGroup.height);
+  console.log('Cell height:', cell.height);
+  console.log('Cell width:', cell.width);
+
+  // Create container div with actual constrained height
   const div = document.createElement('div');
   div.style.position = 'absolute';
   div.style.top = `${offsetY}mm`;
@@ -128,28 +142,49 @@ const renderRowGroupUi = (args: {
   div.style.width = `${cell.width}mm`;
   div.style.height = `${cell.height}mm`;
   div.style.boxSizing = 'border-box';
-  div.style.cursor = 'default';
+  div.style.backgroundColor = cell.styles.backgroundColor;
+  div.style.overflow = 'hidden';
 
+  // Use flexbox to center text within the ACTUAL height
+  div.style.display = 'flex';
+  div.style.alignItems = cell.styles.verticalAlignment === 'top' ? 'flex-start' :
+                         cell.styles.verticalAlignment === 'bottom' ? 'flex-end' : 'center';
+  div.style.justifyContent = cell.styles.alignment === 'left' ? 'flex-start' :
+                             cell.styles.alignment === 'right' ? 'flex-end' :
+                             cell.styles.alignment === 'center' ? 'center' : 'flex-start';
+
+  // Apply padding (will be proportional to actual height)
+  const padding = cell.styles.cellPadding;
+  div.style.paddingTop = `${padding.top}mm`;
+  div.style.paddingRight = `${padding.right}mm`;
+  div.style.paddingBottom = `${padding.bottom}mm`;
+  div.style.paddingLeft = `${padding.left}mm`;
+
+  // Apply borders
+  const bw = cell.styles.lineWidth;
+  const bc = cell.styles.lineColor;
+  if (bw.top > 0) div.style.borderTop = `${bw.top}mm solid ${bc}`;
+  if (bw.right > 0) div.style.borderRight = `${bw.right}mm solid ${bc}`;
+  if (bw.bottom > 0) div.style.borderBottom = `${bw.bottom}mm solid ${bc}`;
+  if (bw.left > 0) div.style.borderLeft = `${bw.left}mm solid ${bc}`;
+
+  // Create text span
+  const textSpan = document.createElement('span');
+  textSpan.style.color = cell.styles.textColor;
+  textSpan.style.fontSize = `${cell.styles.fontSize}pt`;
+  textSpan.style.fontFamily = cell.styles.fontName || 'sans-serif';
+  textSpan.style.fontWeight = cell.styles.fontWeight || 'normal';
+  textSpan.style.fontStyle = cell.styles.fontStyle || 'normal';
+  textSpan.style.textTransform = (cell.styles.textTransform || 'none') as any;
+  textSpan.style.lineHeight = '1';
+  textSpan.style.whiteSpace = 'nowrap';
+  textSpan.style.overflow = 'hidden';
+  textSpan.style.textOverflow = 'ellipsis';
+  textSpan.style.maxWidth = '100%';
+  textSpan.textContent = cell.raw;
+
+  div.appendChild(textSpan);
   arg.rootElement.appendChild(div);
-
-  void cellUiRender({
-    ...arg,
-    stopEditing: () => {},
-    mode: 'viewer',
-    onChange: () => {},
-    value: cell.raw,
-    placeholder: '',
-    rootElement: div,
-    schema: {
-      name: '',
-      type: 'cell',
-      content: cell.raw,
-      position: { x: 0, y: offsetY },
-      width: cell.width,
-      height: cell.height,
-      ...convertToCellStyle(cell.styles),
-    },
-  });
 
   return cell.height;
 };

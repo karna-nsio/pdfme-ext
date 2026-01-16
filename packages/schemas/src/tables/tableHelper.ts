@@ -325,7 +325,8 @@ function createRowGroups(schema: TableSchema, fallbackFontName: string): RowGrou
         config.startRow,
         styles,
         config.colspan !== false,
-        config.visible !== false
+        config.visible !== false,
+        config.height
       );
     });
 }
@@ -375,7 +376,10 @@ export async function createSingleTable(body: string[][], args: CreateTableArgs)
     if (rowGroup.colspan) {
       rowGroup.cell = new Cell(rowGroup.title, rowGroup.styles, 'body');
       rowGroup.cell.width = table.getCalculatedWidth();
-      rowGroup.cell.height = rowGroup.cell.getContentHeight();
+      // Use custom height if provided (and > 0), otherwise calculate from content
+      rowGroup.cell.height = rowGroup.height && rowGroup.height > 0
+        ? rowGroup.height
+        : rowGroup.cell.getContentHeight();
     }
   }
 
